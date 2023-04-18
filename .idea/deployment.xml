@@ -7,6 +7,9 @@
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$/BookBinder" web="/" />
           </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/BookBinder/composer.phar/vendor" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
