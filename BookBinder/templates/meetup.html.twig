@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+
+    <div class="meetuppage">
+        <div class="booklovers">
+            <h1 class="bltitle">
+                Book lovers near you
+            </h1>
+            <ul class="bookloverslist">
+                <div class="users">
+                    <div>
+                        <img id="userpict" src="/css/user1.jpg" alt="userpict"/>
+                    </div>
+                    <div class="usersright">
+                        <p id="username">Katlyn DB</p>
+                        <p id="library">Bib Tweebronnen</p>
+                        <label for="datetime">Select date and time : </label> <input id="datetime" type="datetime-local"/>
+                        <button id="requestmeetup">Request to Meet Up</button>
+                    </div>
+                </div>
+
+                <div class="users">
+                    <div>
+                        <img id="userpict" src="/css/user1.jpg" alt="userpict"/>
+                    </div>
+                    <div class="usersright">
+                        <p id="username">Katlyn DB</p>
+                        <p id="library">Bib Tweebronnen</p>
+                        <label for="datetime">Select date and time : </label> <input id="datetime" type="datetime-local"/>
+                        <button id="requestmeetup">Request to Meet Up</button>
+                    </div>
+                </div>
+
+                <div class="users">
+                    <div>
+                        <img id="userpict" src="/css/user1.jpg" alt="userpict"/>
+                    </div>
+                    <div class="usersright">
+                        <p id="username">Katlyn DB</p>
+                        <p id="library">Bib Tweebronnen</p>
+                        <label for="datetime">Select date and time : </label> <input id="datetime" type="datetime-local"/>
+                        <button id="requestmeetup">Request to Meet Up</button>
+                    </div>
+                </div>
+            </ul>
+        </div>
+
+        <div class="meetright">
+            <div>
+                <h2 class="titleinvite"> Meet Up Invitation</h2>
+                <ul class="invitationlist">
+                    <div class="invitation">
+                        <div>
+                            <p id="invitename">Sophia</p>
+                            <p id="librarymeet">Bib Tweebronnen</p>
+                        </div>
+                        <p id="datetimeinvitation">25/04/2023 13:00</p>
+                        <button id="accept">Accept</button>
+                        <button id="decline">Decline</button>
+                    </div>
+
+                    <div class="invitation">
+                        <div>
+                            <p id="invitename">Isabella</p>
+                            <p id="librarymeet">Bib Tweebronnen</p>
+                        </div>
+                        <p id="datetimeinvitation">01/05/2023 11:00</p>
+                        <button id="accept">Accept</button>
+                        <button id="decline">Decline</button>
+                    </div>
+                </ul>
+            </div>
+            <div class="coming-up-block">
+                <h1>Coming Up Meet Up</h1>
+                <ul>
+                    <li id="coming-up">With Sofia at Bib Tweebronnen</li>
+                    <li id="coming-up">With  Dave  at Bib Tweebronnen</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

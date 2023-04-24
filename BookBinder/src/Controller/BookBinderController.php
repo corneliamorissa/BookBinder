@@ -39,7 +39,7 @@ class BookBinderController extends AbstractController
      */
     #[Route("/MeetUp", name: "MeetUp")]
     public function meetup(): Response {
-        return $this->render('home.html.twig', [
+        return $this->render('meetup.html.twig', [
             'stylesheets' => $this->stylesheets
         ]);
     }

@@ -10,10 +10,10 @@ header {
     padding: 10px;
 }
 
-/* visited link */
-div#nav a:visited {
+div#nav a{
     color: white;
 }
+
 
 /* mouse over link */
 div#nav a:hover {
@@ -67,8 +67,8 @@ main{
 }
 .logo {
     padding: 0px;
-    max-height: 75px;
-    min-height: 75px;
+    max-height: 50px;
+    min-height: 50px;
     justify-content: center;
 }
 
@@ -86,7 +86,7 @@ div#nav {
     display: flex;
     justify-content: space-between;
     margin-right: 24px;
-    margin-top: 26px;
+    margin-top: 15px;
     text-indent: 24px;
     text-align: center;
     text-decoration: none;
@@ -109,7 +109,7 @@ div#nav {
 }
 
 .trending{
-    margin: 30px 0px 30px 10px;
+    margin: 10px 0px 30px 10px;
 }
 
 #trending{
@@ -141,12 +141,12 @@ div#nav {
 #nearest{
     min-width: max-content;
     max-width: max-content;
-    margin: 30px 0px 0px 80px;
-    padding: 30px;
+    margin: 10px 0px 0px 230px;
+    padding: 30px 0px 0px 30px;
     font-family: 'Figtree';
     font-style: normal;
     font-weight: 700;
-    font-size: 64px;
+    font-size: 48px;
     line-height: 60px;
     text-align: right;
     color: #311E69;
@@ -177,6 +177,166 @@ div#nav {
 }
 
 .homeright{
-    padding: 30px;
+    padding: 10px 30px 30px 30px;
     flex-direction: column;
+}
+
+.booklovers{
+    padding-left: 30px;
+}
+
+.bookloverslist{
+    display: flex;
+    flex-direction: column;
+    padding-left: 0px;
+    gap: 20px;
+}
+
+.users{
+    display: flex;
+    flex-direction: row;
+    height: 180px;
+    margin-top: 0px;
+    width: 300px;
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 8px;
+}
+
+.usersright{
+    display: flex;
+    flex-direction: column;
+    font-size: small;
+}
+
+#username{
+    color: #311E69;
+    margin: 8px;
+    font-family: "Figtree SemiBold";
+    font-weight: bold;
+    font-size: medium;
+}
+
+#library{
+    margin: 8px;
+    color: black;
+}
+
+#requestmeetup{
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 8px;
+    gap: 5.6px;
+    width: fit-content;
+    height: fit-content;
+    color: white;
+    background: #311E69;
+    border-radius: 6px;
+}
+
+label{
+    margin: 8px 8px 0px 8px;
+}
+
+#datetime{
+    margin: 0px 8px 8px 8px;
+}
+
+button{
+    font-family: Figtree;
+    border-color: white;
+}
+
+#userpict{
+    min-width: 120px;
+    min-height: 120px;
+    max-height: 180px;
+    max-width: 120px;
+    object-fit: cover;
+    justify-content: center;
+    border-radius: 6px 0px 0px 6px;
+
+}
+
+.meetuppage{
+    gap: 80px;
+    display: flex;
+    flex-direction: row;
+}
+
+.titleinvite{
+    margin: 30px 0px 0px 0px;
+    padding: 20px 20px 10px 20px;
+    width: 600px;
+    height: 40px ;
+    color: white;
+    background: #8670F7;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.meetright{
+    width: fit-content;
+    height: fit-content;
+}
+
+.invitationlist{
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    width: 600px;
+    padding: 20px;
+    height: fit-content ;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.invitation{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 20px;
+    gap: 10px;
+    padding: 10px;
+    width: 510px;
+    height: fit-content ;
+    background: #FFFFFF;
+    border: 2px solid #311E69;
+    border-radius: 8px;
+}
+
+.invitation p{
+    font-size: 12px;
+}
+
+#accept{
+    margin: 10px;
+    padding: 8px;
+    width: 85px;
+    height: 40px;
+    background: #6DAE43;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+#datetimeinvitation{
+    margin: 10px;
+    padding: 10px;
+}
+
+#decline{
+    margin: 10px;
+    padding: 8px;
+    width: 85px;
+    height: 40px;
+    background: #F4511E;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+.coming-up-block{
+    margin: 40px 0px 0px 0px;
 }
