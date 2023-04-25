@@ -26,4 +26,4 @@ deploy-job:
     - rsync -rv --exclude=".git/"
                 --exclude=".env"
                 --delete
-                ./ a22web13 @shell.studev.groept.be:/var/www/html
+                ./ a22web13@shell.studev.groept.be:/var/www/html
