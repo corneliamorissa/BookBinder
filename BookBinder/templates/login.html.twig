@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>BookBinder</title>
     <link href="{{ asset('css/main.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=FigTree">
 </head>
 
 <body>
@@ -26,12 +27,13 @@
         <div class="landing-welcome">
             <h1 style="color: #311E69; text-align: center"> Welcome </h1>
             <p style=" color: #808088; text-align: center; font-weight: bold"> Please enter your email and password</p>
-            <label for="username" style="color: #311E69">Username</label>
+            {{ form(login_form) }}
+            {#<label for="username" style="color: #311E69">Username</label>
             <input id="username" type="text" style="min-width: 350px">
             <label for="password" style="color: #311E69">Password</label>
             <input id="password" type="password" style="min-width: 350px; margin: 8px; padding: 2px">
             <p style="color: #808088; text-align: center"> By logging in you agree to our Terms and Conditions</p>
-            <button id="login">Log In</button>
+            <button id="login">Log In</button>#}
         </div>
     </div>
 
