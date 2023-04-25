@@ -15,6 +15,26 @@ class BookBinderController extends AbstractController
     }
 
     /**
+     * @Route("/LogIn", name="LogIn")
+     */
+    #[Route("/LogIn", name: "LogIn")]
+    public function login(): Response {
+        return $this->render('login.html.twig', [
+            'stylesheets' => $this->stylesheets
+        ]);
+    }
+
+    /**
+     * @Route("/LogIn", name="LogIn")
+     */
+    #[Route("/SignUp", name: "SignUp")]
+    public function signup(): Response {
+        return $this->render('signup.html.twig', [
+            'stylesheets' => $this->stylesheets
+        ]);
+    }
+
+    /**
      * @Route("/Home", name="Home")
      */
     #[Route("/Home", name: "Home")]
@@ -50,6 +70,16 @@ class BookBinderController extends AbstractController
     #[Route("/User", name: "User")]
     public function user(): Response {
         return $this->render('home.html.twig', [
+            'stylesheets' => $this->stylesheets
+        ]);
+    }
+
+    /**
+     * @Route("/Home", name="Home")
+     */
+    #[Route("/Book", name: "Book")]
+    public function book(): Response {
+        return $this->render('book.html.twig', [
             'stylesheets' => $this->stylesheets
         ]);
     }
