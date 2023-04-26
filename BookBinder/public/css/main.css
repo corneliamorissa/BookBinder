@@ -53,8 +53,9 @@ footer {
 }
 
 .landing-footer{
-    background-color: white;
     display: flex;
+    background-color: white;
+
     flex-direction: row;
     justify-content: center;
     color: #311E69;
@@ -156,7 +157,6 @@ div#nav {
 }
 
 #trending{
-
     padding: 16px;
     text-align: center;
     width: 300px;
@@ -430,4 +430,18 @@ button{
     color: white;
     background: #311E69;
     border-radius: 6px;
+}
+
+.BookBtns{
+    box-sizing: border-box;
+    width: 117px;
+    height: 40px;
+    background:  #311E69;
+    border-radius: 8px;
+    font: inherit;
+    line-height: 10px;
+    text-align: center; /* center text horizontally */
+    color: white; /* change text color to blue */
+    cursor: pointer;
+    align-self: center;
 }

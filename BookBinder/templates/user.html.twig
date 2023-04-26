@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block title %} <title> BookBinder </title>{% endblock %}
+{% block stylesheet %}
+    {{ parent() }}
+    <link href="{{ asset('css/Profile.css') }}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="profile">
+    <div class="backgroundProfPic">
+        <img id="BookPic" src="{{ asset("css/BackgroundPic.png") }}" alt="Background picture">
+    </div>
+    <div class="Avatar">
+        <img id="BookPic" src="{{ asset("css/Avatar.png") }}" alt="profile picture">
+    </div>
+    <div class="Details">
+        <h1>Hannah Taylor </h1>
+        <p> 3 books followed</p>
+    </div>
+</div>
+
+
+{% endblock %}

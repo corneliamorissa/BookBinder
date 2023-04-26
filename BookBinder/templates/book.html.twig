@@ -1,6 +1,46 @@
 {% extends 'base.html.twig' %}
+{% block title %} <title> BookBinder </title>{% endblock %}
+{% block stylesheet %}
+    {{ parent() }}
+    <link href="{{ asset('css/Book.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
+    <div class="Book-left">
+        <h1 id="BookTitle"> The Great Godden</h1>
+        <h3 id="nrOfFollowers"> 23 Followers </h3>
+        <div class="Book-pic">
+            <img id="BookPic" src="{{ asset("css/book.png") }}" alt="BookCover">
+        </div>
 
+        <p id="BookAuthor">By Meg Rosoff </p>
+        <p id="BookDetails" class="BookDetails">
+            Genres :  Young Adult, Contemporary, Fiction, Romance, Family <br>
+            Number of pages :  256 <br>
+            ISBN: 9781526618511 <br>
+            Rating : 3.42 <br>
+            Comment : 843 <br>
+        </p>
+        <div class="buttons">
+            <input type="submit" value="Vote Book" name="Vote_Book" class="BookBtns">
+            <input type="submit" value="Follow Book" name="Follow_Book" class="BookBtns">
+        </div>
 
+    </div>
+
+    <div class="Book-right">
+        <h1 id="Book_reviews header"> What do they say about this book? </h1>
+        <ul class="book_reviews">
+            <li> I absolutely loved "The Great Godden"! It's a beautifully written coming-of-age story with complex characters and a stunning setting. -Olivia</li>
+            <li> This book was a slow burn, but once it got going, I couldn't put it down. The writing is gorgeous and the story is both heartbreaking and hopeful. -Ethan</li>
+            <li> I was completely captivated by the world of "The Great Godden". The author's attention to detail is impressive, and the characters felt so real to me. -Sophia</li>
+            <li> This is the kind of book that stays with you long after you've finished reading it. I found myself thinking about the characters and their struggles for days afterward. -Isabella</li>
+            <li> "The Great Godden" is a quiet, introspective novel that explores themes of love, loss, and identity. I highly recommend it to anyone looking for a thought-provoking read. -Anonymous</li>
+            <li> I loved the subtle tension that runs throughout this book. The author does a fantastic job of building up to a powerful, emotional climax. -Anonymous</li>
+        </ul>
+
+        <h2> Give review for the book</h2>
+        {{ form(form) }}
+    </div>
 
 {% endblock %}

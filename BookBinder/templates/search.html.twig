@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block title %} <title> BookBinder </title>{% endblock %}
+{% block stylesheet %}
+    {{ parent() }}
+    <link href="{{ asset('css/Search.css') }}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="main">
+        <div class="test">
+            <h1> Book search <br> </h1>
+            <h2> Enter the title or ISBN of the book you want to find </h2>
+            {{ form(form) }}
+            <h1> Discover!</h1>
+        </div>
+
+        <div class="Trendings">
+            <h1> Trendings to be added later on.</h1>
+            <p> This space is formated to display the books from the database</p>
+        </div>
+    </div>
+
+{% endblock %}

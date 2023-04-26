@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Form\BookReviewFormType;
+use App\Form\SearchBookFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -93,9 +96,18 @@ class BookBinderController extends AbstractController
      * @Route("/Search", name="Search")
      */
     #[Route("/Search", name: "Search")]
-    public function search(): Response {
-        return $this->render('home.html.twig', [
-            'stylesheets' => $this->stylesheets
+    public function search(Request $request, EntityManagerInterface $em): Response {
+        $form = $this->createForm(SearchBookFormType::class);
+        $form ->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $feedBackForm = $form->getData();
+            $em->persist($feedBackForm);
+            $em->flush();
+            return $this->redirectToRoute('Home');
+        }
+        return $this->render('search.html.twig', [
+            'stylesheets' => $this->stylesheets,
+            'form'=>$form->createView(),
         ]);
     }
 
@@ -114,7 +126,7 @@ class BookBinderController extends AbstractController
      */
     #[Route("/User", name: "User")]
     public function user(): Response {
-        return $this->render('home.html.twig', [
+        return $this->render('user.html.twig', [
             'stylesheets' => $this->stylesheets
         ]);
     }
@@ -123,9 +135,19 @@ class BookBinderController extends AbstractController
      * @Route("/Book", name="Book")
      */
     #[Route("/Book", name: "Book")]
-    public function book(): Response {
+    public function book(Request $request, EntityManagerInterface $em ): Response {
+        $form = $this->createForm(BookReviewFormType::class);
+        $form ->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $feedBackForm = $form->getData();
+            $em->persist($feedBackForm);
+            $em->flush();
+            return $this->redirectToRoute('Home');
+        }
+
         return $this->render('book.html.twig', [
-            'stylesheets' => $this->stylesheets
+            'stylesheets' => $this->stylesheets,
+            'form'=>$form->createView(),
         ]);
     }
 }
