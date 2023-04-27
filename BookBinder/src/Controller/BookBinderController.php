@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Form\BookReviewFormType;
 use App\Form\SearchBookFormType;
+use App\Form\UserDetailsType;
 use Doctrine\ORM\EntityManagerInterface;
+use http\Client\Curl\User;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -125,9 +127,18 @@ class BookBinderController extends AbstractController
      * @Route("/User", name="User")
      */
     #[Route("/User", name: "User")]
-    public function user(): Response {
+    public function user(Request $request, EntityManagerInterface $em): Response {
+        $form = $this->createForm(UserDetailsType::class);
+        $form ->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $feedBackForm = $form->getData();
+            $em->persist($feedBackForm);
+            $em->flush();
+            return $this->redirectToRoute('Home');
+        }
         return $this->render('user.html.twig', [
-            'stylesheets' => $this->stylesheets
+            'stylesheets' => $this->stylesheets,
+            'form'=>$form->createView(),
         ]);
     }
 
