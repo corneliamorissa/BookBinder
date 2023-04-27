@@ -144,7 +144,7 @@ div#nav {
     padding: 30px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     background-size: 100%;
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("homepict.jpg");
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("../assets/homepict.jpg");
     background-position: center;
     border-radius: 10px;
     display: flex;
