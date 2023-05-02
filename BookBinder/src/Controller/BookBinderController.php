@@ -57,6 +57,12 @@ class BookBinderController extends AbstractController
                         'class' => 'submit-button',
                     ]
                 ])
+                ->add('submit', SubmitType::class, [
+                    'label' => 'Sign Up',
+                    'attr' => [
+                        'class' => 'submit-button',
+                    ]
+                ])
                 ->getForm();
 
         $form->handleRequest($request);
