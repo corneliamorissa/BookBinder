@@ -40,7 +40,7 @@ class LoginUser
         return $this;
     }
 
-    static function getIDByPassword(string $password) : ?LoginUser {
+    public function getIDByPassword(string $password) : ?LoginUser {
         $db = Db::getConnection();
         $stm = $db->prepare('SELECT UserID FROM user_password WHERE Password = :password;');
         $stm->execute([':password' => $password]);
@@ -51,7 +51,7 @@ class LoginUser
         return $ID;
     }
 
-    static function getUsernameByID(string $ID) : ?LoginUser {
+    public function getUsernameByID(string $ID) : ?LoginUser {
         $db = Db::getConnection();
         $stm = $db->prepare('SELECT Username FROM user WHERE UserID = :ID;');
         $stm->execute([':ID' => $ID]);

@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BookBinder</title>
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet" />
+    {% block title %}<title>BookBinder</title> {% endblock title %}
+    {% block stylesheet%} <link href="{{ asset('css/main.css') }}" rel="stylesheet" /> {% endblock %}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=FigTree">
 </head>
 
 <body>
 <header>
     <div class="logo">
-        <img id="logo" src="{{ asset("css/logo.png") }}" alt="bookbinder">
+        <img id="logo" src="{{ asset("assets/logo.png") }}" alt="bookbinder">
     </div>
     <div id="nav">
         <a href="{{ path('Home') }}">Home</a>
@@ -25,7 +25,7 @@
     {% block content %}
     {% endblock %}
 </main>
-<footer>
+<footer class="footer">
     <div>Copyright © 2022 WebTech. KUL All rights Reserved.</div>
     <div><a href="https://www.google.com/" style="color: white ">  Privacy Policy</a> | <a href="https://www.google.com/" style="color: white"> Terms of Use</a></div>
 </footer>

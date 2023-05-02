@@ -53,8 +53,9 @@ footer {
 }
 
 .landing-footer{
-    background-color: white;
     display: flex;
+    background-color: white;
+
     flex-direction: row;
     justify-content: center;
     color: #311E69;
@@ -143,7 +144,7 @@ div#nav {
     padding: 30px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     background-size: 100%;
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("homepict.jpg");
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("../assets/homepict.jpg");
     background-position: center;
     border-radius: 10px;
     display: flex;
@@ -156,7 +157,6 @@ div#nav {
 }
 
 #trending{
-
     padding: 16px;
     text-align: center;
     width: 300px;
@@ -430,4 +430,41 @@ button{
     color: white;
     background: #311E69;
     border-radius: 6px;
+}
+
+.BookBtns{
+    box-sizing: border-box;
+    width: 117px;
+    height: 40px;
+    background:  #311E69;
+    border-radius: 8px;
+    font: inherit;
+    line-height: 10px;
+    text-align: center; /* center text horizontally */
+    color: white; /* change text color to blue */
+    cursor: pointer;
+    align-self: center;
+}
+
+
+.required{
+    color: #311E69;
+}
+
+.username-field{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 350px;
+    height: 40px;
+    margin-bottom: 40px;
+}
+
+.password-field{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 350px;
+    height: 40px;
+    margin-bottom: 40px;
 }
