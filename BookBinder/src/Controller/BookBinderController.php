@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\BookReviewFormType;
 use App\Form\SearchBookFormType;
+use App\Form\SignUpFormType;
 use App\Form\UserDetailsType;
 use Doctrine\ORM\EntityManagerInterface;
 use http\Client\Curl\User;
@@ -108,9 +109,29 @@ class BookBinderController extends AbstractController
      * @Route("/SignUp", name="SignUp")
      */
     #[Route("/SignUp", name: "SignUp")]
-    public function signup(): Response {
+    public function signup(Request $request): Response {
+
+        $session = $request->getSession();
+        $form = $this->createForm(SignUpFormType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $username = $form->get('username')->getData();
+            $password = $form->get('password')->getData();
+            // Perform login authentication
+            if ($this->checkLogin($username, $password)) {
+                // Authentication successful
+                $session->set('username', $username);
+                // Redirect to homepage or some other page
+                return $this->redirectToRoute('LogIn');
+            } else {
+                // Authentication failed
+                $this->addFlash('error', 'Invalid username or password');
+            }
+        }
+
         return $this->render('signup.html.twig', [
-            'stylesheets' => $this->stylesheets
+            'stylesheets' => $this->stylesheets,
+            'form'=>$form->createView()
         ]);
     }
 
