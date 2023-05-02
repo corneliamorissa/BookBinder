@@ -2,18 +2,7 @@ footer{
     position: relative;
     margin-top: 1080px;
 }
-.Avatar{
-    box-sizing: border-box;
-    position: absolute;
-    display: flex;
-    width: 240px;
-    height: 240px;
-    left: 330px;
-    top: 250px;
-    background: #FFFFFF;
-    border: 4px solid #8572ED;
-    border-radius: 240px;
-}
+
 .backgroundProfPic{
     position: absolute;
     width: 1122px;
@@ -22,23 +11,53 @@ footer{
     margin-left: -561px; /* half of the width */
     border-radius: 240px;
     top: 70px;
+    z-index: 0;
 }
+
+.avatar-details{
+    display: flex;
+    position: relative;
+    top: 150px;
+    left: 16%;
+}
+
+.Avatar{
+    box-sizing: border-box;
+    position: absolute;
+    display: flex;
+    width: 240px;
+    height: 240px;
+    background: #FFFFFF;
+    border: 4px solid #8572ED;
+    border-radius: 240px;
+}
+
+
 .Details{
     position: absolute;
     width: 248px;
     height: 69px;
-    left: 600px;
-    top: 300px;
+    margin-left: 280px;
+    margin-top: 70px;
+
 }
 .User_info{
     position: absolute;
+    margin-top: 30px;
     width: 742px;
     height: 79px;
-    left: 60%;
+    left: 69%;
     margin-left: -371px; /* half of the width */
     border-radius: 240px;
     top: 450px;
 }
+
+.profile{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
 .form{
     position: relative;
     width: auto;
