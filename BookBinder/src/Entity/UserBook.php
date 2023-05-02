@@ -3,24 +3,35 @@
 namespace App\Entity;
 use App\Repository\UserBookRepository;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
 
 #[ORM\Entity(repositoryClass: UserBookRepository :: class)]
 #[ORM\Table("user_book")]
 
 class UserBook
 {
+    #[ORM\FollowID]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
-    private int $bookid;
-    private int $userid;
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $bookid = null;
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $userid = null;
+
+    #[ORM\Column(type: "varchar",length: 255, nullable: true)]
+    private ?string $comment = null;
 
     /**
      * @param int $bookid
      * @param int $userid
      */
-    public function __construct(int $bookid, int $userid)
+    public function __construct(int $bookid, int $userid,string $comment)
     {
         $this->bookid = $bookid;
         $this->userid = $userid;
+        $this -> comment = $comment;
     }
 
     /**
@@ -74,7 +85,7 @@ class UserBook
     //not tested yet
     static function getUserAndBookByID(int $ID) : ?UserBook {
         $db = Db::getConnection();
-        $stm = $db->prepare('SELECT FollowID, UserID,BookID FROM user_book WHERE FollowID = :ID;');
+        $stm = $db->prepare('SELECT FollowID, UserID,BookID,Comment FROM user_book WHERE FollowID = :ID;');
         $stm->execute([':ID' => $ID]);
 
         $userAndBook = null;

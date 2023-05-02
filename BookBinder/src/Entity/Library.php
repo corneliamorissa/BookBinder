@@ -1,15 +1,27 @@
 <?php
 
 namespace App\Entity;
+use App\Repository\LibraryRepository;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity(repositoryClass: LibraryRepository :: class)]
+#[ORM\Table("libraries")]
 class Library
 {
+    #[ORM\LibaryID]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
-    private string $name;
-    private string $street;
-    private int $housenumber;
 
-    private int $postcode;
+    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    private ?string $name = null;
+    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    private ?string $street = null;
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $housenumber = null;
+
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $postcode = null;
 
 
     /**
