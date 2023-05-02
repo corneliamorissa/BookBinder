@@ -7,6 +7,8 @@ use App\Form\LoginFormType;
 use App\Form\SearchBookFormType;
 use App\Form\SignUpFormType;
 use App\Form\UserDetailsType;
+use App\Repository\UserRepository;
+use App\Service\AuthenticationService;
 use Doctrine\ORM\EntityManagerInterface;
 use http\Client\Curl\User;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -24,9 +26,11 @@ use App\Entity\Db;
 class BookBinderController extends AbstractController
 {
     private array $stylesheets;
+    private $userService;
 
-    public function __construct() {
+    public function __construct(AuthenticationService $userService) {
         $this->stylesheets[] = 'main.css';
+        $this->userService = $userService;
     }
 
     /**
@@ -41,7 +45,7 @@ class BookBinderController extends AbstractController
             $username = $form->get('username')->getData();
             $password = $form->get('password')->getData();
             // Perform login authentication
-            if ($this->checkLogin($username, $password)) {
+            if ($this->userService->authenticate($username, $password)) {
                 // Authentication successful
                 $session->set('username', $username);
                 // Redirect to homepage or some other page
@@ -58,20 +62,6 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-    function checkLogin($username, $password): bool
-    {
-        // Check if username and password are valid
-        // Perform any necessary database queries or API calls
-        // Return true if authentication succeeds, false otherwise
-        $user = new LoginUser($username, $password);
-        if($username == $user->getUsernameByID($user->getIDByPassword($password)))
-        {
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 
     /**
      * @Route("/SignUp", name="SignUp")
@@ -82,7 +72,7 @@ class BookBinderController extends AbstractController
         $session = $request->getSession();
         $form = $this->createForm(SignUpFormType::class);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        /*if ($form->isSubmitted() && $form->isValid()) {
             $username = $form->get('username')->getData();
             $password = $form->get('password')->getData();
             // Perform login authentication
@@ -95,7 +85,7 @@ class BookBinderController extends AbstractController
                 // Authentication failed
                 $this->addFlash('error', 'Invalid username or password');
             }
-        }
+        }*/
 
         return $this->render('signup.html.twig', [
             'stylesheets' => $this->stylesheets,
