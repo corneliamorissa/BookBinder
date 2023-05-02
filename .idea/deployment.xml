@@ -7,6 +7,10 @@
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="BookBinder/var" />
+            <excludedPath local="true" path="BookBinder/vendor" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\BookReviewFormType;
+use App\Form\LoginFormType;
 use App\Form\SearchBookFormType;
 use App\Form\SignUpFormType;
 use App\Form\UserDetailsType;
@@ -31,41 +32,10 @@ class BookBinderController extends AbstractController
     /**
      * @Route("/LogIn", name="LogIn")
      */
-    #[Route("/LogIn", name: "LogIn")]
-    public function login(Request $request): Response {
+    #[Route("/", name: "LogIn")]
+    public function login(Request $request, EntityManagerInterface $em): Response {
         $session = $request->getSession();
-        $form = null;
-        $form = $this->createFormBuilder(null)
-                ->add('username', TextType::class,[
-                    'mapped' => false,
-                    'label' => 'User Name',
-                    'attr' => [
-                        'class' => 'username-field',
-                        'placeholder' => 'Enter your username'
-                    ]
-                ])
-                ->add('password', PasswordType::class, [
-                    'mapped' => false,
-                    'label' => 'Password',
-                    'attr' => [
-                        'class' => 'password-field',
-                        'placeholder' => 'Enter your password'
-                    ]
-                ])
-                ->add('submit', SubmitType::class, [
-                    'label' => 'Log In',
-                    'attr' => [
-                        'class' => 'submit-button',
-                    ]
-                ])
-                ->add('submit', SubmitType::class, [
-                    'label' => 'Sign Up',
-                    'attr' => [
-                        'class' => 'submit-button',
-                    ]
-                ])
-                ->getForm();
-
+        $form= $this->createForm(LoginFormType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $username = $form->get('username')->getData();
@@ -81,8 +51,6 @@ class BookBinderController extends AbstractController
                 $this->addFlash('error', 'Invalid username or password');
             }
         }
-
-
 
         return $this->render('login.html.twig', [
             'stylesheets' => $this->stylesheets,
