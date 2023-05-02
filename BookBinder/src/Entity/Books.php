@@ -2,16 +2,34 @@
 
 namespace App\Entity;
 
+use App\Repository\BooksRepository;
+
+#[ORM\Entity(repositoryClass: BooksRepository :: class)]
+#[ORM\Table("books")]
 class Books
 {
-    private string $title;
-    private int $numberOfPages;
-    private string $author;
-    private string $ISBN;
-    private int $numberOfFollowers;
-    private int $libraryID;
-    private float $rating;
-    private int $numberOfVotes;
+    #[ORM\BookID]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $id = null;
+
+    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    private ?string $title = null;
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $numberOfPages = null;
+
+    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    private ?string $author = null;
+    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    private ?string $ISBN = null;
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $numberOfFollowers = null;
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $libraryID = null;
+    #[ORM\Column(type:"decimal",precision : 3,scale : 1)]
+    private ?float $rating = null;
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $numberOfVotes = null;
     public function __construct(string $title,int $numberOfPages,string $author, string $ISBN, int $numberOfFollowers,
                                 int $libraryID, float $rating, int $numberOfVotes ) {
         $this->title = $title;
