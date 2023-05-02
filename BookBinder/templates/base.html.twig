@@ -11,26 +11,34 @@
 </head>
 
 <body>
-<header>
-    <div class="logo">
-        <img id="logo" src="{{ asset("assets/logo.png") }}" alt="bookbinder">
-    </div>
-    <div id="nav">
-        <a href="{{ path('Home') }}">Home</a>
-        <a href="{{ path('Search') }}">Search</a>
-        <a href="{{ path('MeetUp') }}">MeetUp</a>
-        <a href="{{ path('User') }}">User</a>
-
-    </div>
-</header>
+{% block header %}
+    <header class="header">
+        <div class="logo">
+            <img id="logo" src="{{ asset("assets/logo.png") }}" alt="bookbinder">
+        </div>
+        <div id="nav">
+            {%block nav %}
+                <a href="{{ path('Home') }}">Home</a>
+                <a href="{{ path('Search') }}">Search</a>
+                <a href="{{ path('MeetUp') }}">MeetUp</a>
+                <a href="{{ path('User') }}">User</a>
+            {% endblock %}
+        </div>
+    </header>
+{% endblock %}
 
 <main>
     {% block content %}
     {% endblock %}
 </main>
-<footer class="footer">
-    <div>Copyright © 2022 WebTech. KUL All rights Reserved.</div>
-    <div><a href="https://www.google.com/" style="color: white ">  Privacy Policy</a> | <a href="https://www.google.com/" style="color: white"> Terms of Use</a></div>
-</footer>
+
+{% set footer_class = footer_class|default('footer') %}
+{% block footer %}
+    <footer class="{{ footer_class }}">
+        <div>Copyright © 2022 WebTech. KUL All rights Reserved.</div>
+        <div><a href="https://www.google.com/" style="color: white ">  Privacy Policy</a> | <a href="https://www.google.com/" style="color: white"> Terms of Use</a></div>
+    </footer>
+{% endblock %}
+
 </body>
 </html>
