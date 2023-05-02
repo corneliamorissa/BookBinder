@@ -3,18 +3,29 @@
 namespace App\Entity;
 
 use PhpParser\Node\Scalar\String_;
+use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity(repositoryClass: UserRepository :: class)]
+#[ORM\Table("user")]
 class User
 {
-    private string $Username;
-    private string $First_name;
-    private string $Last_name;
-    private string $Street;
-    private int $House_numer;
-    private int $Postcode;
-    private string $BirthDate;
-    private int $Private_account;
-    private int $AvatarId;
+    #[ORM\UserID]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $id = null;
+    private ?string $Username = null;
+    private ?string $First_name = null;
+    private ?string $Last_name = null;
+    private ?string $Street = null;
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $House_numer = null;
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $Postcode = null;
+    private ?string $BirthDate = null;
+    private ?int $Private_account = null;
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $AvatarId = null;
 
     /**
      * @param string $Username
