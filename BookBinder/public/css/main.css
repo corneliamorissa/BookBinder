@@ -445,3 +445,24 @@ button{
     cursor: pointer;
     align-self: center;
 }
+
+
+.required{
+    color: #311E69;
+}
+
+.username-field{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 350px;
+    height: 40px;
+}
+
+.password-field{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 350px;
+    height: 40px;
+}

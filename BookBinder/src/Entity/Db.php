@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Entity;
+use PDO;
+
 class Db {
     const DSN = 'mysql:host=mysql.studev.groept.be;dbname=a22web13';
     const USERNAME = 'a22web13';

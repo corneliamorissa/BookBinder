@@ -16,7 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use function Sodium\add;
+use App\Entity\LoginUser;
+use App\Entity\Db;
 
 class BookBinderController extends AbstractController
 {
@@ -34,20 +35,38 @@ class BookBinderController extends AbstractController
         $session = $request->getSession();
         $form = null;
         $form = $this->createFormBuilder(null)
-            ->add('username', TextType::class, ['mapped' => false])
-            ->add('password', PasswordType::class ,['mapped' => false])
-            ->add('submit',SubmitType::class, ['label'=> 'Log In'])
-            ->getForm();
+                ->add('username', TextType::class,[
+                    'mapped' => false,
+                    'label' => 'User Name',
+                    'attr' => [
+                        'class' => 'username-field',
+                        'placeholder' => 'Enter your username'
+                    ]
+                ])
+                ->add('password', PasswordType::class, [
+                    'mapped' => false,
+                    'label' => 'Password',
+                    'attr' => [
+                        'class' => 'password-field',
+                        'placeholder' => 'Enter your password'
+                    ]
+                ])
+                ->add('submit', SubmitType::class, [
+                    'label' => 'Log In',
+                    'attr' => [
+                        'class' => 'submit-button',
+                    ]
+                ])
+                ->getForm();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $username = $data['username'];
-            $password = $data['password'];
+            $username = $form->get('username')->getData();
+            $password = $form->get('password')->getData();
             // Perform login authentication
             if ($this->checkLogin($username, $password)) {
                 // Authentication successful
-                $session->set('user', $username);
+                $session->set('username', $username);
                 // Redirect to homepage or some other page
                 return $this->redirectToRoute('Home');
             } else {
@@ -69,9 +88,14 @@ class BookBinderController extends AbstractController
         // Check if username and password are valid
         // Perform any necessary database queries or API calls
         // Return true if authentication succeeds, false otherwise
-
-
-        return true;
+        $user = new LoginUser($username, $password);
+        if($username == $user->getUsernameByID($user->getIDByPassword($password)))
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     /**
