@@ -457,6 +457,7 @@ button{
     justify-content: center;
     min-width: 350px;
     height: 40px;
+    margin-bottom: 40px;
 }
 
 .password-field{
@@ -465,4 +466,5 @@ button{
     justify-content: center;
     min-width: 350px;
     height: 40px;
+    margin-bottom: 40px;
 }
