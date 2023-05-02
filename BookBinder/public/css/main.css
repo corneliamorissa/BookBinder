@@ -4,7 +4,7 @@ header {
     flex-direction: row;
     justify-content: space-between;
     color: white;
-    font-family: "Figtree SemiBold";
+    font-family: "Figtree SemiBold", Arial, sans-serif;
     max-width: 100%;
     max-height: min-content;
     padding: 10px;
@@ -16,11 +16,11 @@ header {
     flex-direction: row;
     justify-content: space-between;
     color: white;
-    font-family: "Figtree SemiBold";
+    font-family: "Figtree SemiBold", Arial, sans-serif;
     max-width: 100%;
     max-height: min-content;
     padding: 40px;
-    margin: 30px 30px 0px 30px;
+    margin: 30px 30px 0 30px;
     border-top-right-radius: 30px;
     border-top-left-radius: 30px;
 }
@@ -28,7 +28,6 @@ header {
 div#nav a{
     color: white;
 }
-
 
 /* mouse over link */
 div#nav a:hover {
@@ -47,7 +46,6 @@ footer {
     justify-content: center;
     color: white;
     gap: 10px;
-    font-family: Figtree;
     max-width: 100%;
     padding: 10px;
 }
@@ -55,62 +53,57 @@ footer {
 .landing-footer{
     display: flex;
     background-color: white;
-
     flex-direction: row;
     justify-content: center;
     color: #311E69;
     gap: 10px;
-    font-family: Figtree;
     max-width: 100%;
     padding: 10px;
 }
 
-
 html, body {
-    padding: 0px;
-    margin: 0px;
-    font-family: Figtree;
+    padding: 0;
+    margin: 0;
+    font-family: Figtree, Arial, sans-serif;;
     background-color: white;
     color: #311E69;
     max-width: 100%;
 }
 
 .landing-main{
-
     padding: 40px;
-    margin: 0px 30px 30px 30px;
+    margin: 0 30px 30px 30px;
     background-color: #311E69;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     color: white;
-    font-family: "Figtree SemiBold";
+    font-family: "Figtree SemiBold", Arial, sans-serif;;
     max-width: 100%;
-    max-height: max-content;
+    height: 700px;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 64% 100%, 36% 72%, 0 72%);
 }
 
+/*Where is this one used?*/
 main{
-
-    padding: 0px;
+    padding: 0;
     margin: 30px;
     display: flex;
     flex-direction: row;
-
 }
-
-
 
 .tag {
     font-size: 15px;
     margin-bottom: 12px;
     margin-left: 64px;
-    margin-top: 0px;
-    padding-top: 0px;
+    margin-top: 0;
+    padding-top: 0;
 }
+
 .logo {
-    padding: 0px;
+    padding: 0;
     max-height: 50px;
     min-height: 50px;
     justify-content: center;
@@ -119,7 +112,6 @@ main{
 #logo {
     max-width : 100%;
     max-height: 100%;
-
 }
 
 a{
@@ -153,7 +145,7 @@ div#nav {
 }
 
 .trending{
-    margin: 10px 0px 30px 10px;
+    margin: 10px 0 30px 10px;
 }
 
 #trending{
@@ -161,11 +153,11 @@ div#nav {
     text-align: center;
     width: 300px;
     height: max-content;
-    margin: 0px;
+    margin: 0;
     color: white;
     background: #8572ED;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px 10px 0px 0px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px 10px 0 0;
 }
 
 .trendinglist{
@@ -173,10 +165,10 @@ div#nav {
     text-align: center;
     width: 300px;
     height: 600px;
-    margin-top: 0px;
+    margin-top: 0;
     color: black;
     background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
 }
@@ -184,9 +176,9 @@ div#nav {
 #nearest{
     min-width: max-content;
     max-width: max-content;
-    margin: 10px 0px 0px 230px;
-    padding: 30px 0px 0px 30px;
-    font-family: 'Figtree';
+    margin: 10px 0 0 230px;
+    padding: 30px 0 0 30px;
+    font-family: 'Figtree', Arial, sans-serif;;
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
@@ -197,7 +189,7 @@ div#nav {
 
 .infobib{
     display: flex;
-    padding: 0px 30px 30px 30px;
+    padding: 0 30px 30px 30px;
     flex-direction: row;
 }
 
@@ -211,7 +203,7 @@ div#nav {
     text-justify: distribute;
     background: #8572ED;
     color: white;
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 10px 0 0 10px;
 }
 
 .open{
@@ -231,7 +223,7 @@ div#nav {
 .bookloverslist{
     display: flex;
     flex-direction: column;
-    padding-left: 0px;
+    padding-left: 0;
     gap: 20px;
 }
 
@@ -239,7 +231,7 @@ div#nav {
     display: flex;
     flex-direction: row;
     height: 180px;
-    margin-top: 0px;
+    margin-top: 0;
     width: 300px;
     background: #FFFFFF;
     border: 2px solid #000000;
@@ -255,7 +247,7 @@ div#nav {
 #username{
     color: #311E69;
     margin: 8px;
-    font-family: "Figtree SemiBold";
+    font-family: "Figtree SemiBold", Arial, sans-serif;;
     font-weight: bold;
     font-size: medium;
 }
@@ -270,7 +262,7 @@ div#nav {
     align-items: center;
     padding: 10px;
     margin: 8px;
-    gap: 5.6px;
+    gap: 6px;
     width: fit-content;
     height: fit-content;
     color: white;
@@ -279,15 +271,15 @@ div#nav {
 }
 
 label{
-    margin: 8px 8px 0px 8px;
+    margin: 8px 8px 0 8px;
 }
 
 #datetime{
-    margin: 0px 8px 8px 8px;
+    margin: 0 8px 8px 8px;
 }
 
 button{
-    font-family: Figtree;
+    font-family: Figtree, Arial, sans-serif;;
     border-color: white;
 }
 
@@ -298,7 +290,7 @@ button{
     max-width: 120px;
     object-fit: cover;
     justify-content: center;
-    border-radius: 6px 0px 0px 6px;
+    border-radius: 6px 0 0 6px;
 
 }
 
@@ -309,13 +301,13 @@ button{
 }
 
 .titleinvite{
-    margin: 30px 0px 0px 0px;
+    margin: 30px 0 0 0;
     padding: 20px 20px 10px 20px;
     width: 600px;
     height: 40px ;
     color: white;
     background: #8670F7;
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 10px 0 0;
 }
 
 .meetright{
@@ -326,12 +318,12 @@ button{
 .invitationlist{
     display: flex;
     flex-direction: column;
-    margin: 0px;
+    margin: 0;
     width: 600px;
     padding: 20px;
     height: fit-content ;
     background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
 }
 
@@ -381,7 +373,7 @@ button{
 }
 
 .coming-up-block{
-    margin: 40px 0px 0px 0px;
+    margin: 40px 0 0 0;
 }
 
 .trendinglist{
@@ -390,18 +382,16 @@ button{
 }
 
 .book_label{
-    border-width: 2px 0px;
+    border-width: 2px 0;
     border-style: solid;
     border-color: #E7E7E7;
     margin-bottom: 20px;
 }
 
-
-
 .landing-main-left{
     width: 400px;
     height: max-content;
-    font-family: Figtree;
+    font-family: Figtree, Arial, sans-serif;;
     border-radius: 10px;
 }
 
@@ -409,7 +399,7 @@ button{
     width: 400px;
     height: max-content;
     background-color: white;
-    font-family: Figtree;
+    font-family: Figtree, Arial, sans-serif;;
     border-radius: 10px;
 }
 
@@ -417,6 +407,8 @@ button{
     padding: 20px;
     display: flex;
     flex-direction: column;
+    width: 400px;
+    height: 350px;
 }
 
 #login{
@@ -424,8 +416,8 @@ button{
     align-items: center;
     padding: 10px;
     margin: 8px;
-    gap: 5.6px;
-    width: border-box ;
+    gap: 6px;
+    width: auto; ;
     height: fit-content;
     color: white;
     background: #311E69;
@@ -436,7 +428,7 @@ button{
     box-sizing: border-box;
     width: 117px;
     height: 40px;
-    background:  #311E69;
+    background:  #876cff;
     border-radius: 8px;
     font: inherit;
     line-height: 10px;
@@ -444,27 +436,24 @@ button{
     color: white; /* change text color to blue */
     cursor: pointer;
     align-self: center;
+    margin: 10px;
 }
-
 
 .required{
     color: #311E69;
 }
 
-.username-field{
+.LoginField{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 350px;
-    height: 40px;
-    margin-bottom: 40px;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 20px;
+    box-sizing: border-box;
+    width: 300px;
+    height: 45px;
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 15px;
+    text-align: center;
 }
 
-.password-field{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 350px;
-    height: 40px;
-    margin-bottom: 40px;
-}

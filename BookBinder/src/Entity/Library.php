@@ -110,7 +110,7 @@ class Library
     static function getLibraryByID(int $ID) : ?Library {
         $db = Db::getConnection();
         $stm = $db->prepare('SELECT LibraryID, Name,Street, Housenumber, Postcode FROM libraries WHERE LibraryID = :ID;');
-        $stm->execute([':LibraryID' => $ID]);
+        $stm->execute([':ID' => $ID]);
 
         $library = null;
         while($item = $stm->fetch()) {
