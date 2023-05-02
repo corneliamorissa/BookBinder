@@ -20,4 +20,12 @@ class LoginUserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, LoginUser::class);
     }
+
+    public function update(LoginUser $loginUser): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($loginUser);     //can you dit it like this or do you need to run a sql query?
+        $entityManager->flush();
+    }
 }
+
