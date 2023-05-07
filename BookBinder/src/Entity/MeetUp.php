@@ -4,10 +4,19 @@ namespace App\Entity;
 
 class MeetUp
 {
+    #[ORM\idmeetup]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $id = null;
+    #[ORM\Column(type: "integer", nullable: false)]
     private int $id_user_inviter;
+    #[ORM\Column(type: "integer", nullable: false)]
     private int $id_user_invited;
+    #[ORM\Column(type: "datetime")]
     private string $date_time;
+    #[ORM\Column(type: "integer", nullable: false)]
     private int $accepted;
+    #[ORM\Column(type: "integer", nullable: false)]
     private int $declined;
 
     /**
