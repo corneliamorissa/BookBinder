@@ -4,7 +4,13 @@ namespace App\Entity;
 
 class Avatar
 {
+    #[ORM\AvatarID]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $id = null;
+    #[ORM\Column(type: "blob",length: 16777215, nullable: false)]
     private string $Image;
+
 
         public function __construct(string $Image) {
             $this->Image = $Image;

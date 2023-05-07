@@ -4,25 +4,20 @@ namespace App\Entity;
 
 class LoginUser
 {
-    private string $username;
+    #[ORM\PasswordID]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $id = null;
+    #[ORM\Column(type: "integer", nullable: false)]
+    private int $userId;
+    #[ORM\Column(type: "varchar",length: 100, nullable: false)]
     private string $password;
     public function __construct(string $username, string $password) {
         $this->username = $username;
         $this->password = $password;
     }
 
-    public function getUsername(): ?string {
-        return $this->username;
-    }
 
-    /**
-     * @param string|null $id unique id from the database
-     * @return Course current course object
-     */
-    protected function setUsername(?string $username): LoginUser {
-        $this->username = $username;
-        return $this;
-    }
 
     /**
      * @return int fase in which the course is given
@@ -51,6 +46,7 @@ class LoginUser
         return $ID;
     }
 
+    /*
     public function getUsernameByID(string $ID) : ?LoginUser {
         $db = Db::getConnection();
         $stm = $db->prepare('SELECT Username FROM user WHERE UserID = :ID;');
@@ -61,6 +57,7 @@ class LoginUser
 
         return $username;
     }
+    */
 
 
 
