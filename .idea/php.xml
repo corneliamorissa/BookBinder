@@ -91,17 +91,21 @@
       <path value="$PROJECT_DIR$/BookBinder/vendor/sebastian/type" />
       <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/dom-crawler" />
       <path value="$PROJECT_DIR$/BookBinder/vendor/sebastian/version" />
-      <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/test-pack" />
       <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/css-selector" />
       <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/phpunit-bridge" />
       <path value="$PROJECT_DIR$/BookBinder/vendor/masterminds/html5" />
       <path value="$PROJECT_DIR$/BookBinder/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/http-client-contracts" />
+      <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/http-client" />
+      <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/panther" />
+      <path value="$PROJECT_DIR$/BookBinder/vendor/php-webdriver/webdriver" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
   <component name="PhpUnit">
     <phpunit_settings>
-      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/BookBinder/vendor/autoload.php" />
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/BookBinder/phpunit.xml.dist" custom_loader_path="$PROJECT_DIR$/BookBinder/vendor/autoload.php" phpunit_phar_path="" use_configuration_file="true" />
     </phpunit_settings>
   </component>
 </project>

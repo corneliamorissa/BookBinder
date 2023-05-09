@@ -5,7 +5,7 @@
       <webServer id="2f279b24-a517-4eac-a57e-2d87dff29046" name="studev" url="http://a22web13.studev.groept.be">
         <fileTransfer rootFolder="/var/www/html" accessType="SFTP" host="shell.studev.groept.be" port="22" sshConfigId="d25a9614-0658-45d2-bb66-9b7881b5d6a9" sshConfig="a22web13@shell.studev.groept.be:22 password">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+            <advancedOptions controlEncoding="UTF-8" dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>

@@ -32,11 +32,15 @@
       <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/sebastian/type" />
       <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/symfony/dom-crawler" />
       <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/sebastian/version" />
-      <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/symfony/test-pack" />
       <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/symfony/css-selector" />
       <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/symfony/phpunit-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/masterminds/html5" />
       <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/myclabs/deep-copy" />
+      <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/symfony/http-client-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/symfony/process" />
+      <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/symfony/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/symfony/panther" />
+      <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/php-webdriver/webdriver" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
