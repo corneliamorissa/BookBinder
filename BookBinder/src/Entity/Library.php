@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table("libraries")]
 class Library
 {
-    #[ORM\LibaryID]
+    #[ORM\id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
@@ -22,6 +22,9 @@ class Library
 
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $postcode = null;
+
+    #[OneToMany(targetEntity:Books::class, mappedBy:"library")]
+    private $books;
 
 
     /**
