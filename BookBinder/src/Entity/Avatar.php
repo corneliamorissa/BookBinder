@@ -4,12 +4,17 @@ namespace App\Entity;
 
 class Avatar
 {
-    #[ORM\AvatarID]
+    #[ORM\id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
     #[ORM\Column(type: "blob",length: 16777215, nullable: false)]
     private string $Image;
+
+    #[OneToMany(targetEntity: User::class, mappedby:"AvatarId")]
+    private $users;
+
+
 
 
         public function __construct(string $Image) {
