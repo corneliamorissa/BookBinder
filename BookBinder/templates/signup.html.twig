@@ -1,35 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>BookBinder</title>
-    <link href="{{ asset('css/SignUp.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=FigTree">
-</head>
+{% extends 'base.html.twig' %}
+{% block stylesheet%} <link href="{{ asset('css/SignUp.css') }}" rel="stylesheet" /> {% endblock %}
+{%  block header %}
+    <header class="landing-header">
+        <div class="logo">
+            <img id="logo" src="{{ asset("assets/logo.png") }}" alt="bookbinder">
+        </div>
+        <div id="nav">
+            <a href="{{ path('LogIn') }}">LogIn</a>
+            <a href="{{ path('SignUp') }}">SignUp</a>
+        </div>
+    </header>
+{% endblock %}
 
-<body>
-<header class="landing-header">
-    <div class="logo">
-        <img id="logo" src="{{ asset("assets/logo.png") }}" alt="bookbinder">
-    </div>
-    <div id="nav">
-        <a href="{{ path('LogIn') }}">LogIn</a>
-        <a href="{{ path('SignUp') }}">SignUp</a>
-    </div>
-</header>
-
-<main class="landing-main">
-    <div class="landing-welcome">
-        <h1 style="color: #311E69; text-align: center"> Sign Up </h1>
-        <p style=" color: #808088; text-align: center; font-weight: bold"> Please enter the required information</p>
-        <div class="form">
-            {{ form(form) }}
+{% block content %}
+    <div class="landing-main">
+        <div class="landing-welcome">
+            <h1 style="color: #311E69; text-align: center"> Sign Up </h1>
+            <p style=" color: #808088; text-align: center; font-weight: bold"> Please enter the required information</p>
+            <div class="form">
+                {{ form(form) }}
+            </div>
         </div>
     </div>
-</main>
-<footer class="landing-footer">
-    <div>Copyright © 2022 WebTech. KUL All rights Reserved.</div>
-    <div><a href="https://www.google.com/" style="color: #311E69 ">  Privacy Policy</a> | <a href="https://www.google.com/" style="color: #311E69 "> Terms of Use</a></div>
-</footer>
-</body>
-</html>
+{% endblock %}
+
+{% set footer_class = 'landing-footer' %}
+{% block footer %}
+    <footer class="{{ footer_class }}">
+        <div>Copyright © 2022 WebTech. KUL All rights Reserved.</div>
+        <div><a href="https://www.google.com/" style="color: #311E69 ">  Privacy Policy</a> | <a href="https://www.google.com/" style="color: #311E69 "> Terms of Use</a></div>
+    </footer>
+{% endblock %}

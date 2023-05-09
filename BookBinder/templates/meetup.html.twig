@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
-{% block content %}
 
+{% block content %}
     <div class="meetuppage">
         <div class="booklovers">
             <h1 class="bltitle">
@@ -9,7 +9,7 @@
             <ul class="bookloverslist">
                 <div class="users">
                     <div>
-                        <img id="userpict" src="/assets/user1.jpg" alt="userpict"/>
+                        <img id="userpict" src="{{ asset('assets/user1.jpg') }}" alt="Bird is the word"/>
                     </div>
                     <div class="usersright">
                         <p id="username">Katlyn DB</p>

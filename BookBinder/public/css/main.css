@@ -87,7 +87,7 @@ main{
     height: 700px;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 64% 100%, 37% 87%, 0 87%);
+   /* clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 64% 100%, 37% 87%, 0 87%);*/
 }
 
 .landing-main-left{
@@ -328,12 +328,9 @@ button{
 .meetuppage{
     gap: 80px;
     display: flex;
-    flex-direction: column;
-    width: 400px;
-    height: 500px;
-    background: white;
-    border-radius: 20px;
+    flex-direction: row;
 }
+
 .letters{
     color: black;
     font-family: Figtree, Arial, sans-serif;
