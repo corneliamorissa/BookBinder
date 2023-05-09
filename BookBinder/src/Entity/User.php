@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use PhpParser\Node\Scalar\String_;
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository :: class)]
@@ -14,24 +14,24 @@ class User
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
-    #[ORM\Column(type: "varchar",length: 50, nullable: false)]
-    private ?string $Username = null;
-    #[ORM\Column(type: "varchar",length: 50, nullable: false)]
-    private ?string $First_name = null;
-    #[ORM\Column(type: "varchar",length: 50, nullable: false)]
-    private ?string $Last_name = null;
-    #[ORM\Column(type: "varchar",length: 100, nullable: false)]
-    private ?string $Street = null;
+    #[ORM\Column(type: "string",length: 50, nullable: false)]
+    private ?string $username = null;
+    #[ORM\Column(type: "string",length: 50, nullable: false)]
+    private ?string $first_name = null;
+    #[ORM\Column(type: "string",length: 50, nullable: false)]
+    private ?string $last_name = null;
+    #[ORM\Column(type: "string",length: 100, nullable: false)]
+    private ?string $street = null;
     #[ORM\Column(type: "integer", nullable: false)]
-    private ?int $House_numer = null;
+    private ?int $house_number = null;
     #[ORM\Column(type: "integer", nullable: false)]
-    private ?int $Postcode = null;
-    #[ORM\Column(type: "date", nullable: false)]
-    private ?string $BirthDate = null;
+    private ?int $postcode = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
+    private ?\DateTime $birthdate = null;
     #[ORM\Column(type: "integer", nullable: false)]
-    private ?int $Private_account = null;
+    private ?int $private_account = null;
     #[ORM\Column(type: "integer", nullable: false)]
-    private ?int $AvatarId = null;
+    private ?int $avatar_id = null;
 
     /**
      * @param string $Username
@@ -44,7 +44,7 @@ class User
      * @param int $Private_account
      * @param int $AvatarId
      */
-    public function __construct(string $Username, string $First_name, string $Last_name, string $Street, int $House_numer, int $Postcode, string $BirthDate, int $Private_account, int $AvatarId)
+   /* public function __construct(string $Username, string $First_name, string $Last_name, string $Street, int $House_numer, int $Postcode, string $BirthDate, int $Private_account, int $AvatarId)
     {
         $this->Username = $Username;
         $this->First_name = $First_name;
@@ -55,7 +55,7 @@ class User
         $this->BirthDate = $BirthDate;
         $this->Private_account = $Private_account;
         $this->AvatarId = $AvatarId;
-    }
+    }*/
 
     /**
      * @return int|null
@@ -68,9 +68,9 @@ class User
     /**
      * @param int|null $id
      */
-    public function setId(?int $id): User
+    public function setId(?int $UserID): User
     {
-        $this->id = $id;
+        $this->id = $UserID;
         return $this;
     }
 
@@ -79,15 +79,15 @@ class User
      */
     public function getUsername(): string
     {
-        return $this->Username;
+        return $this->username;
     }
 
     /**
-     * @param string $Username
+     * @param string $username
      */
-    public function setUsername(string $Username): void
+    public function setUsername(string $username): void
     {
-        $this->Username = $Username;
+        $this->username = $username;
     }
 
     /**
@@ -95,15 +95,15 @@ class User
      */
     public function getFirstName(): string
     {
-        return $this->First_name;
+        return $this->first_name;
     }
 
     /**
-     * @param string $First_name
+     * @param string $first_name
      */
-    public function setFirstName(string $First_name): void
+    public function setFirstName(string $first_name): void
     {
-        $this->First_name = $First_name;
+        $this->first_name = $first_name;
     }
 
     /**
@@ -111,15 +111,15 @@ class User
      */
     public function getLastName(): string
     {
-        return $this->Last_name;
+        return $this->last_name;
     }
 
     /**
-     * @param string $Last_name
+     * @param string $last_name
      */
-    public function setLastName(string $Last_name): void
+    public function setLastName(string $last_name): void
     {
-        $this->Last_name = $Last_name;
+        $this->last_name = $last_name;
     }
 
     /**
@@ -127,31 +127,31 @@ class User
      */
     public function getStreet(): string
     {
-        return $this->Street;
+        return $this->street;
     }
 
     /**
-     * @param string $Street
+     * @param string $street
      */
-    public function setStreet(string $Street): void
+    public function setStreet(string $street): void
     {
-        $this->Street = $Street;
+        $this->street = $street;
     }
 
     /**
      * @return int
      */
-    public function getHouseNumer(): int
+    public function getHouseNumber(): int
     {
-        return $this->House_numer;
+        return $this->house_number;
     }
 
     /**
-     * @param int $House_numer
+     * @param int $house_number
      */
-    public function setHouseNumer(int $House_numer): void
+    public function setHouseNumber(int $house_number): void
     {
-        $this->House_numer = $House_numer;
+        $this->house_number = $house_number;
     }
 
     /**
@@ -159,31 +159,31 @@ class User
      */
     public function getPostcode(): int
     {
-        return $this->Postcode;
+        return $this->postcode;
     }
 
     /**
-     * @param int $Postcode
+     * @param int $postcode
      */
-    public function setPostcode(int $Postcode): void
+    public function setPostcode(int $postcode): void
     {
-        $this->Postcode = $Postcode;
+        $this->postcode = $postcode;
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getBirthDate(): string
+    public function getBirthdate(): \DateTime
     {
-        return $this->BirthDate;
+        return $this->birthdate;
     }
 
     /**
-     * @param string $BirthDate
+     * @param string $birthdate
      */
-    public function setBirthDate(string $BirthDate): void
+    public function setBirthdate(\DateTime $birthdate): void
     {
-        $this->BirthDate = $BirthDate;
+        $this->birthdate = $birthdate;
     }
 
     /**
@@ -191,15 +191,15 @@ class User
      */
     public function getPrivateAccount(): int
     {
-        return $this->Private_account;
+        return $this->private_account;
     }
 
     /**
-     * @param int $Private_account
+     * @param int $private_account
      */
-    public function setPrivateAccount(int $Private_account): void
+    public function setPrivateAccount(int $private_account): void
     {
-        $this->Private_account = $Private_account;
+        $this->private_account = $private_account;
     }
 
     /**
@@ -207,17 +207,17 @@ class User
      */
     public function getAvatarId(): int
     {
-        return $this->AvatarId;
+        return $this->avatar_id;
     }
 
-    /**
+    /*
      * @param int $AvatarId
      */
-    public function setAvatarId(int $AvatarId): void
+    public function setAvatarId(int $avatar_id): void
     {
-        $this->AvatarId = $AvatarId;
+        $this->avatar_id = $avatar_id;
     }
-
+/*
     public function getUsernameByID(string $ID) : ?User {
         $db = Db::getConnection();
         $stm = $db->prepare('SELECT Username FROM user WHERE UserID = :ID;');
@@ -227,7 +227,7 @@ class User
         $username = $item['Username'];
 
         return $username;
-    }
+    }*/
 
 
 }

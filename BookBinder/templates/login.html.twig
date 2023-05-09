@@ -32,6 +32,13 @@
                 {{ form_row(login_form.submit) }}
                 {{ form_end(login_form) }}
             </div>
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div id="flash" class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
         </div>
     </div>
 </div>

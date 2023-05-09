@@ -34,7 +34,7 @@ class BookBinderController extends AbstractController
     }
 
     /**
-     * @Route("/LogIn", name="LogIn")
+     * @Route("/", name="LogIn")
      */
     #[Route("/", name: "LogIn")]
     public function login(Request $request, EntityManagerInterface $em): Response {
@@ -48,6 +48,7 @@ class BookBinderController extends AbstractController
             if ($this->userService->authenticate($username, $password)) {
                 // Authentication successful
                 $session->set('username', $username);
+                $this->addFlash('sucess', 'You are logged in');
                 // Redirect to homepage or some other page
                 return $this->redirectToRoute('Home');
             } else {
