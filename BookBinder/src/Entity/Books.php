@@ -21,12 +21,12 @@ class Books
     #[ORM\Column(type: "varchar",length: 45, nullable: false)]
     private string $author ;
     #[ORM\Column(type: "varchar",length: 45, nullable: false)]
-    private string $ISBN ;
+    private string $isbn ;
     #[ORM\Column(type: "integer", nullable: false)]
     private int $numberOfFollowers ;
 
     #[ManyToOne(targetEntity: Library::class, inversedby:"books")]
-    #[JoinColumn(name: 'LibraryID', referencedColumnName: 'id')]
+    #[JoinColumn(name: 'libraryID', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
     private int $library ;
     #[ORM\Column(type:"decimal",precision : 3,scale : 1)]

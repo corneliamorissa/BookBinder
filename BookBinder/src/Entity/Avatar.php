@@ -9,16 +9,16 @@ class Avatar
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
     #[ORM\Column(type: "blob",length: 16777215, nullable: false)]
-    private string $Image;
+    private string $image;
 
-    #[OneToMany(targetEntity: User::class, mappedby:"AvatarId")]
+    #[OneToMany(targetEntity: User::class, mappedby:"avatarId")]
     private $users;
 
 
 
 
         public function __construct(string $Image) {
-            $this->Image = $Image;
+            $this->image = $Image;
         }
 
     /**
@@ -26,7 +26,7 @@ class Avatar
      */
     public function getImage(): string
     {
-        return $this->Image;
+        return $this->image;
     }
 
     /**
@@ -34,7 +34,7 @@ class Avatar
      */
     public function setImage(string $Image): void
     {
-        $this->Image = $Image;
+        $this->image = $Image;
     }
 
     public function getImageByID(string $ID) : ?Avatar {
