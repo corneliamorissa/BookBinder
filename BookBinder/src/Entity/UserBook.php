@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 use App\Repository\UserBookRepository;
-use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -11,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 class UserBook
 {
-    #[ORM\FollowID]
+    #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
