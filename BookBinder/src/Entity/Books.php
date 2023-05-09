@@ -8,28 +8,34 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table("books")]
 class Books
 {
-    #[ORM\BookID]
+    #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", nullable: false)]
-    private ?int $id = null;
+    private int $id ;
 
     #[ORM\Column(type: "varchar",length: 45, nullable: false)]
-    private ?string $title = null;
+    private string $title;
     #[ORM\Column(type: "integer", nullable: false)]
-    private ?int $numberOfPages = null;
+    private int $numberOfPages ;
 
     #[ORM\Column(type: "varchar",length: 45, nullable: false)]
-    private ?string $author = null;
+    private string $author ;
     #[ORM\Column(type: "varchar",length: 45, nullable: false)]
-    private ?string $ISBN = null;
+    private string $ISBN ;
     #[ORM\Column(type: "integer", nullable: false)]
-    private ?int $numberOfFollowers = null;
+    private int $numberOfFollowers ;
+
+    #[ManyToOne(targetEntity: Library::class, inversedby:"books")]
+    #[JoinColumn(name: 'LibraryID', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
-    private ?int $libraryID = null;
+    private int $library ;
     #[ORM\Column(type:"decimal",precision : 3,scale : 1)]
-    private ?float $rating = null;
+    private float $rating ;
     #[ORM\Column(type: "integer", nullable: false)]
-    private ?int $numberOfVotes = null;
+    private int $numberOfVotes ;
+
+    #[OneToMany(targetEntity: UserBook::class, mappedby:"bookid")]
+    private $userbooks;
     public function __construct(string $title,int $numberOfPages,string $author, string $ISBN, int $numberOfFollowers,
                                 int $libraryID, float $rating, int $numberOfVotes ) {
         $this->title = $title;
@@ -37,7 +43,7 @@ class Books
         $this->author = $author;
         $this->ISBN = $ISBN;
         $this->numberOfFollowers = $numberOfFollowers;
-        $this->libraryID = $libraryID;
+        $this->library = $libraryID;
         $this->rating = $rating;
         $this->numberOfVotes = $numberOfVotes;
 
@@ -126,17 +132,17 @@ class Books
     /**
      * @return int
      */
-    public function getLibraryID(): int
+    public function getLibrary(): int
     {
-        return $this->libraryID;
+        return $this->library;
     }
 
     /**
-     * @param int $libraryID
+     * @param int $library
      */
-    public function setLibraryID(int $libraryID): void
+    public function setLibrary(int $library): void
     {
-        $this->libraryID = $libraryID;
+        $this->library = $library;
     }
 
     /**
