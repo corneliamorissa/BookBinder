@@ -30,6 +30,8 @@ class User
     private ?string $BirthDate = null;
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $Private_account = null;
+    #[OneToOne(targetEntity: Avatar::class)]
+    #[JoinColumn(name: 'AvatarId', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $AvatarId = null;
 

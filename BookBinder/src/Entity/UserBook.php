@@ -11,12 +11,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 class UserBook
 {
-    #[ORM\FollowID]
+    #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
+    #[ManyToone(targetEntity: Books::class)]
+    #[JoinColumn(name: 'bookID', referencedColumnName: 'bookId')]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $bookid = null;
+    #[ManyToone(targetEntity: User::class)]
+    #[JoinColumn(name: 'userID', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $userid = null;
 

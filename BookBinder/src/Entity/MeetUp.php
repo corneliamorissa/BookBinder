@@ -8,15 +8,19 @@ class MeetUp
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
+    #[ManyToOne(targetEntity: User::class)]
+    #[JoinColumn(name: 'id_user_inviter', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
     private int $id_user_inviter;
+    #[ManyToOne(targetEntity: User::class)]
+    #[JoinColumn(name: 'id_user_invited', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
     private int $id_user_invited;
     #[ORM\Column(type: "datetime")]
     private string $date_time;
-    #[ORM\Column(type: "integer", nullable: false)]
+    #[ORM\Column(type: "integer", nullable: true)]
     private int $accepted;
-    #[ORM\Column(type: "integer", nullable: false)]
+    #[ORM\Column(type: "integer", nullable: true)]
     private int $declined;
 
     /**
