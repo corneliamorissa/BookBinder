@@ -43,10 +43,10 @@ footer{
 }
 .User_info{
     position: absolute;
-    margin-top: 30px;
+    margin-top: 0;
     width: 742px;
     height: 79px;
-    left: 69%;
+    left: 65%;
     margin-left: -371px; /* half of the width */
     border-radius: 240px;
     top: 450px;
@@ -57,13 +57,14 @@ footer{
     flex-direction: row;
     justify-content: space-evenly;
 }
-
 .form{
     position: relative;
     width: auto;
     height: auto;
     top: 500px;
-    margin-left: 600px;
+
+
+    margin-left: 450px; /* half of the width */
     display: flex;
     flex-direction: column;
 }
@@ -72,16 +73,14 @@ footer{
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    margin-top: 10px;
+    margin-top: 15px;
     box-sizing: border-box;
     width: 396px;
     height: 45px;
-    /* White */
     background: #FFFFFF;
     border: 2px solid #000000;
     border-radius: 15px;
     text-align: center;
-    /* Inside auto layout */
 }
 .Field:disabled{
     cursor: not-allowed;
