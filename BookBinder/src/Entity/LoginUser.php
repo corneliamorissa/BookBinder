@@ -2,62 +2,65 @@
 
 namespace App\Entity;
 
+use App\Repository\LoginUserRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+
+#[ORM\Entity(repositoryClass: LoginUserRepository :: class)]
+#[ORM\Table("user_password")]
 class LoginUser
 {
-    #[ORM\PasswordID]
+    #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
-    #[ORM\Column(type: "integer", nullable: false)]
-    private int $userId;
-    #[ORM\Column(type: "varchar",length: 100, nullable: false)]
-    private string $password;
-    public function __construct(string $username, string $password) {
-        $this->username = $username;
+
+
+    #[ORM\OneToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'UserID', referencedColumnName: 'UserID')]
+    private ?User $user;
+
+    #[ORM\Column(type: "string", length: 100)]
+    private ?string $password;
+    public function __construct(?string $password) {
         $this->password = $password;
     }
 
-
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     /**
-     * @return int fase in which the course is given
+     * @param int|null $id
      */
+    public function setId(?int $id): LoginUser
+    {
+        $this->id = $id;
+        return $this;
+    }
+    public function getUser(): User {
+        return $this->user;
+    }
+
+    protected function setUser(User $user): LoginUser {
+        $this->user = $user;
+        return $this;
+    }
+
     public function getPassword(): int {
         return $this->password;
     }
 
-    /**
-     * @param int $fase fase in which the course is given
-     * @return Course current course object
-     */
+
     public function setPassword(int $password): LoginUser {
         $this->password = $password;
         return $this;
     }
 
-    public function getIDByPassword(string $password) : ?LoginUser {
-        $db = Db::getConnection();
-        $stm = $db->prepare('SELECT UserID FROM user_password WHERE Password = :password;');
-        $stm->execute([':password' => $password]);
-
-        $item = $stm->fetch();
-        $ID = $item['UserID'];
-
-        return $ID;
-    }
-
-    /*
-    public function getUsernameByID(string $ID) : ?LoginUser {
-        $db = Db::getConnection();
-        $stm = $db->prepare('SELECT Username FROM user WHERE UserID = :ID;');
-        $stm->execute([':ID' => $ID]);
-
-        $item = $stm->fetch();
-        $username = $item['Username'];
-
-        return $username;
-    }
-    */
 
 
 

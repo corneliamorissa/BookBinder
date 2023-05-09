@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table("user")]
 class User
 {
-    #[ORM\UserID]
+    #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
@@ -55,6 +55,23 @@ class User
         $this->BirthDate = $BirthDate;
         $this->Private_account = $Private_account;
         $this->AvatarId = $AvatarId;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int|null $id
+     */
+    public function setId(?int $id): User
+    {
+        $this->id = $id;
+        return $this;
     }
 
     /**
