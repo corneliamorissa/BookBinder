@@ -17,8 +17,11 @@ class LoginUser
 
 
     #[ORM\OneToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: 'UserID', referencedColumnName: 'UserID')]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
     private ?User $user;
+
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $user_id = null;
 
     #[ORM\Column(type: "string", length: 100)]
     private ?string $password;
@@ -42,6 +45,24 @@ class LoginUser
         $this->id = $id;
         return $this;
     }
+
+    /**
+     * @return int|null
+     */
+    public function getUserId(): ?int
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * @param int|null $id
+     */
+    public function setUserId(?int $id): LoginUser
+    {
+        $this->user_id = $id;
+        return $this;
+    }
+
     public function getUser(): User {
         return $this->user;
     }
@@ -51,12 +72,12 @@ class LoginUser
         return $this;
     }
 
-    public function getPassword(): int {
+    public function getPassword(): string {
         return $this->password;
     }
 
 
-    public function setPassword(int $password): LoginUser {
+    public function setPassword(string $password): LoginUser {
         $this->password = $password;
         return $this;
     }
