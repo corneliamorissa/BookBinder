@@ -14,15 +14,21 @@ class User
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
+    #[ORM\Column(type: "varchar",length: 50, nullable: false)]
     private ?string $Username = null;
+    #[ORM\Column(type: "varchar",length: 50, nullable: false)]
     private ?string $First_name = null;
+    #[ORM\Column(type: "varchar",length: 50, nullable: false)]
     private ?string $Last_name = null;
+    #[ORM\Column(type: "varchar",length: 100, nullable: false)]
     private ?string $Street = null;
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $House_numer = null;
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $Postcode = null;
+    #[ORM\Column(type: "date", nullable: false)]
     private ?string $BirthDate = null;
+    #[ORM\Column(type: "integer", nullable: false)]
     private ?int $Private_account = null;
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $AvatarId = null;
