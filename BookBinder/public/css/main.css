@@ -1,13 +1,6 @@
 header {
     background-color: #311E69;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    color: white;
     font-family: "Figtree SemiBold", Arial, sans-serif;
-    max-width: 100%;
-    max-height: min-content;
-    padding: 10px;
 }
 
 footer {
@@ -23,6 +16,7 @@ footer {
 
 #nav a{
     color: white;
+
 }
 
 /* mouse over link */
@@ -87,7 +81,6 @@ main{
     height: 700px;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
-   /* clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 64% 100%, 37% 87%, 0 87%);*/
 }
 
 .landing-main-left{
@@ -108,7 +101,9 @@ main{
     background-color: white;
     font-family: Figtree, Arial, sans-serif;;
     border-radius: 10px;
+    align-items: center;
 }
+
 .landing-welcome{
     display: flex;
     flex-direction: column;
@@ -118,7 +113,7 @@ main{
 }
 .WelcomeLbl{
     color: #311E69;
-    text-align: center
+    text-align: center;
 }
 .WelcomeP{
     color: #808088;
@@ -224,12 +219,12 @@ div#nav {
     flex-direction: row;
 }
 
-
 .bibname{
     padding: 45px 30px 15px 30px;
-    width: 180px;
-    height: 60px;
+    width: 200px;
+    height: 150px;
     justify-content: center;
+    align-items: center;
     text-align: center;
     text-justify: distribute;
     background: #8572ED;
@@ -261,7 +256,7 @@ div#nav {
 .users{
     display: flex;
     flex-direction: row;
-    height: 180px;
+    height:200px;
     margin-top: 0;
     width: 300px;
     background: #FFFFFF;
@@ -315,14 +310,11 @@ button{
 }
 
 #userpict{
-    min-width: 120px;
-    min-height: 120px;
-    max-height: 180px;
-    max-width: 120px;
+    height: 198px;
+    width: 120px;
     object-fit: cover;
     justify-content: center;
     border-radius: 6px 0 0 6px;
-
 }
 
 .meetuppage{
@@ -341,7 +333,7 @@ button{
     margin: 30px 0 0 0;
     padding: 20px 20px 10px 20px;
     width: 600px;
-    height: 40px ;
+    height: 65px ;
     color: white;
     background: #8670F7;
     border-radius: 10px 10px 0 0;
@@ -437,9 +429,18 @@ button{
     background: #311E69;
     border-radius: 6px;
 }
-
+.BtnGroups{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+    margin-top:10px;
+}
 .BookBtns{
     box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     width: 117px;
     height: 40px;
     background:  #876cff;
@@ -448,6 +449,26 @@ button{
     line-height: 10px;
     text-align: center; /* center text horizontally */
     color: white; /* change text color to blue */
+    cursor: pointer;
+    align-self: center;
+    margin: 10px;
+}
+
+.RegisterBtn{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 117px;
+    height: 40px;
+    background-color: white;
+    border-radius: 8px;
+    font: inherit;
+    line-height: 10px;
+    text-align: center; /* center text horizontally */
+    color:#876cff ;
+    border-color: #876cff;
     cursor: pointer;
     align-self: center;
     margin: 10px;

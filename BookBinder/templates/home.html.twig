@@ -1,55 +1,63 @@
 {% extends 'base.html.twig' %}
 {% block content %}
         <div class="trending">
-            <h2 id="trending">
-                Top Trending This Week
-            </h2>
-            <div class="trendinglist">
-                <div class="book_label" onclick="location.href='{{ path('Book') }}';" style="cursor: pointer;">
-                    <h3 id="booktitle"> The Great Godden </h3>
-                    <h4 id="bookauthor"> By Meg Rosoff</h4>
-                    <p id="bookgenres"> Genres Young Adult, Contemporary, Fiction, Romance, Family</p>
-                </div>
-                <div class="book_label" onclick="location.href='{{ path('Book') }}';" style="cursor: pointer;">
-                    <h3 id="booktitle"> The Great Godden </h3>
-                    <h4 id="bookauthor"> By Meg Rosoff</h4>
-                    <p id="bookgenres"> Genres Young Adult, Contemporary, Fiction, Romance, Family</p>
-                </div>
-                <div class="book_label" onclick="location.href='{{ path('Book') }}';" style="cursor: pointer;">
-                    <h3 id="booktitle"> The Great Godden </h3>
-                    <h4 id="bookauthor"> By Meg Rosoff</h4>
-                    <p id="bookgenres"> Genres Young Adult, Contemporary, Fiction, Romance, Family</p>
-                </div>
-                <div class="book_label" onclick="location.href='{{ path('Book') }}';" style="cursor: pointer;">
-                    <h3 id="booktitle"> The Great Godden </h3>
-                    <h4 id="bookauthor"> By Meg Rosoff</h4>
-                    <p id="bookgenres"> Genres Young Adult, Contemporary, Fiction, Romance, Family</p>
-                </div>
-                <div class="book_label" onclick="location.href='{{ path('Book') }}';" style="cursor: pointer;">
-                    <h3 id="booktitle"> The Great Godden </h3>
-                    <h4 id="bookauthor"> By Meg Rosoff</h4>
-                    <p id="bookgenres"> Genres Young Adult, Contemporary, Fiction, Romance, Family</p>
+            <div class="container">
+                <h2 id="trending">
+                    Top Trending This Week
+                </h2>
+                <div class="trendinglist">
+                    <div class="book_label" onclick="location.href='{{ path('Book') }}';" style="cursor: pointer;">
+                        <h3 id="booktitle"> The Great Godden </h3>
+                        <h4 id="bookauthor"> By Meg Rosoff</h4>
+                        <p id="bookgenres"> Genres Young Adult, Contemporary, Fiction, Romance, Family</p>
+                    </div>
+                    <div class="book_label" onclick="location.href='{{ path('Book') }}';" style="cursor: pointer;">
+                        <h3 id="booktitle"> The Great Godden </h3>
+                        <h4 id="bookauthor"> By Meg Rosoff</h4>
+                        <p id="bookgenres"> Genres Young Adult, Contemporary, Fiction, Romance, Family</p>
+                    </div>
+                    <div class="book_label" onclick="location.href='{{ path('Book') }}';" style="cursor: pointer;">
+                        <h3 id="booktitle"> The Great Godden </h3>
+                        <h4 id="bookauthor"> By Meg Rosoff</h4>
+                        <p id="bookgenres"> Genres Young Adult, Contemporary, Fiction, Romance, Family</p>
+                    </div>
+                    <div class="book_label" onclick="location.href='{{ path('Book') }}';" style="cursor: pointer;">
+                        <h3 id="booktitle"> The Great Godden </h3>
+                        <h4 id="bookauthor"> By Meg Rosoff</h4>
+                        <p id="bookgenres"> Genres Young Adult, Contemporary, Fiction, Romance, Family</p>
+                    </div>
+                    <div class="book_label" onclick="location.href='{{ path('Book') }}';" style="cursor: pointer;">
+                        <h3 id="booktitle"> The Great Godden </h3>
+                        <h4 id="bookauthor"> By Meg Rosoff</h4>
+                        <p id="bookgenres"> Genres Young Adult, Contemporary, Fiction, Romance, Family</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="homeright">
-            <div class="welcome">
-                <h1>Welcome to BookBinder!</h1>
-                <p>
-                    Discover trending books, recommend them to others, and connect with like-minded readers on our website. Join a vibrant community of book lovers and engage in meaningful discussions about your favorite reads.
-                </p>
-            </div>
 
-            <div class="bib">
-                <h1 id="nearest">Your nearest library</h1>
-                <div class="infobib">
-                    <div><h3 class="bibname">Bib Tweebronen</h3></div>
-                    <div class="open">
-                        <p>Opening Hours</p>
-                        <ul>
-                            <li>Mon - Fri 08:00 - 22:00</li>
-                            <li>Sat 08:00 - 20:00</li>
-                        </ul>
+        <div class="homeright">
+            <div class="container">
+                <div class="welcome">
+                    <h1>Welcome to BookBinder!</h1>
+                    <p>
+                        Discover trending books, recommend them to others, and connect with like-minded readers on our website. Join a vibrant community of book lovers and engage in meaningful discussions about your favorite reads.
+                    </p>
+                </div>
+                <div class="bib">
+                    <div class="col">
+                        <h1 id="nearest">Your nearest library</h1>
+                    </div>
+                    <div class="infobib">
+                        <div>
+                            <h3 class="bibname">Bib Tweebronen</h3>
+                        </div>
+                        <div class="open">
+                            <p>Opening Hours</p>
+                            <ul>
+                                <li>Mon - Fri 08:00 - 22:00</li>
+                                <li>Sat 08:00 - 20:00</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

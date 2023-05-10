@@ -100,6 +100,31 @@
       <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/http-client" />
       <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/panther" />
       <path value="$PROJECT_DIR$/BookBinder/vendor/php-webdriver/webdriver" />
+      <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/test-pack" />
+      <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/form" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/symfony/options-resolver" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/property-info" />
+      <path value="$PROJECT_DIR$/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/twbs/bootstrap" />
+      <path value="$PROJECT_DIR$/BookBinder/vendor/twbs/bootstrap" />
+      <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/password-hasher" />
+      <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/security-http" />
+      <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/security-core" />
+      <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/security-csrf" />
+      <path value="$PROJECT_DIR$/BookBinder/vendor/symfony/security-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />

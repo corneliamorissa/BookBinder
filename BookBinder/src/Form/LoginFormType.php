@@ -28,10 +28,17 @@ class LoginFormType extends AbstractType
 
                 ]
             ])
-            ->add('submit', SubmitType::class, [
+
+            ->add('LogIn', SubmitType::class, [
                 'label' => 'Log In',
                 'attr' => [
                     'class' => 'BookBtns',
+                ]
+            ])
+            ->add('SignUp', SubmitType::class, [
+                'label' => 'Sign Up',
+                'attr' => [
+                    'class' => 'RegisterBtn',
                 ]
             ])
         ;
