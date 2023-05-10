@@ -44,7 +44,7 @@ class BookBinderController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $username = $form->get('username')->getData();
             $password = $form->get('password')->getData();
-            // Perform login authentication
+            /*// Perform login authentication
             if ($this->userService->authenticate($username, $password)) {
                 // Authentication successful
                 $session->set('username', $username);
@@ -54,7 +54,7 @@ class BookBinderController extends AbstractController
             } else {
                 // Authentication failed
                 $this->addFlash('error', 'Invalid username or password');
-            }
+            }*/
         }
 
         return $this->render('login.html.twig', [
