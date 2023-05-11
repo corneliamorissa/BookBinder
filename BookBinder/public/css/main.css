@@ -96,6 +96,7 @@ main{
     height: 500px;
 }
 .landing-main-right{
+    padding: 20px;
     width: 400px;
     height: max-content;
     background-color: white;
