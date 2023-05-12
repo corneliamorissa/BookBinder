@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" serverName="studev" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="studev">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
-          <excludedPaths>
-            <excludedPath local="true" path="BookBinder/var" />
-            <excludedPath local="true" path="BookBinder/vendor" />
-          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

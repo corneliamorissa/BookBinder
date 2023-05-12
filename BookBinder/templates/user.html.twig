@@ -2,11 +2,85 @@
 {% block title %} <title> BookBinder </title>{% endblock %}
 {% block stylesheet %}
     {{ parent() }}
-    <link href="{{ asset('css/Profile.css') }}" rel="stylesheet">
+    {#<link href="{{ asset('css/Profile.css') }}" rel="stylesheet">#}
 {% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="profile">
+    <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-4">
+                    {#User profile card#}
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <img src="{{ asset('/assets/Avatar.png') }}" alt="avatar"
+                                 class="rounded-circle img-fluid" style="width: 150px;">
+                            <h4 class="my-3">Emma Watch</h4>
+                            <h5 class="text-secondary"> Holsbeeks Library</h5>
+                            <h5 class="text-secondary">Leuven, Belgium</h5>
+                            {#We can add actions like Add friend and follow#}
+                            <p class="text-muted"> Add or Follow this user to see more of their content</p>
+                            <div class="d-flex justify-content-center mb-2">
+                                <button type="button" class="btn btn-primary">Add</button>
+                                <button type="button" class="btn btn-outline-primary ms-1">Follow</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {#User intro card#}
+                    <div class="card mb-4">
+                       <div class="card-header text-center">
+                          <strong>Intro</strong>
+                       </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><Strong>Library: </Strong>Holsbeeks Library</li>
+                            <li class="list-group-item"><Strong>Favorite Genres: </Strong> Horror, Sci-Fi</li>
+                            <li class="list-group-item"><Strong>Books Read: </Strong> 50</li>
+                            <li class="list-group-item"><Strong>Favorite Book: </Strong> The great Godden</li>
+                        </ul>
+                    </div>
+                </div>
+
+                {#User details card#}
+                <div class="col-lg-8">
+                    <div class="card text-bg-light mb-4">
+                        <div class="card-header text-center">
+                            <strong>Details</strong>
+                            <button type="button" class="btn btn-secondary"
+                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                    data-bs-custom-class="custom-tooltip"
+                                    data-bs-title="This top tooltip is themed via CSS variables.">
+                                Custom tooltip
+                            </button>
+                        </div>
+                        <div class="card-body text-center"> {#Card sees the form as text#}
+                            {{ form_start(form) }}
+                            <Strong>{{ form_row(form.First_name) }} </Strong>
+                            <hr>
+                            <Strong>{{ form_row(form.Last_name) }} </Strong>
+                            <hr>
+                            <Strong>{{ form_row(form.Date_of_birth) }} </Strong>
+                            <hr>
+                            <Strong>{{ form_row(form.Address) }} </Strong>
+                            <hr>
+                            <Strong>{{ form_row(form.house_number) }} </Strong>
+                            <hr>
+                            <Strong>{{ form_row(form.City) }} </Strong>
+                            <hr>
+                            <Strong>{{ form_row(form.Post_code) }} </Strong>
+                            <hr>
+                            <Strong>{{ form_row(form.Library) }} </Strong>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        {#<img id="BookPic" src="{{ asset("assets/Avatar.png") }}" class="img-fluid" alt="profile picture">#}
+
+{% endblock %}
+{#<div class="profile">
             <div class="backgroundProfPic">
                 <img id="BookPic" src="{{ asset("assets/ProfileBackgroundPic.png") }}" alt="Background picture">
             </div>
@@ -27,6 +101,4 @@
                 {{ form(form) }}
             </div>
 
-        </div>
-    </div>
-{% endblock %}
+        </div>#}
