@@ -44,12 +44,17 @@
                     <div class="card text-bg-light mb-4">
                         <div class="card-header text-center">
                             <strong>Details</strong>
-                            <button type="button" class="btn btn-secondary"
-                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                    data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="This top tooltip is themed via CSS variables.">
-                                Custom tooltip
-                            </button>
+                            {#Info button#}
+                            <p>
+                                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    Alpha
+                                </a>
+                            </p>
+                            <div class="collapse" id="collapseExample">
+                                <div class="card card-body">
+                                    This a 1st version of the Profile page. Many changes can be made.
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body text-center"> {#Card sees the form as text#}
                             {{ form_start(form) }}

@@ -16,14 +16,14 @@
     <header class="header">
         <div class="container">
             <nav class="navbar navbar-expand-lg rounded-3 " style="background-color: #311E69;">
-                <div class="container-fluid">
+                <div class="container">
                     <a class="navbar-brand" href="{{ path('Home') }}">
-                        <img src="{{ asset('/assets/logo.png') }}" alt="bookbinderlogo" width="40%">
+                        <img src="{{ asset('/assets/logo.png') }}" alt="bookbinderlogo" width="200px">
                     </a>
                     <button class="navbar-toggler" style="background-color: #22124f;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
                         <div class="navbar-nav" id="nav">
                             <a class="nav-link " aria-current="page" href="{{ path('Home') }}">Home</a>
                             <a class="nav-link " href="{{ path('Search') }}">Search</a>
@@ -31,9 +31,11 @@
                             <a class="nav-link " href="{{ path('User') }}">User</a>
                         </div>
                     </div>
+
                 </div>
             </nav>
         </div>
+
     </header>
 {% endblock %}
 
