@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{%  block header %}
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand rounded-3 "  >
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{{ path('LogIn') }}">
+                        <img src="{{ asset('/assets/logo.png') }}" alt="bookbinderlogo" width="200px">
+                    </a>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                        <div class="navbar-nav" id="nav">
+                            <a class="nav-link active" aria-current="page" href="{{ path('LogIn') }}">LogIn</a>
+                            <a class="nav-link " href="{{ path('SignUp') }}">SignUp</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+{% endblock %}
+
+{%block content %}
+    <div class="container-lg mt-3">
+        <h1 class="text-center">Privacy Policy</h1>
+        <p class="lead">
+            At BookBinder, we are committed to protecting your privacy. This Privacy Policy explains how we collect,
+            use, and disclose your personal information when you use our social media website ("Site" or "Service"). By accessing
+            or using BookBinder, you consent to the terms of this Privacy Policy.
+        </p>
+
+        <h3>1. Information We Collect</h3>
+        <p>
+            We collect both personal and non-personal information from you when you use our Service. The types of information we
+            collect may include:
+        </p>
+        <ul>
+            <li>Personal information such as your name, email address, and profile information.</li>
+            <li>Information you provide when you interact with other users or post content on BookBinder.</li>
+            <li>Device information such as your IP address, browser type, and operating system.</li>
+            <li>Usage information such as the pages you visit, the features you use, and the actions you take on the Site.</li>
+        </ul>
+
+        <h3>2. How We Use Your Information</h3>
+        <p>We may use the information we collect for various purposes, including:</p>
+        <ul>
+            <li>To provide and improve our Service.</li>
+            <li>To personalize your experience and provide tailored content.</li>
+            <li>To communicate with you and respond to your inquiries.</li>
+            <li>To analyze usage patterns and trends to enhance the functionality of our Site.</li>
+            <li>To enforce our Terms of Service and protect the rights and safety of our users.</li>
+        </ul>
+
+        <h3>3. Information Sharing and Disclosure</h3>
+        <p>We may share your personal information with third parties in the following circumstances:</p>
+        <ul>
+            <li>With your consent or as otherwise specified in this Privacy Policy.</li>
+            <li>With service providers who assist us in providing and improving our Service.</li>
+            <li>If required by law or to protect our legal rights.</li>
+            <li>In connection with a merger, acquisition, or sale of our company or assets.</li>
+        </ul>
+
+        <h3>4. Data Security</h3>
+        <p>
+            We take appropriate measures to protect the security of your personal information and implement industry-standard
+            security safeguards. However, please note that no method of transmission over the Internet or electronic storage is
+            100% secure, and we cannot guarantee the absolute security of your information.
+        </p>
+
+        <h3>5. Third-Party Links</h3>
+        <p>
+            Our Service may contain links to third-party websites or services that are not owned or controlled by BookBinder.
+            We are not responsible for the privacy practices or the content of such third-party websites or services. We
+            encourage you to review the privacy policies of those third parties when you leave our Site and access their websites or services.
+        </p>
+
+        <h3>6. Children's Privacy</h3>
+        <p>BookBinder is not intended for use by children under the age of 13. We do not knowingly collect personal information from children under 13. If you become aware that a child has provided us with personal information without parental consent, please contact us, and we will take steps to remove the information and terminate the child's account.
+
+        <h3>7. Your Choices and Rights</h3>
+        <p>You have certain rights regarding the personal information we hold about you. You may access, update, or delete your personal information by logging into your account settings or by contacting us. You may also have the right to restrict or object to certain processing activities.
+
+        <h3>8. Changes to this Privacy Policy</h3>
+        <p>We reserve the right to modify or update this Privacy Policy at any time. Any changes will be effective immediately upon posting the revised Privacy Policy on the Site. Your continued use of BookBinder after the posting of any changes constitutes your acceptance of such changes.
+
+
+        <h3>9. Contact Us</h3>
+        <p>If you have any questions or concerns about this Privacy Policy or our privacy practices, please contact us at [contact email].
+
+    </div>
+{% endblock %}

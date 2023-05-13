@@ -63,6 +63,22 @@ class BookBinderController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route ("/termsofservice", name='termsofservice")
+     */
+    #[Route("/termsofservice", name: "termsofservice")]
+    public function termsofserice(Request $request): Response {
+       return $this->render('termsofservice.html.twig');
+    }
+
+    /**
+     * @Route ("/privacypolicy", name='privacypolicy")
+     */
+    #[Route("/privacypolicy", name: "privacypolicy")]
+    public function privacypolicy(Request $request): Response {
+        return $this->render('privacypolicy.html.twig');
+    }
+
 
     /**
      * @Route("/SignUp", name="SignUp")

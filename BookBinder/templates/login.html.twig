@@ -59,6 +59,6 @@
 {% block footer %}
     <footer class="{{ footer_class }}">
         <div>Copyright © 2022 WebTech. KUL All rights Reserved.</div>
-        <div><a href="https://www.google.com/" style="color: #311E69 ">  Privacy Policy</a> | <a href="https://www.google.com/" style="color: #311E69 "> Terms of Use</a></div>
+        <div><a href="{{ path('privacypolicy') }}" style="color: #311E69 ">  Privacy Policy</a> | <a href="{{ path('termsofservice') }}" style="color: #311E69 "> Terms of Use</a></div>
     </footer>
 {% endblock %}
