@@ -22,93 +22,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\LoginUser;
 use App\Entity\Db;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class BookBinderController extends AbstractController
 {
     private array $stylesheets;
-    private $userService;
 
     public function __construct(AuthenticationService $userService) {
         $this->stylesheets[] = 'main.css';
-        $this->userService = $userService;
+
     }
 
-    /**
-     * @Route("/", name="LogIn")
-     */
-    #[Route("/", name: "LogIn")]
-    public function login(Request $request, EntityManagerInterface $em): Response {
-        $session = $request->getSession();
-        $form= $this->createForm(LoginFormType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $username = $form->get('username')->getData();
-            $password = $form->get('password')->getData();
-            /*// Perform login authentication
-            if ($this->userService->authenticate($username, $password)) {
-                // Authentication successful
-                $session->set('username', $username);
-                $this->addFlash('sucess', 'You are logged in');
-                // Redirect to homepage or some other page
-                return $this->redirectToRoute('Home');
-            } else {
-                // Authentication failed
-                $this->addFlash('error', 'Invalid username or password');
-            }*/
-        }
-
-        return $this->render('login.html.twig', [
-            'stylesheets' => $this->stylesheets,
-            'login_form' => $form
-        ]);
-    }
-
-    /**
-     * @Route ("/termsofservice", name='termsofservice")
-     */
-    #[Route("/termsofservice", name: "termsofservice")]
-    public function termsofserice(Request $request): Response {
-       return $this->render('termsofservice.html.twig');
-    }
-
-    /**
-     * @Route ("/privacypolicy", name='privacypolicy")
-     */
-    #[Route("/privacypolicy", name: "privacypolicy")]
-    public function privacypolicy(Request $request): Response {
-        return $this->render('privacypolicy.html.twig');
-    }
-
-
-    /**
-     * @Route("/SignUp", name="SignUp")
-     */
-    #[Route("/SignUp", name: "SignUp")]
-    public function signup(Request $request): Response {
-
-        $session = $request->getSession();
-        $form = $this->createForm(SignUpFormType::class);
-        $form->handleRequest($request);
-        /*if ($form->isSubmitted() && $form->isValid()) {
-            $username = $form->get('username')->getData();
-            $password = $form->get('password')->getData();
-            // Perform login authentication
-            if ($this->checkLogin($username, $password)) {
-                // Authentication successful
-                $session->set('username', $username);
-                // Redirect to homepage or some other page
-                return $this->redirectToRoute('LogIn');
-            } else {
-                // Authentication failed
-                $this->addFlash('error', 'Invalid username or password');
-            }
-        }*/
-
-        return $this->render('signup.html.twig', [
-            'stylesheets' => $this->stylesheets,
-            'form'=>$form->createView()
-        ]);
-    }
 
     /**
      * @Route("/Home", name="Home")

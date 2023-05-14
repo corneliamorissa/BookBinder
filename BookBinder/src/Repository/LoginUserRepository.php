@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\LoginUser;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 /**
  * @extends ServiceEntityRepository<LoginUser>
  *
@@ -17,13 +19,20 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class LoginUserRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, LoginUser::class);
     }
 
 
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    {
+        // set the new hashed password on the User object
+        $user->setPassword($newHashedPassword);
 
-
+        // execute the queries on the database
+        $this->getEntityManager()->flush();
+    }
 }
 

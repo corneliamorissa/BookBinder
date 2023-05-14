@@ -18,9 +18,9 @@ class LoginUser implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
 
-    #[ORM\OneToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
-    private ?User $user;
+    #[ORM\Column(type: "string",length: 50, nullable: false)]
+    private ?string $username = null;
+
 
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $user_id = null;
@@ -29,10 +29,15 @@ class LoginUser implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
 
-    #[ORM\Column(type: "string", length: 100)]
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
     private ?string $password;
-    public function __construct(?string $password) {
+
+
+
+    public function __construct(?string $username, ?string $password) {
         $this->password = $password;
+        //$this->user_id = $this->getUserIdbyUsername($username);
+        $this->username = $username;
     }
 
     /**
@@ -75,6 +80,18 @@ class LoginUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     protected function setUser(User $user): LoginUser {
         $this->user = $user;
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
         return $this;
     }
 
@@ -137,6 +154,9 @@ class LoginUser implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->user->getUsername();
+
+        return (string) $this->username;
     }
+
+
 }
