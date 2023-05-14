@@ -45,6 +45,22 @@ class BookBinderController extends AbstractController
     }
 
     /**
+     * @Route("/privacypolicy", name="privacypolicy")
+     */
+    #[Route("/privacypolicy", name: "privacypolicy")]
+    public function privacypolicy(): Response {
+        return $this->render('privacypolicy.html.twig');
+    }
+
+    /**
+     * @Route("/termsofservice", name="termsofservice")
+     */
+    #[Route("/termsofservice", name: "termsofservice")]
+    public function termsofservice(): Response {
+        return $this->render('termsofservice.html.twig');
+    }
+
+    /**
      * @Route("/Search", name="Search")
      */
     #[Route("/Search", name: "Search")]
@@ -111,4 +127,6 @@ class BookBinderController extends AbstractController
             'form'=>$form->createView(),
         ]);
     }
+
+
 }
