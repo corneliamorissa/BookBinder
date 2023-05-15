@@ -14,14 +14,17 @@ class SearchBookFormType extends AbstractType
     {
         $builder
             ->add('Search', SearchType::class,[
-                'label'=> '',
-                'attr'=>['class'=>'Rating',
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'form-control me-auto',
+                    'placeholder'=>'Search',
+                    'aria-label'=> 'Search',
                 ],
             ])
-            ->add('Submit',SubmitType::class,[
+            ->add('SearchBtn',SubmitType::class,[
                 'label'=>'Search',
                 'attr'=>[
-                    'class'=>'BookBtns',
+                    'class'=>'btn btn-outline-success','BookBtns',
                 ],
             ])
         ;

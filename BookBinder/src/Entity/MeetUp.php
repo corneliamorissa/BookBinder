@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Entity;
+use Doctrine\ORM\Mapping as ORM;
 
 class MeetUp
 {
-    #[ORM\idmeetup]
+    #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;

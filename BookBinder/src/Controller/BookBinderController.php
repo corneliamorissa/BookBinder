@@ -22,85 +22,49 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\LoginUser;
 use App\Entity\Db;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class BookBinderController extends AbstractController
 {
     private array $stylesheets;
-    private $userService;
+    private string $lastUsername;
 
-    public function __construct(AuthenticationService $userService) {
+    public function __construct(AuthenticationService $userService, AuthenticationUtils $authenticationUtils) {
         $this->stylesheets[] = 'main.css';
-        $this->userService = $userService;
+        $this->lastUsername = $authenticationUtils->getLastUsername();
+
     }
 
-    /**
-     * @Route("/", name="LogIn")
-     */
-    #[Route("/", name: "LogIn")]
-    public function login(Request $request, EntityManagerInterface $em): Response {
-        $session = $request->getSession();
-        $form= $this->createForm(LoginFormType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $username = $form->get('username')->getData();
-            $password = $form->get('password')->getData();
-            // Perform login authentication
-            if ($this->userService->authenticate($username, $password)) {
-                // Authentication successful
-                $session->set('username', $username);
-                $this->addFlash('sucess', 'You are logged in');
-                // Redirect to homepage or some other page
-                return $this->redirectToRoute('Home');
-            } else {
-                // Authentication failed
-                $this->addFlash('error', 'Invalid username or password');
-            }
-        }
-
-        return $this->render('login.html.twig', [
-            'stylesheets' => $this->stylesheets,
-            'login_form' => $form
-        ]);
-    }
-
-
-    /**
-     * @Route("/SignUp", name="SignUp")
-     */
-    #[Route("/SignUp", name: "SignUp")]
-    public function signup(Request $request): Response {
-
-        $session = $request->getSession();
-        $form = $this->createForm(SignUpFormType::class);
-        $form->handleRequest($request);
-        /*if ($form->isSubmitted() && $form->isValid()) {
-            $username = $form->get('username')->getData();
-            $password = $form->get('password')->getData();
-            // Perform login authentication
-            if ($this->checkLogin($username, $password)) {
-                // Authentication successful
-                $session->set('username', $username);
-                // Redirect to homepage or some other page
-                return $this->redirectToRoute('LogIn');
-            } else {
-                // Authentication failed
-                $this->addFlash('error', 'Invalid username or password');
-            }
-        }*/
-
-        return $this->render('signup.html.twig', [
-            'stylesheets' => $this->stylesheets,
-            'form'=>$form->createView()
-        ]);
-    }
 
     /**
      * @Route("/Home", name="Home")
      */
     #[Route("/Home", name: "Home")]
     public function home(): Response {
+
         return $this->render('home.html.twig', [
-            'stylesheets' => $this->stylesheets
+            'stylesheets' => $this->stylesheets,
+            'last_username' => $this->lastUsername
+        ]);
+    }
+
+    /**
+     * @Route("/privacypolicy", name="privacypolicy")
+     */
+    #[Route("/privacypolicy", name: "privacypolicy")]
+    public function privacypolicy(): Response {
+        return $this->render('privacypolicy.html.twig',[
+            'last_username' => $this->lastUsername
+        ]);
+    }
+
+    /**
+     * @Route("/termsofservice", name="termsofservice")
+     */
+    #[Route("/termsofservice", name: "termsofservice")]
+    public function termsofservice(): Response {
+        return $this->render('termsofservice.html.twig',[
+            'last_username' => $this->lastUsername
         ]);
     }
 
@@ -120,6 +84,7 @@ class BookBinderController extends AbstractController
         return $this->render('search.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
+            'last_username' => $this->lastUsername
         ]);
     }
 
@@ -129,7 +94,8 @@ class BookBinderController extends AbstractController
     #[Route("/MeetUp", name: "MeetUp")]
     public function meetup(): Response {
         return $this->render('meetup.html.twig', [
-            'stylesheets' => $this->stylesheets
+            'stylesheets' => $this->stylesheets,
+            'last_username' => $this->lastUsername
         ]);
     }
 
@@ -149,6 +115,7 @@ class BookBinderController extends AbstractController
         return $this->render('user.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
+            'last_username' => $this->lastUsername
         ]);
     }
 
@@ -169,6 +136,9 @@ class BookBinderController extends AbstractController
         return $this->render('book.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
+            'last_username' => $this->lastUsername
         ]);
     }
+
+
 }

@@ -40,22 +40,22 @@ class User
      * @param string $Street
      * @param int $House_numer
      * @param int $Postcode
-     * @param string $BirthDate
+     * @param \DateTime $BirthDate
      * @param int $Private_account
      * @param int $AvatarId
      */
-   /* public function __construct(string $Username, string $First_name, string $Last_name, string $Street, int $House_numer, int $Postcode, string $BirthDate, int $Private_account, int $AvatarId)
+    public function __construct(string $Username, string $First_name, string $Last_name, string $Street, int $House_numer, int $Postcode, \DateTime $BirthDate, int $Private_account, int $AvatarId)
     {
-        $this->Username = $Username;
-        $this->First_name = $First_name;
-        $this->Last_name = $Last_name;
-        $this->Street = $Street;
-        $this->House_numer = $House_numer;
-        $this->Postcode = $Postcode;
-        $this->BirthDate = $BirthDate;
-        $this->Private_account = $Private_account;
-        $this->AvatarId = $AvatarId;
-    }*/
+        $this->username = $Username;
+        $this->first_name = $First_name;
+        $this->last_name = $Last_name;
+        $this->street = $Street;
+        $this->house_number = $House_numer;
+        $this->postcode = $Postcode;
+        $this->birthdate = $BirthDate;
+        $this->private_account = $Private_account;
+        $this->avatar_id = $AvatarId;
+    }
 
     /**
      * @return int|null

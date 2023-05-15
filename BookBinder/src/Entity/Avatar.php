@@ -4,7 +4,7 @@ namespace App\Entity;
 
 class Avatar
 {
-    #[ORM\id]
+    #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;

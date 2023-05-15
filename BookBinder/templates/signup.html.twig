@@ -1,22 +1,32 @@
 {% extends 'base.html.twig' %}
 {% block stylesheet%} <link href="{{ asset('css/SignUp.css') }}" rel="stylesheet" /> {% endblock %}
+{#Header updated with bootstrap#}
 {%  block header %}
     <header class="landing-header">
-        <div class="logo">
-            <img id="logo" src="{{ asset("assets/logo.png") }}" alt="bookbinder">
-        </div>
-        <div id="nav">
-            <a href="{{ path('LogIn') }}">LogIn</a>
-            <a href="{{ path('SignUp') }}">SignUp</a>
+        <div class="container">
+            <nav class="navbar navbar-expand rounded-3 " style="background-color: #311E69;" >
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{{ path('LogIn') }}">
+                        <img src="{{ asset('/assets/logo.png') }}" alt="bookbinderlogo" width="200px">
+                    </a>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                        <div class="navbar-nav" id="nav">
+                            <a class="nav-link active" aria-current="page" href="{{ path('LogIn') }}">LogIn</a>
+                            <a class="nav-link " href="{{ path('SignUp') }}">SignUp</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </div>
     </header>
 {% endblock %}
 
+{#No bootstrap required here#}
 {% block content %}
     <div class="landing-main">
         <div class="landing-welcome">
-            <h1 style="color: #311E69; text-align: center"> Sign Up </h1>
-            <p style=" color: #808088; text-align: center; font-weight: bold"> Please enter the required information</p>
+            <h1 class="signUpLbl"> Sign Up </h1>
+            <p class="signUpLbl2"> Please enter the required information</p>
             <div class="form">
                 {{ form(form) }}
             </div>
@@ -24,10 +34,11 @@
     </div>
 {% endblock %}
 
+{#No bootstrap required here#}
 {% set footer_class = 'landing-footer' %}
 {% block footer %}
     <footer class="{{ footer_class }}">
         <div>Copyright © 2022 WebTech. KUL All rights Reserved.</div>
-        <div><a href="https://www.google.com/" style="color: #311E69 ">  Privacy Policy</a> | <a href="https://www.google.com/" style="color: #311E69 "> Terms of Use</a></div>
+        <div><a href="{{ path('privacypolicy') }}" style="color: #311E69 ">  Privacy Policy</a> | <a href="{{ path('termsofservice') }}" style="color: #311E69 "> Terms of Use</a></div>
     </footer>
 {% endblock %}

@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 use App\Repository\UserBookRepository;
-use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 

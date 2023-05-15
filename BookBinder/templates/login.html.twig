@@ -2,52 +2,64 @@
 
 {%  block header %}
     <header class="landing-header">
-        <div class="logo">
-            <img id="logo" src="{{ asset("assets/logo.png") }}" alt="bookbinder">
-        </div>
-        <div id="nav">
-            <a href="{{ path('LogIn') }}">LogIn</a>
-            <a href="{{ path('SignUp') }}">SignUp</a>
+        <div class="container">
+            <nav class="navbar navbar-expand rounded-3 "  >
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{{ path('LogIn') }}">
+                        <img src="{{ asset('/assets/logo.png') }}" alt="bookbinderlogo" width="200px">
+                    </a>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                        <div class="navbar-nav" id="nav">
+                            <a class="nav-link active" aria-current="page" href="{{ path('LogIn') }}">LogIn</a>
+                            <a class="nav-link " href="{{ path('SignUp') }}">SignUp</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </div>
     </header>
 {% endblock %}
 
+{#Content block finished#}
 {% block content %}
-<div class="landing-main">
-    <div class="landing-main-left">
-        <div class="landing-trending">
-            <h1 class="letters">This week's trendings</h1>
-            <p class="letters"> Trendings to be added later on from the database!</p>
-        </div>
-    </div>
+    <div class="landing-main px-4">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-5 landing-main-left">
+                    <h1 class="letters">This week's trendings</h1>
+                    <p class="letters"> Trendings to be added later on from the database!</p>
+                </div>
+                <div class="col-4 landing-main-right landing-welcome">
+                    <h1 class="WelcomeLbl"> Welcome </h1>
+                    <p class="WelcomeP"> Please enter your email and password</p>
+                    {% if error %}
+                        <div id="flash">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <div class="form">
+                        <form action="{{ path('LogIn') }}" method="post">
+                            <label style="color: #311E69" for="username">User Name:</label>
+                            <input class="LoginField" type="text" id="username" name="_username" value="{{ last_username }}">
 
-    <div class="landing-main-right">
-        <div class="landing-welcome">
-            <h1 class="WelcomeLbl"> Welcome </h1>
-            <p class="WelcomeP"> Please enter your email and password</p>
-            <div class="form">
-                {{ form_start(login_form) }}
-                {{ form_row(login_form.username, {'label': 'User Name'}) }}
-                {{ form_row(login_form.password, {'label': 'Password'}) }}
-                {{ form_row(login_form.submit) }}
-                {{ form_end(login_form) }}
-            </div>
-            {% for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div id="flash" class="alert alert-{{ label }}">
-                        {{ message }}
+                            <label  style="color: #311E69" for="password">Password:</label>
+                            <input class="LoginField" type="password" id="password" name="_password">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            {# If you want to control the URL the user is redirected to on success#}
+                            <input type="hidden" name="_target_path" value="/Home">
+                        <div class="BtnGroups">
+                            <button class="BookBtns" type="submit">Login</button>
+                        </div>
+                        </form>
                     </div>
-                {% endfor %}
-            {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% set footer_class = 'landing-footer' %}
 {% block footer %}
     <footer class="{{ footer_class }}">
         <div>Copyright © 2022 WebTech. KUL All rights Reserved.</div>
-        <div><a href="https://www.google.com/" style="color: #311E69 ">  Privacy Policy</a> | <a href="https://www.google.com/" style="color: #311E69 "> Terms of Use</a></div>
+        <div><a href="{{ path('privacypolicy') }}" style="color: #311E69 ">  Privacy Policy</a> | <a href="{{ path('termsofservice') }}" style="color: #311E69 "> Terms of Use</a></div>
     </footer>
 {% endblock %}

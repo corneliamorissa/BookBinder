@@ -108,6 +108,8 @@
       <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/symfony/security-core" />
       <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/symfony/security-http" />
       <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/symfony/password-hasher" />
+      <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/twbs/bootstrap" />
+      <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/doctrine/annotations" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

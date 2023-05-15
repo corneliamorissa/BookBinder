@@ -6,16 +6,22 @@
 {% endblock %}
 {% block content %}
     <div class="main">
-        <div class="test">
-            <h1> Book search <br> </h1>
-            <h2> Enter the title or ISBN of the book you want to find </h2>
-            {{ form(form) }}
-            <h1> Discover!</h1>
-        </div>
-
-        <div class="Trendings">
-            <h1> Trendings to be added later on.</h1>
-            <p> This space is formated to display the books from the database</p>
+        <div class="container">
+            <div class="BookSearch">
+                <h1> Book search <br> </h1>
+                <h2> Enter the title or ISBN of the book you want to find </h2>
+                <form class="d-flex" role="search">
+                    {{ form_start(form) }}
+                    {{ form_row(form.Search)}}
+                    {{ form_row(form.SearchBtn) }}
+                    {{ form_end(form) }}
+                </form>
+                <h1> Discover!</h1>
+            </div>
+            <div class="Trendings">
+                <h1> Trendings to be added later on.</h1>
+                <p> This space is formated to display the books from the database</p>
+            </div>
         </div>
     </div>
 {% endblock %}
