@@ -26,12 +26,24 @@ class User
     private ?int $house_number = null;
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $postcode = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
     private ?\DateTime $birthdate = null;
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $private_account = null;
+    #[ManyToOne(targetEntity: Avatar::class)]
+    #[JoinColumn(name: 'avatar_id', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $avatar_id = null;
+
+    #[OneToMany(targetEntity: UserBook::class, mappedby:"userid")]
+    private $userbooks;
+    #[OneToMany(targetEntity: MeetUp::class, mappedby:"id_user_inviter")]
+    private $inviting_user;
+    #[OneToMany(targetEntity: Meetup::class, mappedby:"id_user_invited")]
+    private $invited_user;
+    #[OneToOne(targetEntity: LoginUser::class, mappedby:"password")]
+    private $password;
 
     /**
      * @param string $Username
