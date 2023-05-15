@@ -497,3 +497,18 @@ button{
     color: #B0413E;
 
 }
+
+.loggedin_user{
+    width: max-content;
+    text-indent: 0px;
+    margin-left: 20px;
+    text-decoration: none;
+    pointer-events: none;
+    cursor: default;
+    height: 40px;
+    padding: 8px 16px;
+    color: white;
+    background: #8572ED;
+    border-color: #8572ED;
+    border-radius: 15px;
+}

@@ -27,9 +27,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class BookBinderController extends AbstractController
 {
     private array $stylesheets;
+    private string $lastUsername;
 
-    public function __construct(AuthenticationService $userService) {
+    public function __construct(AuthenticationService $userService, AuthenticationUtils $authenticationUtils) {
         $this->stylesheets[] = 'main.css';
+        $this->lastUsername = $authenticationUtils->getLastUsername();
 
     }
 
@@ -39,8 +41,10 @@ class BookBinderController extends AbstractController
      */
     #[Route("/Home", name: "Home")]
     public function home(): Response {
+
         return $this->render('home.html.twig', [
-            'stylesheets' => $this->stylesheets
+            'stylesheets' => $this->stylesheets,
+            'last_username' => $this->lastUsername
         ]);
     }
 
@@ -49,7 +53,9 @@ class BookBinderController extends AbstractController
      */
     #[Route("/privacypolicy", name: "privacypolicy")]
     public function privacypolicy(): Response {
-        return $this->render('privacypolicy.html.twig');
+        return $this->render('privacypolicy.html.twig',[
+            'last_username' => $this->lastUsername
+        ]);
     }
 
     /**
@@ -57,7 +63,9 @@ class BookBinderController extends AbstractController
      */
     #[Route("/termsofservice", name: "termsofservice")]
     public function termsofservice(): Response {
-        return $this->render('termsofservice.html.twig');
+        return $this->render('termsofservice.html.twig',[
+            'last_username' => $this->lastUsername
+        ]);
     }
 
     /**
@@ -76,6 +84,7 @@ class BookBinderController extends AbstractController
         return $this->render('search.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
+            'last_username' => $this->lastUsername
         ]);
     }
 
@@ -85,7 +94,8 @@ class BookBinderController extends AbstractController
     #[Route("/MeetUp", name: "MeetUp")]
     public function meetup(): Response {
         return $this->render('meetup.html.twig', [
-            'stylesheets' => $this->stylesheets
+            'stylesheets' => $this->stylesheets,
+            'last_username' => $this->lastUsername
         ]);
     }
 
@@ -105,6 +115,7 @@ class BookBinderController extends AbstractController
         return $this->render('user.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
+            'last_username' => $this->lastUsername
         ]);
     }
 
@@ -125,6 +136,7 @@ class BookBinderController extends AbstractController
         return $this->render('book.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
+            'last_username' => $this->lastUsername
         ]);
     }
 

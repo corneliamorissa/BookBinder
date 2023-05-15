@@ -37,6 +37,11 @@ security:
                 login_path: LogIn
                 check_path: LogIn
                 enable_csrf: true
+            logout:
+                path: LogOut
+
+                # where to redirect after logout
+                target: LogIn
 
 
 

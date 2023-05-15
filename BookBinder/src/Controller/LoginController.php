@@ -37,4 +37,10 @@ class LoginController extends AbstractController
         ]);
     }
 
+    #[Route('/logout', name: 'LogOut', methods: ['GET'])]
+    public function logout()
+    {
+
+    }
+
 }
