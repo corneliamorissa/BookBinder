@@ -6,26 +6,23 @@
 {% endblock %}
 
 {% block content %}
-    <div class="Book-left">
-        <h1 id="BookTitle"> The Great Godden</h1>
-        <h3 id="nrOfFollowers"> 23 Followers </h3>
+    <div class="col-lg Book-left">
+        <h1 id="BookTitle"> {{ title }}</h1>
+        <h3 id="nrOfFollowers"> {{ nrFollowers }} Followers </h3>
         <div class="Book-pic">
-            <img id="BookPic" src="{{ asset("assets/book.png") }}" alt="BookCover">
+            <img id="BookPic" src="https://ia800307.us.archive.org/view_archive.php?archive=/5/items/olcovers630/olcovers630-L.zip&file=6301424-L.jpg" alt="BookCover">
         </div>
-
-        <p id="BookAuthor">By Meg Rosoff </p>
+        <p id="BookAuthor">By {{ author }} </p>
         <p id="BookDetails" class="BookDetails">
-            Genres :  Young Adult, Contemporary, Fiction, Romance, Family <br>
-            Number of pages :  256 <br>
-            ISBN: 9781526618511 <br>
-            Rating : 3.42 <br>
-            Comment : 843 <br>
+            Number of pages : {{ pages }} <br>
+            ISBN: {{ isbn }} <br>
+            Rating : {{ rating}} <br>
+            Library : {{ library }} <br>
         </p>
         <div class="buttons">
             <input type="submit" value="Vote Book" name="Vote_Book" class="BookBtns">
             <input type="submit" value="Follow Book" name="Follow_Book" class="BookBtns">
         </div>
-
     </div>
 
     <div class="Book-right">

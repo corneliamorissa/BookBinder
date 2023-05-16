@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Bookbinder" uuid="a554a050-eac1-4624-9be3-6de8a6621ab0">
+    <data-source source="LOCAL" name="@mysql.studev.groept.be" uuid="c8144120-5522-4d52-ad09-61fcbcd380d4">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Books;
 use App\Form\BookReviewFormType;
 use App\Form\LoginFormType;
 use App\Form\SearchBookFormType;
@@ -66,7 +67,6 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-
     #[Route("/Search", name: "Search")]
     #[IsGranted('ROLE_USER')]
     public function search(Request $request, EntityManagerInterface $em): Response {
@@ -85,7 +85,6 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-
     #[Route("/MeetUp", name: "MeetUp")]
     #[IsGranted('ROLE_USER')]
     public function meetup(): Response {
@@ -94,7 +93,6 @@ class BookBinderController extends AbstractController
             'last_username' => $this->lastUsername
         ]);
     }
-
 
     #[Route("/User", name: "User")]
     #[IsGranted('ROLE_USER')]
@@ -114,23 +112,40 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-
-    #[Route("/Book", name: "Book")]
-    #[IsGranted('ROLE_USER')]
-    public function book(Request $request, EntityManagerInterface $em ): Response {
+    #[Route("/Book/{id}", name: "Book")]
+   #[IsGranted('ROLE_USER')]
+    public function book(Request $request, EntityManagerInterface $em, int $id ): Response {
+        /*Book details*/
+        $book = $em->getRepository(Books::class)->find($id);
+        $title  =$book->getTitle();
+        $nrFollowers = $book->getNumberOffollowers();
+        $author = $book->getAuthor();
+        $pages = $book->getNumberOfpages();
+        $isbn = $book->getISBN();
+        $rating = $book->getRating();
+        $libraryId = $book->getLibrary();
+        $library = $em->getRepository(Books::class)->getLibraryNameById($libraryId);
+        /*Feedback form*/
         $form = $this->createForm(BookReviewFormType::class);
         $form ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $feedBackForm = $form->getData();
             $em->persist($feedBackForm);
             $em->flush();
-            return $this->redirectToRoute('Home');
+            return $this->redirectToRoute('Home'); /*To change this*/
         }
 
         return $this->render('book.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
-            'last_username' => $this->lastUsername
+            'last_username' => $this->lastUsername,
+            'title' => $title,
+            'nrFollowers'=>$nrFollowers,
+            'author'=>$author,
+            'pages'=>$pages,
+            'isbn'=>$isbn,
+            'rating'=>$rating,
+            'library'=>$library
         ]);
     }
 

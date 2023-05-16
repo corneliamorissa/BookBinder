@@ -121,7 +121,7 @@ class Library
     //Not tested yet
     static function getLibraryByID(int $ID) : ?Library {
         $db = Db::getConnection();
-        $stm = $db->prepare('SELECT LibraryID, Name,Street, Housenumber, Postcode FROM libraries WHERE LibraryID = :ID;');
+        $stm = $db->prepare('SELECT id, name,street, housenumber, postcode FROM libraries WHERE id = :ID;');
         $stm->execute([':ID' => $ID]);
 
         $library = null;

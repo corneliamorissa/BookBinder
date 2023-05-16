@@ -4,6 +4,8 @@ namespace App\Repository;
 use App\Entity\Books;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use http\QueryString;
+
 /**
  * @extends ServiceEntityRepository<Books>
  *
@@ -22,4 +24,29 @@ class BooksRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Books::class);
     }
+
+
+    public function getTitleByID(int $ID): string {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('
+        SELECT b.title FROM App\Entity\Books b WHERE b.id = :ID')
+            ->setParameter('ID', $ID);
+        return $query->getSingleScalarResult();
+    }
+
+    public function getLibraryNameById(int $ID): string {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('
+        SELECT c.name
+        FROM App\Entity\Library c
+        where c.id = :ID
+    ')->setParameter('ID', $ID);
+
+       /* $resultArray = $query->getResult();
+        $libraryNames = array_column($resultArray, 'library');*/
+
+        return $query->getSingleScalarResult();
+    }
+
+
 }
