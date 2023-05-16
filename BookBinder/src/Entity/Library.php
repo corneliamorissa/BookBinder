@@ -13,9 +13,9 @@ class Library
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
 
-    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    #[ORM\Column(type: "string", nullable: false)]
     private ?string $name = null;
-    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    #[ORM\Column(type: "string", nullable: false)]
     private ?string $street = null;
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $housenumber = null;

@@ -13,14 +13,14 @@ class Books
     #[ORM\Column(type: "integer", nullable: false)]
     private int $id ;
 
-    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    #[ORM\Column(type: "string", nullable: false)]
     private string $title;
     #[ORM\Column(type: "integer", nullable: false)]
     private int $numberOfPages ;
 
-    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    #[ORM\Column(type: "string", nullable: false)]
     private string $author ;
-    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    #[ORM\Column(type: "string", nullable: false)]
     private string $isbn ;
     #[ORM\Column(type: "integer", nullable: false)]
     private int $numberOfFollowers ;
