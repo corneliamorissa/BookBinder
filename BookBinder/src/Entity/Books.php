@@ -180,7 +180,7 @@ class Books
 
     public function getTitleByID(int $ID) : ?Books {
         $db = Db::getConnection();
-        $stm = $db->prepare('SELECT Title FROM books WHERE BookID = :ID;');
+        $stm = $db->prepare('SELECT title FROM books WHERE bookId = :ID;');
         $stm->execute([':ID' => $ID]);
 
         $item = $stm->fetch();
