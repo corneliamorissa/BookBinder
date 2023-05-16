@@ -37,23 +37,22 @@ class User implements UserInterface
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $avatar_id = null;
 
+    #[ORM\Column(type: 'json')]
+    private $roles = [];
+
+
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
+    private ?string $password;
+
     #[OneToMany(targetEntity: UserBook::class, mappedby:"userid")]
     private $userbooks;
     #[OneToMany(targetEntity: MeetUp::class, mappedby:"id_user_inviter")]
     private $inviting_user;
     #[OneToMany(targetEntity: Meetup::class, mappedby:"id_user_invited")]
     private $invited_user;
-    #[OneToOne(targetEntity: LoginUser::class, mappedby:"password")]
-    private $password;
 
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $roles;
 
-    /**
 
-     */
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
@@ -219,34 +218,67 @@ class User implements UserInterface
     {
         $this->avatar_id = $avatar_id;
     }
-/*
-    public function getUsernameByID(string $ID) : ?User {
-        $db = Db::getConnection();
-        $stm = $db->prepare('SELECT Username FROM user WHERE UserID = :ID;');
-        $stm->execute([':ID' => $ID]);
 
-        $item = $stm->fetch();
-        $username = $item['Username'];
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
 
-        return $username;
-    }*/
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
 
 
     public function getRoles(): array
     {
-        // TODO: Implement getRoles() method.
-        return $this->roles;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Returning a salt is only needed if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
+    /**
+     * The public representation of the user (e.g. a username, an email address, etc.)
+     *
+     * @see UserInterface
+     */
     public function getUserIdentifier(): string
     {
-        // TODO: Implement getUserIdentifier() method.
-        return (string) $this->username;
 
+        return (string) $this->username;
     }
 }

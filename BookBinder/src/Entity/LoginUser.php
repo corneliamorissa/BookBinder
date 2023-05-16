@@ -30,7 +30,6 @@ class LoginUser implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     #[ORM\Column(type: "string", length: 255, nullable: false)]
-    #[OneToOne(targetEntity: User::class, mappedby:"password")]
     private ?string $password;
 
 
