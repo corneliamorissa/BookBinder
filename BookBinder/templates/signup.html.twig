@@ -30,6 +30,11 @@
             <div class="form">
                 {{ form(form) }}
             </div>
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

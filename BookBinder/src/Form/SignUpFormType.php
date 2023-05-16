@@ -22,7 +22,6 @@ class SignUpFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('username', TextType::class,[
-            'mapped' => false,
             'label' => 'User Name',
             'attr' => [
                 'class' => 'field-form',
@@ -39,23 +38,21 @@ class SignUpFormType extends AbstractType
                 'placeholder' => 'Enter your password'
             ])
 
-        ])->add('firstname', TextType::class,[
-            'mapped' => false,
+        ])->add('first_name', TextType::class,[
             'label' => 'First Name',
             'attr' => [
                 'class' => 'field-form',
                 'placeholder' => 'Enter your first name'
             ]
         ])
-            ->add('lastname', TextType::class, [
-                'mapped' => false,
+            ->add('last_name', TextType::class, [
                 'label' => 'Last Name',
                 'attr' => [
                     'class' => 'field-form',
                     'placeholder' => 'Enter your last name'
                 ]
             ])
-            ->add('datebirth', BirthdayType::class,[
+            ->add('birthdate', BirthdayType::class,[
                 'placeholder' => [
                     'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
                 ],
@@ -64,8 +61,8 @@ class SignUpFormType extends AbstractType
                     'class' => 'date-form',
                 ]
             ])
-            ->add('address', TextType::class,[
-                'label' => 'Address',
+            ->add('street', TextType::class,[
+                'label' => 'Street',
                 'attr' => [
                     'class' => 'field-form',
                     'placeholder' => 'Enter your Address'
@@ -78,30 +75,31 @@ class SignUpFormType extends AbstractType
                     'placeholder'=>"House nr",
                 ]
             ])
-            ->add('City', TextType::class,[
-                'label'=>'City',
-                'attr'=>[
-                    'class'=> 'field-form',
-                    'placeholder'=>'City',
-                ]
-            ])->add('Post_code', TextType::class,[
+//            ->add('City', TextType::class,[
+//                'label'=>'City',
+//                'attr'=>[
+//                    'class'=> 'field-form',
+//                    'placeholder'=>'City',
+//                ]
+//            ])
+            ->add('postcode', TextType::class,[
                 'label'=>'Post code',
                 'attr'=>[
                     'class'=> 'field-form',
                     'placeholder'=>"Post code",
                 ]
             ])
-            ->add('Library', TextType::class,[
-                'label'=>'Library',
-                'attr'=>[
-                    'class'=> 'field-form',
-                    'placeholder'=>"Library name",
-                ]
-            ])
-            ->add('Terms_and_Condition', CheckboxType::class,[
+//            ->add('Library', TextType::class,[
+//                'label'=>'Library',
+//                'attr'=>[
+//                    'class'=> 'field-form',
+//                    'placeholder'=>"Library name",
+//                ]
+//            ])
+            ->add('terms_and_condition', CheckboxType::class,[
+                'mapped' => false,
                 'label' => 'By signing up, you agree to our Terms & Conditions ',
                 'required' => true,
-                'constrains' => new IsTrue(),
                 'attr' =>[
                     'class' => 'terms-form',
                 ]
@@ -120,7 +118,7 @@ class SignUpFormType extends AbstractType
     {
         $resolver->setDefaults([
             // Configure your form options here
-            'data_class' => [User::class, LoginUser::class],
+            'data_class' => User::class,
         ]);
     }
 }

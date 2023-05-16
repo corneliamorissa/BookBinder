@@ -20,7 +20,6 @@ class RegistrationController extends AbstractController
 
     public function __construct(AuthenticationService $userService) {
         $this->stylesheets[] = 'main.css';
-
     }
     /**
      * @Route("/SignUp", name="SignUp")
@@ -28,14 +27,14 @@ class RegistrationController extends AbstractController
     #[Route("/SignUp", name: "SignUp")]
     public function signup(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response {
 
-        $user = new LoginUser();
-        $detail_user = new User();
 
+        $form = null;
         $form = $this->createForm(SignUpFormType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = new User();
             $user = $form->getData();
-            $detail_user = $form->getData();
+
             $plaintextPassword = $user->getPassword() ;
 
             // hash the password (based on the security.yaml config for the $user class)
@@ -47,10 +46,10 @@ class RegistrationController extends AbstractController
 
             // 4) save the User!
             $entityManager->persist($user);
-            $entityManager->persist($detail_user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('/');
+            $this->addFlash('success', 'Account Succesfully Created! Log in is needed');
+            return $this->redirectToRoute('LogIn');
         }
 
         return $this->render('signup.html.twig', [

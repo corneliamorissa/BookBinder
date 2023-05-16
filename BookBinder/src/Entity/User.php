@@ -29,7 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $postcode = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: false)]
     private ?\DateTime $birthdate = null;
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $private_account = null;
@@ -51,6 +51,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $inviting_user;
     #[OneToMany(targetEntity: Meetup::class, mappedby:"id_user_invited")]
     private $invited_user;
+
+    private bool $terms_and_condition;
+
+    /**
+     * @return bool
+     */
+    public function isTermsAndCondition(): bool
+    {
+        return $this->terms_and_condition;
+    }
+
+    /**
+     * @param bool $terms_and_condition
+     */
+    public function setTermsAndCondition(bool $terms_and_condition): void
+    {
+        $this->terms_and_condition = $terms_and_condition;
+    }
 
 
 
