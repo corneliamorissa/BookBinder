@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Entity;
+use App\Repository\LoginUserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity(repositoryClass: MeetUpRepository :: class)]
+#[ORM\Table("meetup")]
 class MeetUp
 {
     #[ORM\Id]
