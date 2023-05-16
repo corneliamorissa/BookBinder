@@ -97,7 +97,7 @@ main{
 }
 .landing-main-right{
     padding: 20px;
-    width: 400px;
+    width: 500px;
     height: max-content;
     background-color: white;
     font-family: Figtree, Arial, sans-serif;;
@@ -273,7 +273,6 @@ div#nav {
 
 #username{
     color: #311E69;
-    margin: 8px;
     font-family: "Figtree SemiBold", Arial, sans-serif;;
     font-weight: bold;
     font-size: medium;

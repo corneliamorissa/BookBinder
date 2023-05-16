@@ -20,7 +20,7 @@
                     <a class="navbar-brand" href="{{ path('Home') }}">
                         <img src="{{ asset('/assets/logo.png') }}" alt="bookbinderlogo" width="200px">
                     </a>
-                    <button class="navbar-toggler" style="background-color: #22124f;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler bg-white"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
@@ -30,7 +30,7 @@
                             <a class="nav-link " href="{{ path('MeetUp') }}">MeetUp</a>
                             <a class="nav-link " href="{{ path('User') }}">User</a>
                             <a class="nav-link " href="{{ path('LogOut') }}">Logout</a>
-                            <a class="loggedin_user">{{ last_username }}</a>
+                            <a class="nav-link loggedin_user">{{ last_username }}</a>
                         </div>
                     </div>
 
