@@ -35,10 +35,8 @@ class LoginUser implements UserInterface, PasswordAuthenticatedUserInterface
 
 
 
-    public function __construct(?string $username, ?string $password) {
-        $this->password = $password;
-        //$this->user_id = $this->getUserIdbyUsername($username);
-        $this->username = $username;
+    public function __construct() {
+        $this->roles = array('ROLE_USER');
     }
 
     /**

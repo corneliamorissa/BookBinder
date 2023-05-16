@@ -5,10 +5,11 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository :: class)]
 #[ORM\Table("user")]
-class User
+class User implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -46,27 +47,16 @@ class User
     private $password;
 
     /**
-     * @param string $Username
-     * @param string $First_name
-     * @param string $Last_name
-     * @param string $Street
-     * @param int $House_numer
-     * @param int $Postcode
-     * @param \DateTime $BirthDate
-     * @param int $Private_account
-     * @param int $AvatarId
+     * @ORM\Column(type="array")
      */
-    public function __construct(string $Username, string $First_name, string $Last_name, string $Street, int $House_numer, int $Postcode, \DateTime $BirthDate, int $Private_account, int $AvatarId)
+    private $roles;
+
+    /**
+
+     */
+    public function __construct()
     {
-        $this->username = $Username;
-        $this->first_name = $First_name;
-        $this->last_name = $Last_name;
-        $this->street = $Street;
-        $this->house_number = $House_numer;
-        $this->postcode = $Postcode;
-        $this->birthdate = $BirthDate;
-        $this->private_account = $Private_account;
-        $this->avatar_id = $AvatarId;
+        $this->roles = array('ROLE_USER');
     }
 
     /**
@@ -242,4 +232,21 @@ class User
     }*/
 
 
+    public function getRoles(): array
+    {
+        // TODO: Implement getRoles() method.
+        return $this->roles;
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getUserIdentifier(): string
+    {
+        // TODO: Implement getUserIdentifier() method.
+        return (string) $this->username;
+
+    }
 }

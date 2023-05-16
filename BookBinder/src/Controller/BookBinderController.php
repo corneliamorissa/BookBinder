@@ -22,6 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\LoginUser;
 use App\Entity\Db;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class BookBinderController extends AbstractController
@@ -31,15 +32,14 @@ class BookBinderController extends AbstractController
 
     public function __construct(AuthenticationService $userService, AuthenticationUtils $authenticationUtils) {
         $this->stylesheets[] = 'main.css';
+        /*the last username to store username that is logged in in every pages, so usernale could be siplayed at top right*/
         $this->lastUsername = $authenticationUtils->getLastUsername();
 
     }
 
 
-    /**
-     * @Route("/Home", name="Home")
-     */
     #[Route("/Home", name: "Home")]
+    #[IsGranted('ROLE_USER')]
     public function home(): Response {
 
         return $this->render('home.html.twig', [
@@ -48,30 +48,27 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/privacypolicy", name="privacypolicy")
-     */
+
     #[Route("/privacypolicy", name: "privacypolicy")]
+    #[IsGranted('ROLE_USER')]
     public function privacypolicy(): Response {
         return $this->render('privacypolicy.html.twig',[
             'last_username' => $this->lastUsername
         ]);
     }
 
-    /**
-     * @Route("/termsofservice", name="termsofservice")
-     */
+
     #[Route("/termsofservice", name: "termsofservice")]
+    #[IsGranted('ROLE_USER')]
     public function termsofservice(): Response {
         return $this->render('termsofservice.html.twig',[
             'last_username' => $this->lastUsername
         ]);
     }
 
-    /**
-     * @Route("/Search", name="Search")
-     */
+
     #[Route("/Search", name: "Search")]
+    #[IsGranted('ROLE_USER')]
     public function search(Request $request, EntityManagerInterface $em): Response {
         $form = $this->createForm(SearchBookFormType::class);
         $form ->handleRequest($request);
@@ -88,10 +85,9 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/MeetUp", name="MeetUp")
-     */
+
     #[Route("/MeetUp", name: "MeetUp")]
+    #[IsGranted('ROLE_USER')]
     public function meetup(): Response {
         return $this->render('meetup.html.twig', [
             'stylesheets' => $this->stylesheets,
@@ -99,10 +95,9 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/User", name="User")
-     */
+
     #[Route("/User", name: "User")]
+    #[IsGranted('ROLE_USER')]
     public function user(Request $request, EntityManagerInterface $em): Response {
         $form = $this->createForm(UserDetailsType::class);
         $form ->handleRequest($request);
@@ -119,10 +114,9 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/Book", name="Book")
-     */
+
     #[Route("/Book", name: "Book")]
+    #[IsGranted('ROLE_USER')]
     public function book(Request $request, EntityManagerInterface $em ): Response {
         $form = $this->createForm(BookReviewFormType::class);
         $form ->handleRequest($request);

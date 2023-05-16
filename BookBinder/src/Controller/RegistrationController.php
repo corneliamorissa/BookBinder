@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\LoginUser;
+use App\Entity\User;
 use App\Form\SignUpFormType;
 use App\Service\AuthenticationService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,15 +26,16 @@ class RegistrationController extends AbstractController
      * @Route("/SignUp", name="SignUp")
      */
     #[Route("/SignUp", name: "SignUp")]
-    public function signup(Request $request, UserPasswordHasherInterface $passwordHasher): Response {
+    public function signup(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response {
+
+        $user = new LoginUser();
+        $detail_user = new User();
 
         $form = $this->createForm(SignUpFormType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $username = $form->get('username')->getData();
-            $password = $form->get('password')->getData();
-
-            $user = new LoginUser($username,$password);
+            $user = $form->getData();
+            $detail_user = $form->getData();
             $plaintextPassword = $user->getPassword() ;
 
             // hash the password (based on the security.yaml config for the $user class)
@@ -41,25 +44,14 @@ class RegistrationController extends AbstractController
                 $plaintextPassword
             );
             $user->setPassword($hashedPassword);
+
+            // 4) save the User!
+            $entityManager->persist($user);
+            $entityManager->persist($detail_user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('/');
         }
-        // ... e.g. get the user data from a registration form
-
-
-
-        /*if ($form->isSubmitted() && $form->isValid()) {
-            $username = $form->get('username')->getData();
-            $password = $form->get('password')->getData();
-            // Perform login authentication
-            if ($this->checkLogin($username, $password)) {
-                // Authentication successful
-                $session->set('username', $username);
-                // Redirect to homepage or some other page
-                return $this->redirectToRoute('LogIn');
-            } else {
-                // Authentication failed
-                $this->addFlash('error', 'Invalid username or password');
-            }
-        }*/
 
         return $this->render('signup.html.twig', [
             'stylesheets' => $this->stylesheets,
