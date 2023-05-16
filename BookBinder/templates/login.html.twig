@@ -6,7 +6,7 @@
             <nav class="navbar navbar-expand rounded-3 "  >
                 <div class="container-fluid">
                     <a class="navbar-brand" href="{{ path('LogIn') }}">
-                        <img src="{{ asset('/assets/logo.png') }}" alt="bookbinderlogo" width="200px">
+                        <img src="{{ asset('/public/assets/logo.png') }}" alt="bookbinderlogo" width="200px">
                     </a>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                         <div class="navbar-nav" id="nav">
@@ -35,21 +35,22 @@
                     {% if error %}
                         <div id="flash">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
-                    <div class="form">
                         <form action="{{ path('LogIn') }}" method="post">
-                            <label style="color: #311E69" for="username">User Name:</label>
-                            <input class="LoginField" type="text" id="username" name="_username" value="{{ last_username }}">
-
-                            <label  style="color: #311E69" for="password">Password:</label>
-                            <input class="LoginField" type="password" id="password" name="_password">
+                            <div class="mb-3 ">
+                                <label style="color: #311E69" for="username" class="form-label">User Name:</label>
+                                <input class="form-control align-self-center" type="text" id="username" name="_username" value="{{ last_username }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label  style="color: #311E69" for="password" class="form-label">Password:</label>
+                                <input class="form-control align-self-center" type="password" id="password" name="_password" required>
+                            </div>
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                            {# If you want to control the URL the user is redirected to on success#}
+                             If you want to control the URL the user is redirected to on success
                             <input type="hidden" name="_target_path" value="/Home">
-                        <div class="BtnGroups">
-                            <button class="BookBtns" type="submit">Login</button>
-                        </div>
+                            <div class="BtnGroups">
+                                <button class="BookBtns" type="submit">Login</button>
+                            </div>
                         </form>
-                    </div>
                 </div>
             </div>
         </div>
