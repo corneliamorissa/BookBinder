@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -33,10 +35,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTime $birthdate = null;
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $private_account = null;
-    #[ManyToOne(targetEntity: Avatar::class)]
+
+
+    #[OneToOne(targetEntity: Avatar::class)]
     #[JoinColumn(name: 'avatar_id', referencedColumnName: 'id')]
-    #[ORM\Column(type: "integer", nullable: false)]
-    private ?int $avatar_id = null;
+    private Avatar $avatar_id;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
@@ -222,21 +225,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->private_account = $private_account;
     }
 
-    /**
-     * @return int
-     */
-    public function getAvatarId(): int
+
+
+
+    public function getAvatar(): ?Avatar
     {
         return $this->avatar_id;
     }
 
-    /*
-     * @param int $AvatarId
-     */
-    public function setAvatarId(int $avatar_id): void
+    public function setAvatar(?Avatar $avatar): User
     {
-        $this->avatar_id = $avatar_id;
+        $this->avatar_id = $avatar;
+        return $this;
     }
+
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -300,4 +302,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return (string) $this->username;
     }
+
+
+
+
+
 }

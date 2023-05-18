@@ -28,6 +28,25 @@
             <h1 class="signUpLbl"> Sign Up </h1>
             <p class="signUpLbl2"> Please enter the required information</p>
             <div class="form">
+
+                {% block form_row %}
+                    <div class="form-row" style="width: 400px" >
+                        {{ form_label(form, 'Choose Your Avatar', {'label_attr': {'class': 'required'}}) }}
+                        <div class="form-widget" style="display: grid; grid-template-columns: auto auto auto; align-items: center">
+                            {% for choice in form.avatar %}
+                                <label class="avatar-choice" style="padding: 20px">
+                                    {{ form_widget(choice) }}
+                                    {% if choice.vars['attr']['data-image-url'] is defined %}
+                                        <img src="{{ choice.vars['attr']['data-image-url'] }}" alt="Avatar" style="width: 50px; height: 50px;">
+                                    {% endif %}
+                                    {{ form_label(choice) }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                        {{ form_errors(form) }}
+                    </div>
+                {% endblock form_row %}
+
                 {{ form(form) }}
             </div>
             {% for message in app.flashes('success') %}
@@ -47,3 +66,4 @@
         <div><a href="{{ path('privacypolicy') }}" style="color: #311E69 ">  Privacy Policy</a> | <a href="{{ path('termsofservice') }}" style="color: #311E69 "> Terms of Use</a></div>
     </footer>
 {% endblock %}
+

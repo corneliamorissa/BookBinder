@@ -20,4 +20,18 @@ class UserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
+
+    /**
+     * @return User[] all users that have books
+     */
+    public function findAllWithAvatar() : array {
+        $entityManager = $this->getEntityManager();
+        // selecting u and a results in fully hydrated objects (alternative to eager loading)
+        $query = $entityManager->createQuery('
+                SELECT u, a FROM App\Entity\User u 
+                INNER JOIN u.avatar_id a
+        ');
+        return $query->getResult();
+    }
+
 }

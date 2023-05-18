@@ -2,12 +2,18 @@
 
 namespace App\Form;
 
+use App\Entity\Avatar;
 use App\Entity\LoginUser;
 use App\Entity\User;
+use App\Repository\AvatarRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use PHPUnit\Framework\Constraint\IsTrue;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,9 +25,25 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SignUpFormType extends AbstractType
 {
+
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('username', TextType::class,[
+        $builder->add('avatar', EntityType::class,[
+            'class' => Avatar::class,
+                'choices' => AvatarRepository::class->findAllAvatar(),
+            'choice_label' => 'id',
+            'multiple' => true, // allow multiple selection
+            'expanded' => true,  // render checkbox in stead of select box
+                'attr' => [
+                    'class' => 'field-form',
+                    'placeholder' => 'Choose one for your avatar'
+                ]
+            ]
+
+        )
+
+            ->add('username', TextType::class,[
             'label' => 'User Name',
             'attr' => [
                 'class' => 'field-form',

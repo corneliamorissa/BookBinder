@@ -9,9 +9,11 @@ use ContainerS8MXE1z\getMeetUpRepositoryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/MeetUp", name="MeetUp")
- */
+
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+#[Route("/MeetUp", name: "MeetUp")]
+#[IsGranted('ROLE_USER')]
 class MeetUpController extends AbstractController
 {
 

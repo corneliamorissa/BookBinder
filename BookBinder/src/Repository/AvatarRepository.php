@@ -22,4 +22,17 @@ class AvatarRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Avatar::class);
     }
+
+
+    public function findAllAvatar() : array {
+        $entityManager = $this->getEntityManager();
+        // ref: https://www.doctrine-project.org/projects/doctrine-orm/en/current/reference/dql-doctrine-query-language.html
+        $query = $entityManager->createQuery('
+                SELECT a.image FROM App\Entity\Avatar a
+        ');
+        return $query->getResult();
+    }
+
+
+
 }

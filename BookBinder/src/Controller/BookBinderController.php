@@ -85,8 +85,8 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-    #[Route("/MeetUp", name: "MeetUp")]
-    #[IsGranted('ROLE_USER')]
+    //#[Route("/MeetUp", name: "MeetUp")]
+    //#[IsGranted('ROLE_USER')]
     public function meetup(): Response {
         return $this->render('meetup.html.twig', [
             'stylesheets' => $this->stylesheets,
