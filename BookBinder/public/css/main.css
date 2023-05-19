@@ -442,7 +442,7 @@ button{
     color: white; /* change text color to blue */
     cursor: pointer;
     align-self: center;
-    margin: 10px;
+    /*margin: 10px;*/
 }
 
 .RegisterBtn{

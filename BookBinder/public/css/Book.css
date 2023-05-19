@@ -21,7 +21,6 @@
     display: flex;
     flex-flow: row;
     gap: 45px;
-    margin-bottom: 10px;
 }
 .Book-right{
     display: flex;

@@ -85,8 +85,8 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-    //#[Route("/MeetUp", name: "MeetUp")]
-    //#[IsGranted('ROLE_USER')]
+    #[Route("/MeetUp", name: "MeetUp")]
+    #[IsGranted('ROLE_USER')]
     public function meetup(): Response {
         return $this->render('meetup.html.twig', [
             'stylesheets' => $this->stylesheets,
@@ -113,7 +113,7 @@ class BookBinderController extends AbstractController
     }
 
     #[Route("/Book/{id}", name: "Book")]
-   #[IsGranted('ROLE_USER')]
+    #[IsGranted('ROLE_USER')]
     public function book(Request $request, EntityManagerInterface $em, int $id ): Response {
         /*Book details*/
         $book = $em->getRepository(Books::class)->find($id);

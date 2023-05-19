@@ -19,13 +19,13 @@ class BookReviewFormType extends AbstractType
         $builder
             ->add('Rating', TextType::class,[
                 'label'=> 'Rating',
-                'attr'=>['class'=>'Rating',
+                'attr'=>['class'=> 'mb-3  form-control align-self-center ',
                 ],
             ])
             ->add('Feedback',TextareaType::class,[
                 'label'=>'Enter your feedback:',
                 'attr'=>[
-                    'class'=>'Rating',
+                    'class'=>'mb-3 form-control align-self-center',
                 ],
             ])
             ->add('Submit',SubmitType::class,[

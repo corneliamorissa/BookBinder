@@ -3,11 +3,16 @@
 {%  block header %}
     <header class="landing-header">
         <div class="container">
-            <nav class="navbar navbar-expand rounded-3 "  >
+            <nav class="navbar navbar-expand-lg rounded-3" >
                 <div class="container-fluid">
                     <a class="navbar-brand" href="{{ path('LogIn') }}">
                         <img src="{{ asset('/public/assets/logo.png') }}" alt="bookbinderlogo" width="200px">
                     </a>
+
+                    <button class="navbar-toggler bg-white"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                         <div class="navbar-nav" id="nav">
                             <a class="nav-link active" aria-current="page" href="{{ path('LogIn') }}">LogIn</a>
@@ -25,20 +30,20 @@
     <div class="landing-main px-4">
         <div class="container">
             <div class="row justify-content-between">
-                <div class="col-5 landing-main-left">
+                <div class="col-lg-5 landing-main-left mb-3">
                     <h1 class="letters">This week's trendings</h1>
                     <p class="letters"> Trendings to be added later on from the database!</p>
                 </div>
-                <div class="col-4 landing-main-right landing-welcome">
+                <div class="col-lg-4 landing-main-right landing-welcome">
                     <h1 class="WelcomeLbl"> Welcome </h1>
                     <p class="WelcomeP"> Please enter your email and password</p>
                     {% if error %}
                         <div id="flash">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
                         <form action="{{ path('LogIn') }}" method="post">
-                            <div class="mb-3 ">
+                            <div class="mb-3">
                                 <label style="color: #311E69" for="username" class="form-label">User Name:</label>
-                                <input class="form-control align-self-center" type="text" id="username" name="_username" value="{{ last_username }}" required>
+                                <input type="text" class="form-control align-self-center w-100"  id="username" name="_username" value="{{ last_username }}" required>
                             </div>
                             <div class="mb-3">
                                 <label  style="color: #311E69" for="password" class="form-label">Password:</label>

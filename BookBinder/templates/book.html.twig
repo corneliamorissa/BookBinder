@@ -6,38 +6,47 @@
 {% endblock %}
 
 {% block content %}
-    <div class="col-lg Book-left">
-        <h1 id="BookTitle"> {{ title }}</h1>
-        <h3 id="nrOfFollowers"> {{ nrFollowers }} Followers </h3>
-        <div class="Book-pic">
-            <img id="BookPic" src="https://ia800307.us.archive.org/view_archive.php?archive=/5/items/olcovers630/olcovers630-L.zip&file=6301424-L.jpg" alt="BookCover">
-        </div>
-        <p id="BookAuthor">By {{ author }} </p>
-        <p id="BookDetails" class="BookDetails">
-            Number of pages : {{ pages }} <br>
-            ISBN: {{ isbn }} <br>
-            Rating : {{ rating}} <br>
-            Library : {{ library }} <br>
-        </p>
-        <div class="buttons">
-            <input type="submit" value="Vote Book" name="Vote_Book" class="BookBtns">
-            <input type="submit" value="Follow Book" name="Follow_Book" class="BookBtns">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card rounded-3 mb-sm-4 justify-content-sm-center" style="width: 350px; border-color: #6f42c1">
+                    <img id="BookPic" class="rounded-3" src="" alt="BookCover">
+                    <div class="card-body text-center">
+                        <h1 id="BookTitle" class="card-title"> Title loading </h1>
+                        <h3 id="nrOfFollowers"> {{ nrFollowers }} Followers </h3>
+                        <p id="BookAuthor"> Name Loading </p>
+                        <p id="BookDetails" class="BookDetails">
+                            Number of pages : {{ pages }} <br>
+                            ISBN: {{ isbn }} <br>
+                            Rating : {{ rating}} <br>
+                            Library : {{ library }} <br>
+                        </p>
+                        <div class="btn-group buttons">
+                            <input type="submit" value="Vote Book" name="Vote_Book" class="BookBtns">
+                            <input type="submit" value="Follow Book" name="Follow_Book" class="BookBtns">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 ms-lg-5">
+                <div class="container">
+                    <h1 class="text-center"> What do they say about this book? </h1>
+                    <ul class="book_reviews">
+                        <li> I absolutely loved "The Great Godden"! It's a beautifully written coming-of-age story with complex characters and a stunning setting. -Olivia</li>
+                        <li> This book was a slow burn, but once it got going, I couldn't put it down. The writing is gorgeous and the story is both heartbreaking and hopeful. -Ethan</li>
+                        <li> I was completely captivated by the world of "The Great Godden". The author's attention to detail is impressive, and the characters felt so real to me. -Sophia</li>
+                        <li> This is the kind of book that stays with you long after you've finished reading it. I found myself thinking about the characters and their struggles for days afterward. -Isabella</li>
+                        <li> "The Great Godden" is a quiet, introspective novel that explores themes of love, loss, and identity. I highly recommend it to anyone looking for a thought-provoking read. -Anonymous</li>
+                        <li> I loved the subtle tension that runs throughout this book. The author does a fantastic job of building up to a powerful, emotional climax. -Anonymous</li>
+                    </ul>
+                    <h2 class="text-center"> Give review for the book</h2>
+                        {{ form(form) }}
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="Book-right">
-        <h1 id="Book_reviews header"> What do they say about this book? </h1>
-        <ul class="book_reviews">
-            <li> I absolutely loved "The Great Godden"! It's a beautifully written coming-of-age story with complex characters and a stunning setting. -Olivia</li>
-            <li> This book was a slow burn, but once it got going, I couldn't put it down. The writing is gorgeous and the story is both heartbreaking and hopeful. -Ethan</li>
-            <li> I was completely captivated by the world of "The Great Godden". The author's attention to detail is impressive, and the characters felt so real to me. -Sophia</li>
-            <li> This is the kind of book that stays with you long after you've finished reading it. I found myself thinking about the characters and their struggles for days afterward. -Isabella</li>
-            <li> "The Great Godden" is a quiet, introspective novel that explores themes of love, loss, and identity. I highly recommend it to anyone looking for a thought-provoking read. -Anonymous</li>
-            <li> I loved the subtle tension that runs throughout this book. The author does a fantastic job of building up to a powerful, emotional climax. -Anonymous</li>
-        </ul>
-
-        <h2> Give review for the book</h2>
-        {{ form(form) }}
-    </div>
+    <script src="{{ asset('javascript/api.js') }}"></script>
+    <script>fetch_details('{{ isbn }}');</script>
 
 {% endblock %}
