@@ -41,10 +41,6 @@ class BooksRepository extends ServiceEntityRepository
         FROM App\Entity\Library c
         where c.id = :ID
     ')->setParameter('ID', $ID);
-
-       /* $resultArray = $query->getResult();
-        $libraryNames = array_column($resultArray, 'library');*/
-
         return $query->getSingleScalarResult();
     }
 

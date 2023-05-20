@@ -21,27 +21,40 @@
                             Rating : {{ rating}} <br>
                             Library : {{ library }} <br>
                         </p>
-                        <div class="btn-group buttons">
+                        {#<div class="btn-group buttons">
                             <input type="submit" value="Vote Book" name="Vote_Book" class="BookBtns">
                             <input type="submit" value="Follow Book" name="Follow_Book" class="BookBtns">
-                        </div>
+                        </div>#}
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-7 ms-lg-5">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
                 <div class="container">
-                    <h1 class="text-center"> What do they say about this book? </h1>
+                    <h1 class="text-center"> What book lovers say about "{{ title }}" ? </h1>
                     <ul class="book_reviews">
-                        <li> I absolutely loved "The Great Godden"! It's a beautifully written coming-of-age story with complex characters and a stunning setting. -Olivia</li>
-                        <li> This book was a slow burn, but once it got going, I couldn't put it down. The writing is gorgeous and the story is both heartbreaking and hopeful. -Ethan</li>
-                        <li> I was completely captivated by the world of "The Great Godden". The author's attention to detail is impressive, and the characters felt so real to me. -Sophia</li>
-                        <li> This is the kind of book that stays with you long after you've finished reading it. I found myself thinking about the characters and their struggles for days afterward. -Isabella</li>
-                        <li> "The Great Godden" is a quiet, introspective novel that explores themes of love, loss, and identity. I highly recommend it to anyone looking for a thought-provoking read. -Anonymous</li>
-                        <li> I loved the subtle tension that runs throughout this book. The author does a fantastic job of building up to a powerful, emotional climax. -Anonymous</li>
+                        {% if display is not empty %}
+                            {% for item in display %}
+                                <li>{{ item.text }} <strong> ~{{ item.author }} </strong> <br></li>
+                                {#We can display the rate by adding {{ item.rate }} and making the appropriate vhanges to the function getReviewBasedOnBookName#}
+                            {% endfor %}
+                        {% else %}
+                            <h6> No feedback is given for {{ title }} yet. Be the first one!</h6>
+                        {% endif %}
                     </ul>
                     <h2 class="text-center"> Give review for the book</h2>
-                        {{ form(form) }}
+                        {{ form_start(form) }}
+                        {{ form_row(form.author, {'attr': {'value': last_username}}) }}
+                        {{ form_row(form.book, {'attr': {'value': title}}) }}
+                        {{ form_row(form.text) }}
+                        {{ form_row(form.rate) }}
+                        {{ form_end(form) }}
                 </div>
             </div>
         </div>

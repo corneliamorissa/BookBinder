@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Books;
+use App\Entity\Review;
 use App\Form\BookReviewFormType;
 use App\Form\LoginFormType;
 use App\Form\SearchBookFormType;
@@ -118,6 +119,11 @@ class BookBinderController extends AbstractController
         /*Book details*/
         $book = $em->getRepository(Books::class)->find($id);
         $title  =$book->getTitle();
+
+        /*Getting reviews for a book based on the book name*/
+        $display = $em->getRepository(Review::class)->getReviewBasedOnBookName($title);
+        /*End of getting reviews*/
+
         $nrFollowers = $book->getNumberOffollowers();
         $author = $book->getAuthor();
         $pages = $book->getNumberOfpages();
@@ -125,14 +131,18 @@ class BookBinderController extends AbstractController
         $rating = $book->getRating();
         $libraryId = $book->getLibrary();
         $library = $em->getRepository(Books::class)->getLibraryNameById($libraryId);
+
         /*Feedback form*/
-        $form = $this->createForm(BookReviewFormType::class);
+        $reviewform = new Review();
+        $form = $this->createForm(BookReviewFormType::class, $reviewform);
         $form ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $feedBackForm = $form->getData();
-            $em->persist($feedBackForm);
+            $reviewform = $form->getData();
+            $em->persist($reviewform);
             $em->flush();
-            return $this->redirectToRoute('Home'); /*To change this*/
+            /*Message to be displayed in the case of successful review submission and the reload the page to prevent multiple submissions by reloading the page!*/
+            $this->addFlash('success', 'Your review was submitted successfully!');
+            return $this->redirectToRoute('Book', ['id' => $id]);
         }
 
         return $this->render('book.html.twig', [
@@ -145,7 +155,8 @@ class BookBinderController extends AbstractController
             'pages'=>$pages,
             'isbn'=>$isbn,
             'rating'=>$rating,
-            'library'=>$library
+            'library'=>$library,
+            'display' => $display,
         ]);
     }
 

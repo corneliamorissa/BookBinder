@@ -118,20 +118,18 @@ class Library
         $this->postcode = $postcode;
     }
 
-    //Not tested yet
-    static function getLibraryByID(int $ID) : ?Library {
+    //Not used- Kept for reference
+    /*static function getLibraryByID(int $ID) : ?Library {
         $db = Db::getConnection();
         $stm = $db->prepare('SELECT id, name,street, housenumber, postcode FROM libraries WHERE id = :ID;');
         $stm->execute([':ID' => $ID]);
-
         $library = null;
         while($item = $stm->fetch()) {
             $library = new Library($item['Name'],$item['Street'],$item['Housenumber'],$item['Postcode']);
             $library -> setId($item['LibraryID']);
         }
-
         return $library;
-    }
+    }*/
 
 
 }
