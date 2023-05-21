@@ -74,18 +74,18 @@ class RegistrationController extends AbstractController
                 'mapped' => true,
                 'label' => 'User Name',
                 'attr' => [
-                    'class' => 'field-form',
+                    'class' => 'form-control field-form',
                     'placeholder' => 'Enter your user name'
                 ]
             ])->add('password', RepeatedType::class,[
                 'mapped' => true,
                 'type' => PasswordType::class,
                 'first_options'  => array('label' => 'Password', 'attr' => [
-                    'class' => 'field-form',
+                    'class' => 'form-control field-form',
                     'placeholder' => 'Enter your password'
                 ]),
                 'second_options' => array('label' => 'Repeat Password', 'attr' => [
-                    'class' => 'field-form',
+                    'class' => 'form-control field-form',
                     'placeholder' => 'Enter your password'
                 ])
 
@@ -93,7 +93,7 @@ class RegistrationController extends AbstractController
                 'mapped' => true,
                 'label' => 'First Name',
                 'attr' => [
-                    'class' => 'field-form',
+                    'class' => 'form-control field-form',
                     'placeholder' => 'Enter your first name'
                 ]
             ])
@@ -101,7 +101,7 @@ class RegistrationController extends AbstractController
                 'mapped' => true,
                 'label' => 'Last Name',
                 'attr' => [
-                    'class' => 'field-form',
+                    'class' => 'form-control field-form',
                     'placeholder' => 'Enter your last name'
                 ]
             ])
@@ -119,7 +119,7 @@ class RegistrationController extends AbstractController
                 'mapped' => true,
                 'label' => 'Street',
                 'attr' => [
-                    'class' => 'field-form',
+                    'class' => 'form-control field-form',
                     'placeholder' => 'Enter your Address'
                 ]
             ])
@@ -127,7 +127,7 @@ class RegistrationController extends AbstractController
                 'mapped' => true,
                 'label'=>'House nr.',
                 'attr'=>[
-                    'class'=> 'field-form',
+                    'class'=> 'form-control field-form',
                     'placeholder'=>"House nr",
                 ]
             ])
@@ -142,7 +142,7 @@ class RegistrationController extends AbstractController
                 'mapped' => true,
                 'label'=>'Post code',
                 'attr'=>[
-                    'class'=> 'field-form',
+                    'class'=> 'form-control field-form',
                     'placeholder'=>"Post code",
                 ]
             ])

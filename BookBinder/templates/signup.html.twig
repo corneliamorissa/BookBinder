@@ -1,14 +1,22 @@
 {% extends 'base.html.twig' %}
-{% block stylesheet%} <link href="{{ asset('css/SignUp.css') }}" rel="stylesheet" /> {% endblock %}
+{% block stylesheet%}
+    {{ parent() }}
+    <link href="{{ asset('css/SignUp.css') }}" rel="stylesheet" />
+{% endblock %}
 {#Header updated with bootstrap#}
 {%  block header %}
     <header class="landing-header">
         <div class="container">
-            <nav class="navbar navbar-expand rounded-3 " style="background-color: #311E69;" >
+            <nav class="navbar navbar-expand-lg rounded-3" >
                 <div class="container-fluid">
                     <a class="navbar-brand" href="{{ path('LogIn') }}">
-                        <img src="{{ asset('/assets/logo.png') }}" alt="bookbinderlogo" width="200px">
+                        <img src="{{ asset('/public/assets/logo.png') }}" alt="bookbinderlogo" width="200px">
                     </a>
+
+                    <button class="navbar-toggler bg-white"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                         <div class="navbar-nav" id="nav">
                             <a class="nav-link active" aria-current="page" href="{{ path('LogIn') }}">LogIn</a>
@@ -22,9 +30,10 @@
 {% endblock %}
 
 {#No bootstrap required here#}
+{#No bootstrap required here#}
 {% block content %}
-    <div class="landing-main">
-        <div class="landing-welcome">
+    <div class="landing-m">
+        <div class="landing-wel">
             <h1 class="signUpLbl"> Sign Up </h1>
             <p class="signUpLbl2"> Please enter the required information</p>
             <div class="form">
@@ -57,6 +66,7 @@
         </div>
     </div>
 {% endblock %}
+
 
 {#No bootstrap required here#}
 {% set footer_class = 'landing-footer' %}

@@ -40,9 +40,7 @@ class SignUpFormType extends AbstractType
                     'placeholder' => 'Choose one for your avatar'
                 ]
             ]
-
         )
-
             ->add('username', TextType::class,[
             'label' => 'User Name',
             'attr' => [
