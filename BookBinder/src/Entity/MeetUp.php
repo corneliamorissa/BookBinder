@@ -20,7 +20,7 @@ class MeetUp
     #[JoinColumn(name: 'id_user_invited', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
     private int $id_user_invited;
-    #[ORM\Column(type: "datetime")]
+    #[ORM\Column(type: "DateTime")]
     private string $date_time;
     #[ORM\Column(type: "integer", nullable: true)]
     private int $accepted;
