@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 use App\Repository\MeetUpRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Type;
 
@@ -22,7 +23,7 @@ class MeetUp
     #[ORM\Column(type: "integer", nullable: false)]
     private int $id_user_invited;
     #[ORM\Column(type: "datetime")]
-    private \DateTime $date_time;
+    private DateTime $date_time;
     #[ORM\Column(type: "integer", nullable: true)]
     private int $accepted;
     #[ORM\Column(type: "integer", nullable: true)]
@@ -35,12 +36,12 @@ class MeetUp
     /**
      * @param int $id_user_inviter
      * @param int $id_user_invited
-     * @param string $date_time
+     * @param DateTime $date_time
      * @param int $accepted
      * @param int $declined
      * @param int $id_library
      */
-    public function __construct(int $id_user_inviter, int $id_user_invited, string $date_time, int $accepted, int $declined, int $id_library)
+    public function __construct(int $id_user_inviter, int $id_user_invited, DateTime $date_time, int $accepted, int $declined, int $id_library)
     {
         $this->id_user_inviter = $id_user_inviter;
         $this->id_user_invited = $id_user_invited;
@@ -83,7 +84,7 @@ class MeetUp
     }
 
     /**
-     * @return string
+     * @return DateTime
      */
     public function getDateTime(): string
     {
@@ -91,9 +92,9 @@ class MeetUp
     }
 
     /**
-     * @param string $date_time
+     * @param DateTime $date_time
      */
-    public function setDateTime(string $date_time): void
+    public function setDateTime(DateTime $date_time): void
     {
         $this->date_time = $date_time;
     }
