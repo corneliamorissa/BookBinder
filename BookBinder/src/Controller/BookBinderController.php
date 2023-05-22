@@ -103,8 +103,7 @@ class BookBinderController extends AbstractController
         $allAcceptedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID,'accepted' => 1,'declined' => 0]);
 
         /* Form to invite someone*/
-        $meetupform = new MeetUp();
-        $meetupform ->setIdUserInviter($userID);
+        $meetupform = new MeetUp($userID,0,'2024-03-31 11:31:30',0,0,0);
         $form = $this->createForm(MeetUpInviteFormType::class);
         if($form->isSubmitted() && $form->isValid()) {
             $meetupform = $form->getData();
