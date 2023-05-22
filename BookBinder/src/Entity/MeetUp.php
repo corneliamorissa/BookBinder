@@ -21,7 +21,7 @@ class MeetUp
     #[ORM\Column(type: "integer", nullable: false)]
     private int $id_user_invited;
     #[ORM\Column(type: "DateTime")]
-    private string $date_time;
+    private \DateTime $date_time;
     #[ORM\Column(type: "integer", nullable: true)]
     private int $accepted;
     #[ORM\Column(type: "integer", nullable: true)]
