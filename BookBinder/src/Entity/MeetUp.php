@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Entity;
-use App\Repository\LoginUserRepository;
+use App\Repository\MeetUpRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Type;
 
 #[ORM\Entity(repositoryClass: MeetUpRepository :: class)]
 #[ORM\Table("meetup")]
@@ -21,26 +23,32 @@ class MeetUp
     #[ORM\Column(type: "integer", nullable: false)]
     private int $id_user_invited;
     #[ORM\Column(type: "datetime")]
-    private string $date_time;
+    private DateTime $date_time;
     #[ORM\Column(type: "integer", nullable: true)]
     private int $accepted;
     #[ORM\Column(type: "integer", nullable: true)]
     private int $declined;
 
+    #[ManyToOne(targetEntity: Library::class)]
+    #[JoinColumn(name: 'id_library', referencedColumnName: 'id')]
+    #[ORM\Column(type: "integer", nullable: false)]
+    private int $id_library;
     /**
      * @param int $id_user_inviter
      * @param int $id_user_invited
-     * @param string $date_time
+     * @param DateTime $date_time
      * @param int $accepted
      * @param int $declined
+     * @param int $id_library
      */
-    public function __construct(int $id_user_inviter, int $id_user_invited, string $date_time, int $accepted, int $declined)
+    public function __construct(int $id_user_inviter, int $id_user_invited, DateTime $date_time, int $accepted, int $declined, int $id_library)
     {
         $this->id_user_inviter = $id_user_inviter;
         $this->id_user_invited = $id_user_invited;
         $this->date_time = $date_time;
         $this->accepted = $accepted;
         $this->declined = $declined;
+        $this->id_library = $id_library;
     }
 
     /**
@@ -76,17 +84,17 @@ class MeetUp
     }
 
     /**
-     * @return string
+     * @return DateTime
      */
-    public function getDateTime(): string
+    public function getDateTime(): DateTime
     {
         return $this->date_time;
     }
 
     /**
-     * @param string $date_time
+     * @param DateTime $date_time
      */
-    public function setDateTime(string $date_time): void
+    public function setDateTime(DateTime $date_time): void
     {
         $this->date_time = $date_time;
     }
@@ -121,6 +129,22 @@ class MeetUp
     public function setDeclined(int $declined): void
     {
         $this->declined = $declined;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdLibrary(): int
+    {
+        return $this->id_library;
+    }
+
+    /**
+     * @param int $id_library
+     */
+    public function setIdLibrary(int $id_library): void
+    {
+        $this->id_library = $id_library;
     }
 
 

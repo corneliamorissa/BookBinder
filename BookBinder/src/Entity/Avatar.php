@@ -21,6 +21,27 @@ class Avatar
     #[ORM\Column(type: "blob",length: 16777215, nullable: false)]
     private $image;
 
+    #[ORM\OneToMany(mappedBy: 'avatar', targetEntity: User::class)]
+    private Collection $users;
+
+    /**
+     * @return Collection
+     */
+    public function getUsers() : Collection
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param Collection $users
+     * @return Avatar
+     */
+    public function setUsers(Collection $users): Avatar
+    {
+        $this->users = $users;
+        return $this;
+    }
+
     public string $dataUri;
 
     private $rawPhoto;
@@ -41,16 +62,18 @@ class Avatar
         $this->dataUri = $dataUri;
     }
 
+
     /**
      * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
      * @param int|null $id
+     * @return Avatar
      */
     public function setId(?int $id): Avatar
     {
@@ -58,15 +81,10 @@ class Avatar
         return $this;
     }
 
-    public function displayAvatar()
+    public function __toString()
     {
-        if(null === $this->rawPhoto) {
-            $this->rawPhoto = "data:image/png;base64," . base64_encode(stream_get_contents($this->getImage()));
-        }
-
-        return $this->rawPhoto;
+        return (string) $this->id;
     }
-
 
     public function __construct() {
         }
@@ -89,7 +107,7 @@ class Avatar
 
     public function setAvatar(User $user) : Avatar
     {
-        $this->user = $user;
+        $this->users = $user;
         return $this;
     }
 

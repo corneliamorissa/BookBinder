@@ -26,46 +26,69 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class SignUpFormType extends AbstractType
 {
 
+    public EntityManagerInterface $entityManager;
 
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('avatar', EntityType::class,[
+
+        $builder->add('avatar', EntityType::class, [
             'class' => Avatar::class,
-                'choices' => AvatarRepository::class->findAllAvatar(),
-            'choice_label' => 'id',
-            'multiple' => true, // allow multiple selection
-            'expanded' => true,  // render checkbox in stead of select box
+            'mapped' => true,
+            'expanded' => true,
+            'required' => true,
+            'label' => '',
+            'block_name' => 'custom_avatar',
+            'attr' => [
+                'class' => 'avatar-choice',
+                'id' => 'avatar-choices',
+                'placeholder' => 'Choose one for your avatar'
+            ],
+            'choice_attr' => function ($avatar) {
+                $dataUri = ''; // Initialize the data URI
+
+                if ($avatar) {
+                    $avatarId = $avatar->getId(); // Access the ID of the Avatar entity
+                    $imageBlob = $avatar->getImage();
+                    $base64Image = base64_encode(stream_get_contents($imageBlob));
+                    $dataUri = 'data:image/png;base64,' . $base64Image;
+                }
+
+                return ['data-image-url' => $dataUri]; // Use the ID as the key
+            },
+        ])
+            ->add('username', TextType::class,[
+                'mapped' => true,
+                'label' => 'User Name',
                 'attr' => [
                     'class' => 'field-form',
-                    'placeholder' => 'Choose one for your avatar'
+                    'placeholder' => 'Enter your user name'
                 ]
-            ]
-        )
-            ->add('username', TextType::class,[
-            'label' => 'User Name',
-            'attr' => [
-                'class' => 'field-form',
-                'placeholder' => 'Enter your user name'
-            ]
-        ])->add('password', RepeatedType::class,[
-            'type' => PasswordType::class,
-            'first_options'  => array('label' => 'Password', 'attr' => [
-                'class' => 'field-form',
-                'placeholder' => 'Enter your password'
-            ]),
-            'second_options' => array('label' => 'Repeat Password', 'attr' => [
-                'class' => 'field-form',
-                'placeholder' => 'Enter your password'
-            ])
+            ])->add('password', RepeatedType::class,[
+                'mapped' => true,
+                'type' => PasswordType::class,
+                'first_options'  => array('label' => 'Password', 'attr' => [
+                    'class' => 'field-form',
+                    'placeholder' => 'Enter your password'
+                ]),
+                'second_options' => array('label' => 'Repeat Password', 'attr' => [
+                    'class' => 'field-form',
+                    'placeholder' => 'Enter your password'
+                ])
 
-        ])->add('first_name', TextType::class,[
-            'label' => 'First Name',
-            'attr' => [
-                'class' => 'field-form',
-                'placeholder' => 'Enter your first name'
-            ]
-        ])
+            ])->add('first_name', TextType::class,[
+                'mapped' => true,
+                'label' => 'First Name',
+                'attr' => [
+                    'class' => 'field-form',
+                    'placeholder' => 'Enter your first name'
+                ]
+            ])
             ->add('last_name', TextType::class, [
+                'mapped' => true,
                 'label' => 'Last Name',
                 'attr' => [
                     'class' => 'field-form',
@@ -76,12 +99,14 @@ class SignUpFormType extends AbstractType
                 'placeholder' => [
                     'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
                 ],
+                'mapped' => true,
                 'label' => 'Date of birth',
                 'attr' => [
                     'class' => 'date-form',
                 ]
             ])
             ->add('street', TextType::class,[
+                'mapped' => true,
                 'label' => 'Street',
                 'attr' => [
                     'class' => 'field-form',
@@ -89,33 +114,21 @@ class SignUpFormType extends AbstractType
                 ]
             ])
             ->add('house_number', TextType::class,[
+                'mapped' => true,
                 'label'=>'House nr.',
                 'attr'=>[
                     'class'=> 'field-form',
                     'placeholder'=>"House nr",
                 ]
             ])
-//            ->add('City', TextType::class,[
-//                'label'=>'City',
-//                'attr'=>[
-//                    'class'=> 'field-form',
-//                    'placeholder'=>'City',
-//                ]
-//            ])
             ->add('postcode', TextType::class,[
+                'mapped' => true,
                 'label'=>'Post code',
                 'attr'=>[
                     'class'=> 'field-form',
                     'placeholder'=>"Post code",
                 ]
             ])
-//            ->add('Library', TextType::class,[
-//                'label'=>'Library',
-//                'attr'=>[
-//                    'class'=> 'field-form',
-//                    'placeholder'=>"Library name",
-//                ]
-//            ])
             ->add('terms_and_condition', CheckboxType::class,[
                 'mapped' => false,
                 'label' => 'By signing up, you agree to our Terms & Conditions ',
@@ -131,7 +144,6 @@ class SignUpFormType extends AbstractType
                 ]
             ])
         ;
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void
