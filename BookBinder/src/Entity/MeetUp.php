@@ -86,7 +86,7 @@ class MeetUp
     /**
      * @return DateTime
      */
-    public function getDateTime(): string
+    public function getDateTime(): DateTime
     {
         return $this->date_time;
     }
