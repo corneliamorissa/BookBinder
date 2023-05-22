@@ -27,20 +27,27 @@ class MeetUp
     #[ORM\Column(type: "integer", nullable: true)]
     private int $declined;
 
+    #[ManyToOne(targetEntity: Library::class)]
+    #[JoinColumn(name: 'id_library', referencedColumnName: 'id')]
+    #[ORM\Column(type: "integer", nullable: false)]
+    private int $id_library;
+
     /**
      * @param int $id_user_inviter
      * @param int $id_user_invited
      * @param string $date_time
      * @param int $accepted
      * @param int $declined
+     * @param int $id_library
      */
-    public function __construct(int $id_user_inviter, int $id_user_invited, string $date_time, int $accepted, int $declined)
+    public function __construct(int $id_user_inviter, int $id_user_invited, string $date_time, int $accepted, int $declined, int $id_library)
     {
         $this->id_user_inviter = $id_user_inviter;
         $this->id_user_invited = $id_user_invited;
         $this->date_time = $date_time;
         $this->accepted = $accepted;
         $this->declined = $declined;
+        $this->id_library = $id_library;
     }
 
     /**
@@ -121,6 +128,22 @@ class MeetUp
     public function setDeclined(int $declined): void
     {
         $this->declined = $declined;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdLibrary(): int
+    {
+        return $this->id_library;
+    }
+
+    /**
+     * @param int $id_library
+     */
+    public function setIdLibrary(int $id_library): void
+    {
+        $this->id_library = $id_library;
     }
 
 
