@@ -24,11 +24,11 @@ class AvatarRepository extends ServiceEntityRepository
     }
 
 
-    public function findAllAvatar() : array {
+    public function findAllId() : array {
         $entityManager = $this->getEntityManager();
         // ref: https://www.doctrine-project.org/projects/doctrine-orm/en/current/reference/dql-doctrine-query-language.html
         $query = $entityManager->createQuery('
-                SELECT a.image FROM App\Entity\Avatar a
+                SELECT a.id FROM App\Entity\Avatar a
         ');
         return $query->getResult();
     }

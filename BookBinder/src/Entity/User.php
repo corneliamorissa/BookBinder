@@ -33,13 +33,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: false)]
     private ?\DateTime $birthdate = null;
-    #[ORM\Column(type: "integer", nullable: false)]
+    #[ORM\Column(type: "integer", nullable: false,  options: ["default" => 0])]
     private ?int $private_account = null;
 
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $avatar_id = null;
 
-    #[OneToOne(targetEntity: Avatar::class)]
+    #[ManyToOne(targetEntity: Avatar::class, inversedBy: "users")]
     #[JoinColumn(name: 'avatar_id', referencedColumnName: 'id')]
-    private Avatar $avatar_id;
+    private ?Avatar $avatar;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
@@ -78,6 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
+        $this->private_account = 0;
     }
 
     /**
@@ -227,15 +230,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
 
-
-    public function getAvatar(): ?Avatar
+    public function getAvatarId(): ?int
     {
         return $this->avatar_id;
     }
 
+    public function setAvatarId(?int $avatar_id): User
+    {
+        $this->avatar_id= $avatar_id;
+        return $this;
+    }
+
+    public function getAvatar(): ?Avatar
+    {
+        return $this->avatar;
+    }
+
     public function setAvatar(?Avatar $avatar): User
     {
-        $this->avatar_id = $avatar;
+        $this->avatar= $avatar;
         return $this;
     }
 
