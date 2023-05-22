@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Books;
 use App\Entity\MeetUp;
+use App\Entity\Library;
 use App\Entity\Review;
 use App\Form\BookReviewFormType;
 use App\Form\LoginFormType;
@@ -44,6 +45,7 @@ class BookBinderController extends AbstractController
     #[Route("/Home", name: "Home")]
     #[IsGranted('ROLE_USER')]
     public function home(EntityManagerInterface $em): Response {
+        $library = $em->getRepository(Library::class)->findNearestLibrary($this->lastUsername);
 
         $books = $em->getRepository(Books::class)->findTopBooks();
 
@@ -52,6 +54,7 @@ class BookBinderController extends AbstractController
             'stylesheets' => $this->stylesheets,
             'last_username' => $this->lastUsername,
             'books' => $books,
+            'library' => $library
         ]);
     }
 

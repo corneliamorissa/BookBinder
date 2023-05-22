@@ -45,19 +45,16 @@
                             Discover trending books, recommend them to others, and connect with like-minded readers on our website. Join a vibrant community of book lovers and engage in meaningful discussions about your favorite reads.
                         </p>
                     </div>
-                    <h1 id="nearest" class="text-center mt-lg-3">Your nearest library</h1>
+                    <h1 id="nearest" class="text-center mt-lg-4">Your nearest library</h1>
                     <div class="card rounded-2 mb-3">
                         <div class="row g-0">
                             <div class="col-md-4 rounded-2" style="background: #6f42c1">
-                                <h3 class="text-center mt-lg-5 bibname">Bib Tweebronen</h3>
+                                <h3 class="text-center mt-lg-4 bibname">{{ library.name }}</h3>
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <p>Opening Hours</p>
-                                    <ul>
-                                        <li>Mon - Fri 08:00 - 22:00</li>
-                                        <li>Sat 08:00 - 20:00</li>
-                                    </ul>
+                                    <p>{{ library.name }} Address : </p>
+                                    <p>{{ library.street }} {{ library.housenumber }}</p>
                                 </div>
                             </div>
                         </div>
