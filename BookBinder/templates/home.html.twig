@@ -13,7 +13,7 @@
                                 <img id="BookPic" class="rounded-3" src="" alt="BookCover">
                                 <h3 id="booktitle"> {{ book.title }} </h3>
                                 <h4 id="bookauthor"> {{ book.author }}</h4>
-                                <p id="bookgenres"> People who loves the book : {{ book.number_of_followers }}</p>
+                                <p id="bookgenres"> Book followers : {{ book.number_of_followers }}</p>
                             </div>
                             <script src="{{ asset('javascript/api.js') }}"></script>
                             <script>fetch_details('{{ book.isbn }}');</script>
