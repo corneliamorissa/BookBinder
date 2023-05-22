@@ -14,6 +14,7 @@ use App\Form\SignUpFormType;
 use App\Form\UserDetailsType;
 use App\Repository\UserRepository;
 use App\Service\AuthenticationService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use http\Client\Curl\User;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -106,7 +107,8 @@ class BookBinderController extends AbstractController
         $allAcceptedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID,'accepted' => 1,'declined' => 0]);
 
         /* Form to invite someone*/
-        $meetupform = new MeetUp($userID,0,'2024-03-31 11:31:30',0,0,0);
+        $datetime = new DateTime();
+        $meetupform = new MeetUp($userID,0,$datetime,0,0,0);
         $form = $this->createForm(MeetUpInviteFormType::class);
         if($form->isSubmitted() && $form->isValid()) {
             $meetupform = $form->getData();
