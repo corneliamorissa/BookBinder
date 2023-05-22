@@ -3,6 +3,7 @@
 namespace App\Entity;
 use App\Repository\MeetUpRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Type;
 
 #[ORM\Entity(repositoryClass: MeetUpRepository :: class)]
 #[ORM\Table("meetup")]
@@ -20,7 +21,7 @@ class MeetUp
     #[JoinColumn(name: 'id_user_invited', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
     private int $id_user_invited;
-    #[ORM\Column(type: "DateTime")]
+    #[ORM\Column(type: "datetime")]
     private \DateTime $date_time;
     #[ORM\Column(type: "integer", nullable: true)]
     private int $accepted;
@@ -31,7 +32,6 @@ class MeetUp
     #[JoinColumn(name: 'id_library', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
     private int $id_library;
-
     /**
      * @param int $id_user_inviter
      * @param int $id_user_invited
