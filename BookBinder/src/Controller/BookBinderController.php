@@ -96,12 +96,11 @@ class BookBinderController extends AbstractController
     public function meetup(Request $request, EntityManagerInterface $em): Response {
         $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
         $userID = $user->getID();
-        $allMeetups = array_merge($em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID],
-                                $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID])));
         $allSentMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID]);
         $allReceivedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID]);
-        $allOpenMeetups = $em->getRepository(MeetUp::class)->findBy([['id_user_inviter' => $userID],['accepted' => 0],['declined' => 0]]);
-        $allAcceptedMeetups = $em->getRepository(MeetUp::class)->findBy([['id_user_inviter' => $userID],['accepted' => 0],['declined' => 0]]);
+        $allMeetups = array_merge($allSentMeetups,$allReceivedMeetups);
+        $allOpenMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID,'accepted' => 0,'declined' => 0]);
+        $allAcceptedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID,'accepted' => 1,'declined' => 0]);
 
         /* Form to invite someone*/
         $meetupform = new MeetUp();
