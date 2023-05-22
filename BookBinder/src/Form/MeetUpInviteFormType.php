@@ -23,9 +23,7 @@ class MeetUpInviteFormType extends AbstractType
             ])
             ->add('date', DateTimeType::class, [
                 'label' => 'Date:',
-                'attr' => [
-                    'class' => 'mb-3 form-control align-self-center', // class needs to change to dropdown menu for selecting date
-                ],
+                'format' => 'Y-MM-dd HH-mm-ss',
             ])
             ->add('library', TextareaType::class, [
                 'label' => 'Library:',
