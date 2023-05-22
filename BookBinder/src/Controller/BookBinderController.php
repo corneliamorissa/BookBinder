@@ -132,6 +132,9 @@ class BookBinderController extends AbstractController
     #[Route("/User", name: "User")]
     #[IsGranted('ROLE_USER')]
     public function user(Request $request, EntityManagerInterface $em): Response {
+        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $userID = $user->getID();
+        //$user = $em ->getRepository(User::class) -> find($id);
         $form = $this->createForm(UserDetailsType::class);
         $form ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){

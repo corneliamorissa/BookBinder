@@ -27,4 +27,6 @@ class UserpageController extends AbstractController
         $this -> user = $this -> myUserRepository -> find(["id"=> $userId]);
         return $this ->user;
     }
+     //#[Route('/User/{id}', name: 'product_show')]
+
 }
