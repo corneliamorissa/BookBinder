@@ -44,5 +44,30 @@ class BooksRepository extends ServiceEntityRepository
         return $query->getSingleScalarResult();
     }
 
+    public function findTopBooks() : array {
+        $queryBuilder = $this->createQueryBuilder('b')
+            ->select('b.id', 'b.title', 'b.author', 'b.rating','b.isbn', 'b.number_of_followers' )
+            ->orderBy('b.rating', 'DESC')
+            ->addOrderBy('b.number_of_followers', 'DESC')
+            ->setMaxResults(3);
+
+        $result = $queryBuilder->getQuery()->getScalarResult();
+
+        $books = [];
+        foreach ($result as $row) {
+            $book = [
+                'id' => $row['id'],
+                'title' => $row['title'],
+                'author' => $row['author'],
+                'rating' => $row['rating'],
+                'isbn' => $row['isbn'],
+                'number_of_followers' => $row['number_of_followers'],
+            ];
+            $books[] = $book;
+        }
+
+        return $books;
+    }
+
 
 }
