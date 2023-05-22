@@ -40,6 +40,8 @@ class RegistrationController extends AbstractController
     #[Route("/SignUp", name: "SignUp")]
     public function signup(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, AvatarRepository $ap): Response {
 
+        $avatar = $entityManager->getRepository(Avatar::class)->findAll();
+
         $form = null;
         $form = $this->createForm(SignUpFormType::class);
         $form->handleRequest($request);
@@ -71,6 +73,7 @@ class RegistrationController extends AbstractController
         return $this->render('signup.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
+            'avatar' => $avatar
         ]);
     }
 }

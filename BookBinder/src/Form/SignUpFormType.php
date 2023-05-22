@@ -121,13 +121,6 @@ class SignUpFormType extends AbstractType
                     'placeholder'=>"House nr",
                 ]
             ])
-//            ->add('City', TextType::class,[
-//                'label'=>'City',
-//                'attr'=>[
-//                    'class'=> 'field-form',
-//                    'placeholder'=>'City',
-//                ]
-//            ])
             ->add('postcode', TextType::class,[
                 'mapped' => true,
                 'label'=>'Post code',
@@ -136,13 +129,6 @@ class SignUpFormType extends AbstractType
                     'placeholder'=>"Post code",
                 ]
             ])
-//            ->add('Library', TextType::class,[
-//                'label'=>'Library',
-//                'attr'=>[
-//                    'class'=> 'field-form',
-//                    'placeholder'=>"Library name",
-//                ]
-//            ])
             ->add('terms_and_condition', CheckboxType::class,[
                 'mapped' => false,
                 'label' => 'By signing up, you agree to our Terms & Conditions ',

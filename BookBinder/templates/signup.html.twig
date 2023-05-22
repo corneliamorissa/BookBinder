@@ -38,21 +38,61 @@
             <p class="signUpLbl2"> Please enter the required information</p>
             <div class="form">
 
+                <form method="{{ form.vars.method }}" action="{{ form.vars.action }}">
+                    {{ form_start(form) }}
 
-
-                    {{ form_label(form.avatar, 'Choose Your Avatar', {'label_attr': {'class': 'required'}}) }}
-                    <div class="form-widget" style="display: grid; grid-template-columns: auto auto auto; align-items: center">
-                        {% for choice in form.avatar %}
-                            <label class="avatar-choice" style="padding: 20px">
-                                <img src="{{ choice.vars['attr']['data-image-url'] }}" alt="Avatar" style="width: 50px; height: 50px;">
-                                {{ form_label(choice) }}
-                            </label>
-                        {% endfor %}
+                    <div class="custom-form">
+                        {# Render each form field manually #}
+                        <div class="form-row" style="width: 400px">
+                            <div class="form-widget" style="display: grid; grid-template-columns: auto auto auto; align-items: center">
+                                {% for choice in form.avatar %}
+                                    <label for="avatar" class="avatar-choice" style="padding: 20px">
+                                        {% if choice.vars['attr']['data-image-url'] is defined %}
+                                            <img src="{{ choice.vars['attr']['data-image-url'] }}" alt="Avatar" style="width: 50px; height: 50px;">
+                                        {% endif %}
+                                        {{ form_label(choice) }}
+                                        {{ form_widget(choice, {'attr': {'class': 'avatar-choice', 'id': 'avatar'}}) }}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                            {{ form_errors(form.avatar) }}
+                        </div>
+                        {{ form_row(form.username) }}
+                        {{ form_row(form.password) }}
+                        {{ form_row(form.first_name) }}
+                        {{ form_row(form.last_name) }}
+                        {{ form_row(form.birthdate) }}
+                        {{ form_row(form.street) }}
+                        {{ form_row(form.house_number) }}
+                        {{ form_row(form.postcode) }}
+                        {{ form_row(form.terms_and_condition) }}
                     </div>
 
+                    <div class="custom-form-signup">
+                        {{ form_row(form.submit) }}
+                    </div>
 
+                    {{ form_end(form) }}
+                </form>
 
-                {{ form(form) }}
+                {#{% block custom_avatar %}
+                    <div class="form-row" style="width: 400px" >
+                        <div class="form-widget" style="display: grid; grid-template-columns: auto auto auto; align-items: center">
+                            {% for choice in form.avatar %}
+                                <label for='avatar' class="avatar-choice" style="padding: 20px">
+                                    {% if choice.vars['attr']['data-image-url'] is defined %}
+                                        <img src="{{ choice.vars['attr']['data-image-url'] }}" alt="Avatar" style="width: 50px; height: 50px;">
+                                    {% endif %}
+                                    {{ form_label(choice) }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                        {{ form_errors(form) }}
+                    </div>
+                {% endblock custom_avatar %}
+
+                {{ form(form) }}#}
+
 
 
             </div>
