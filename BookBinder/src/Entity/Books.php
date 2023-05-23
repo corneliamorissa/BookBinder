@@ -40,6 +40,8 @@ class Books
 
     #[OneToMany(mappedBy: "id", targetEntity: UserBook::class)]
     private $userbooks;
+
+
     public function __construct(string $title,int $numberOfPages,string $author, string $isbn, int $numberOfFollowers,
                                 int $libraryID, float $rating, int $numberOfVotes ) {
         $this->title = $title;

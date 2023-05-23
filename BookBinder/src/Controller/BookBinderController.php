@@ -59,7 +59,27 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-
+    #[Route("/User", name: "User")]
+    #[IsGranted('ROLE_USER')]
+    public function user(Request $request, EntityManagerInterface $em): Response {
+        $user = $em->getRepository(\App\Entity\User::class)->findUserByName($this->lastUsername);
+        $library = $em->getRepository(Library::class)->findNearestLibrary($this->lastUsername);
+        $form = $this->createForm(UserDetailsType::class);
+        $form ->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $feedBackForm = $form->getData();
+            $em->persist($feedBackForm);
+            $em->flush();
+            return $this->redirectToRoute('Home');
+        }
+        return $this->render('user.html.twig', [
+            'stylesheets' => $this->stylesheets,
+            'form'=>$form->createView(),
+            'last_username' => $this->lastUsername,
+            'user' => $user,
+            'library' => $library
+        ]);
+    }
     #[Route("/privacypolicy", name: "privacypolicy")]
     #[IsGranted('ROLE_USER')]
     public function privacypolicy(): Response {
@@ -129,26 +149,7 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-    #[Route("/User", name: "User")]
-    #[IsGranted('ROLE_USER')]
-    public function user(Request $request, EntityManagerInterface $em): Response {
-        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
-        $userID = $user->getID();
-        //$user = $em ->getRepository(User::class) -> find($id);
-        $form = $this->createForm(UserDetailsType::class);
-        $form ->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $feedBackForm = $form->getData();
-            $em->persist($feedBackForm);
-            $em->flush();
-            return $this->redirectToRoute('Home');
-        }
-        return $this->render('user.html.twig', [
-            'stylesheets' => $this->stylesheets,
-            'form'=>$form->createView(),
-            'last_username' => $this->lastUsername
-        ]);
-    }
+
 
     #[Route("/Book/{id}", name: "Book")]
     #[IsGranted('ROLE_USER')]

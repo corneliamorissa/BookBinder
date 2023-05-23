@@ -28,6 +28,7 @@ class UserDetailsType extends AbstractType
                 ],
                 'disabled'=>true,
             ])
+            /*
             ->add('Date_of_birth', TextType::class,[
                 'label'=>'Date of birth',
                 'attr'=>[
@@ -36,14 +37,14 @@ class UserDetailsType extends AbstractType
                 ],
                 'disabled'=>true,
             ])
-            ->add('Address', TextType::class,[
+           /* ->add('Address', TextType::class,[
                 'label'=>'Address',
                 'attr'=>[
                     'class'=> 'Field',
                     'value'=>"Attendreef 41",
                 ],
                 'disabled'=>true,
-            ])
+            ])/*
             ->add('house_number', TextType::class,[
                 'label'=>'House nr.',
                 'attr'=>[
@@ -51,7 +52,7 @@ class UserDetailsType extends AbstractType
                     'value'=>"1130",
                 ],
                 'disabled'=>true,
-            ])
+            ])/*
             ->add('City', TextType::class,[
                 'label'=>'City',
                 'attr'=>[
@@ -59,7 +60,8 @@ class UserDetailsType extends AbstractType
                     'value'=>"Holsbeek",
                 ],
                 'disabled'=>true,
-            ])->add('Post_code', TextType::class,[
+
+            ])/*->add('Post_code', TextType::class,[
                 'label'=>'Post code',
                 'attr'=>[
                     'class'=> 'Field',
@@ -67,6 +69,7 @@ class UserDetailsType extends AbstractType
                 ],
                 'disabled'=>true,
             ])
+            /*
             ->add('Library', TextType::class,[
                 'label'=>'Library',
                 'attr'=>[
@@ -75,6 +78,7 @@ class UserDetailsType extends AbstractType
                 ],
                 'disabled'=>true,
             ])
+            */
         ;
     }
 

@@ -45,35 +45,33 @@
                         <div class="card-header text-center">
                             <strong>Details</strong>
                             {#Info button#}
+                            <!--
                             <p>
                                 <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                     Alpha
                                 </a>
                             </p>
+
                             <div class="collapse" id="collapseExample">
                                 <div class="card card-body">
                                     This a 1st version of the Profile page. Many changes can be made.
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="card-body text-center"> {#Card sees the form as text#}
-                            {{ form_start(form) }}
-                            <Strong>{{ form_row(form.First_name) }} </Strong>
+                            <p> <Strong>First name: </Strong>{{ user.first_name }}</p>
                             <hr>
-                            <Strong>{{ form_row(form.Last_name) }} </Strong>
+                            <p> <Strong>Last name: </Strong>{{ user.last_name }}</p>
                             <hr>
-                            <Strong>{{ form_row(form.Date_of_birth) }} </Strong>
+                            <p> <Strong>Date of birth: </Strong>{{ user.birthdate }}</p>
                             <hr>
-                            <Strong>{{ form_row(form.Address) }} </Strong>
+                            <p> <Strong>Street: </Strong>{{ user.street }}</p>
                             <hr>
-                            <Strong>{{ form_row(form.house_number) }} </Strong>
+                            <p> <Strong>House nr: </Strong>{{ user.house_number }}</p>
                             <hr>
-                            <Strong>{{ form_row(form.City) }} </Strong>
+                            <p> <Strong>Postcode: </Strong>{{ user.postcode }}</p>
                             <hr>
-                            <Strong>{{ form_row(form.Post_code) }} </Strong>
-                            <hr>
-                            <Strong>{{ form_row(form.Library) }} </Strong>
-                            {{ form_end(form) }}
+                            <p> <Strong>Library: </Strong>{{ library.name }}</p>
                         </div>
                     </div>
                 </div>
