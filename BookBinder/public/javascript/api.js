@@ -17,7 +17,7 @@ function getCover(bookdata){
     if(bookdata){
         document.getElementById('BookPic').src = bookdata.cover.large;
     }else{
-        document.getElementById('BookPic').src = '/assets/no_cover.jpg';
+        document.getElementById('BookPic').src = '/public/assets/no_cover.jpg';
     }
 }
 
