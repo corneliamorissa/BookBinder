@@ -24,7 +24,7 @@ class UserBookRepository extends ServiceEntityRepository
     public function getBooksByUserID(int $ID) : ?array{
         $entitymanager = $this->getEntityManager();
         $query = $entitymanager->createQuery(
-            'SELECT b.bookid from App\Entity\UserBook b WHERE b.userid = :ID')
+            'SELECT b.bookid, b.userid from App\Entity\UserBook b WHERE b.userid = :ID')
             ->setParameter(':ID', $ID);
         return $query->getResult();
     }

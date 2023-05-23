@@ -14,6 +14,7 @@ use App\Form\LoginFormType;
 use App\Form\MeetUpInviteFormType;
 use App\Form\SearchBookFormType;
 use App\Form\SignUpFormType;
+use App\Form\UnfollowFormType;
 use App\Form\UserDetailsType;
 use App\Repository\UserRepository;
 use App\Service\AuthenticationService;
@@ -152,8 +153,6 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-
-
     #[Route("/Book/{id}", name: "Book")]
     #[IsGranted('ROLE_USER')]
     public function book(Request $request, EntityManagerInterface $em, int $id ): Response {
@@ -209,6 +208,7 @@ class BookBinderController extends AbstractController
             return $this->redirectToRoute('Book', ['id' => $id]);
         }
 
+
         return $this->render('book.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
@@ -225,8 +225,36 @@ class BookBinderController extends AbstractController
             'ff'=>$ff,
             'bookid'=>$bookid,
             'userid'=>$userID,
+            'follow' => $follow,
+
         ]);
     }
+
+    /*#[Route("/Book/{id}/Unfollow", name: "Book_Unfollow")]
+    #[IsGranted('ROLE_USER')]
+    public function unfollowBook(Request $request, EntityManagerInterface $em, int $id):Response
+    {
+        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $book = $em->getRepository(Books::class)->find($id);
+
+        $form = $this->createForm(UnfollowFormType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $userBook = $em->getRepository(UserBook::class)
+                ->findOneBy(['user' => $user, 'book' => $book]);
+            if ($userBook) {
+                $em->remove($userBook);
+                $em->flush();
+                $this->addFlash('success', 'Book Unfollowed Successfully');
+            } else {
+                $this->addFlash('error', 'You are not following this book');
+            }
+        }
+        return $this->redirectToRoute('Book', [
+
+            'id' => $book->getId()]);
+
+    }*/
 
 
 }

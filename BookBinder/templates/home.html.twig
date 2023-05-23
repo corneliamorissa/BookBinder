@@ -10,7 +10,7 @@
                         </h2>
                         {% for book in books %}
                             <div class="text-center"  onclick="location.href='{{ path('Book', {'id': book.id}) }}';" style="cursor: pointer;">
-                                <img id="BookPic" class="rounded-3 w-50" src="{{ asset('/assets/no_cover.jpg') }}" alt="BookCover">
+                                <img id="BookPic" class="rounded-3 w-50" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
                                 <h3 id="booktitle"> {{ book.title }} </h3>
                                 <h4 id="bookauthor"> {{ book.author }}</h4>
                                 <p id="bookgenres"> Book followers : {{ book.number_of_followers }}</p>
@@ -49,7 +49,7 @@
                         <div class="card rounded-2 mb-3 flex-row">
                             {% for book in books %}
                                 <div class="text-center"  onclick="location.href='{{ path('Book', {'id': book.id}) }}';" style="cursor: pointer;">
-                                    <img id="BookPic" class="rounded-3 w-50" src="{{ asset('/assets/no_cover.jpg') }}" alt="BookCover">
+                                    <img id="BookPic" class="rounded-3 w-50" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
                                     <h3 id="booktitle"> {{ book.title }} </h3>
                                     <h4 id="bookauthor"> {{ book.author }}</h4>
                                 </div>

@@ -23,7 +23,11 @@
                         </p>
                         <div class="btn-group buttons">
                             {% if ff == 1 %}
-                                <input type="submit" value="Unfollow Book" name="UnfollowBook" class="BookBtns" id="UnfollowBook">
+                               {# {{ form_start(unfollowForm, {'action': path('book_unfollow', {'id': book.id})}) }}
+                                {{ form_widget(unfollowForm) }}
+                                <button type="submit">Unfollow</button>
+                                {{ form_end(unfollowForm) }}#}
+                                <input type="submit">
                             {% else %}
                                 {{ form_start(form1) }}
                                 {{ form_row(form1.bookid, {'attr': {'value': bookid}}) }}
