@@ -58,6 +58,7 @@
                             {{ form_errors(form.avatar) }}
                         </div>
                         {{ form_row(form.username) }}
+                        <p id="message_check" style="color: darkred"></p>
                         {{ form_row(form.password) }}
                         {{ form_row(form.first_name) }}
                         {{ form_row(form.last_name) }}
@@ -67,7 +68,6 @@
                         {{ form_row(form.postcode) }}
                         {{ form_row(form.terms_and_condition) }}
                     </div>
-
                     <div class="custom-form-signup">
                         {{ form_row(form.submit) }}
                     </div>
