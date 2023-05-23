@@ -30,6 +30,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -186,108 +187,94 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-    #[Route("/Book/{id}", name: "Book")]
+    #[Route("/Book/{BookId}", name: "Book")]
     #[IsGranted('ROLE_USER')]
-    public function book(Request $request, EntityManagerInterface $em, int $id ): Response {
+    public function book(Request $Request, EntityManagerInterface $EntityManager, int $BookId ): Response {
         /*Book details*/
-        $book = $em->getRepository(Books::class)->find($id);
-        $title  =$book->getTitle();
-        $bookid = $book->getId();
+        $BookObject = $EntityManager->getRepository(Books::class)->find($BookId);
+        $BookTitle  =$BookObject->getTitle();
+        $BookNrOfFollowers = $BookObject->getNumberOffollowers();
+        $BookNrOfPages = $BookObject->getNumberOfpages();
+        $BookIsbn = $BookObject->getISBN();
+        $BookRating = $BookObject->getRating();
+        $BookLibraryId = $BookObject->getLibrary();
         /*Get follow information*/
-        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
-        $userID = $user->getID();
-        $follow =$em->getRepository(UserBook::class)->getBooksByUserID($userID);
-        /*I can refactor this probably but ill do sa later. :)*/
-        if (empty($follow)){
-            $ff = 0; /*User doesnt follow the book-> display the follow btn*/
-        }else{
-            $followids = array_column($follow, 'bookid');
-            if(in_array($bookid,$followids)){
-                $ff = 1;
-            }else{
-                $ff=0;
+        $UserObject = $EntityManager->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $UserId = $UserObject->getID();
+        $FollowObject =$EntityManager->getRepository(UserBook::class)->getBooksByUserID($UserId);
+        $UserFollowsBookBoolean = 0;  /*User doesnt follow the book-> display the follow btn*/
+        if (!empty($FollowObject)){
+            foreach ($FollowObject as $UserBookCombination){
+                if ($UserBookCombination->getBookid() == $BookId){
+                    $UserFollowsBookBoolean=1;
+                    break;
+                }
             }
         }
         /*Getting reviews for a book based on the book name*/
-        $display = $em->getRepository(Review::class)->getReviewBasedOnBookName($title);
-        /*End of getting reviews*/
-        $nrFollowers = $book->getNumberOffollowers();
-        $author = $book->getAuthor();
-        $pages = $book->getNumberOfpages();
-        $isbn = $book->getISBN();
-        $rating = $book->getRating();
-        $libraryId = $book->getLibrary();
-        $library = $em->getRepository(Books::class)->getLibraryNameById($libraryId);
+        $ReviewsPerBookObject = $EntityManager->getRepository(Review::class)->getReviewBasedOnBookName($BookTitle);
+        $LibraryNameObject = $EntityManager->getRepository(Books::class)->getLibraryNameById($BookLibraryId);
         /*Feedback form*/
-        $reviewform = new Review();
-        $form = $this->createForm(BookReviewFormType::class, $reviewform);
-        $form ->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $reviewform = $form->getData();
-            $em->persist($reviewform);
-            $em->flush();
-            /*Message to be displayed in the case of successful review submission and the reload the page to prevent multiple submissions by reloading the page!*/
+        $ReviewForm = $this->createForm(BookReviewFormType::class, new Review());
+        $ReviewForm ->handleRequest($Request);
+        if($ReviewForm->isSubmitted() && $ReviewForm->isValid()){
+            $EntityManager->persist($ReviewForm->getData());
+            $EntityManager->flush();
             $this->addFlash('success', 'Your review was submitted successfully!');
-            return $this->redirectToRoute('Book', ['id' => $id]);
-        }
-        $followform = new UserBook();
-        $form1 = $this->createForm(FollowFormType::class,$followform);
-        $form1->handleRequest($request);
-        if($form1->isSubmitted()&&$form1->isValid()){
-            $followform = $form1->getData();
-            $em->persist($followform);
-            $em->flush();
-            $this->addFlash('success', 'Book Followed Successfully');
-            return $this->redirectToRoute('Book', ['id' => $id]);
+            return $this->redirectToRoute('Book', ['BookId' => $BookId]);
         }
 
+        $FollowBookForm = $this->createForm(FollowFormType::class,new UserBook());
+        $FollowBookForm->handleRequest($Request);
+        if($FollowBookForm->isSubmitted()&&$FollowBookForm->isValid()){
+            $EntityManager->persist( $FollowBookForm->getData());
+            $EntityManager->flush();
+            $this->addFlash('success', 'Book Followed Successfully');
+            return $this->redirectToRoute('Book', ['BookId' => $BookId]);
+        }
+
+        $UnfollowBookForm = $this->createForm(UnfollowFormType::class, null,[
+            'action'=>$this->generateUrl('unfollow_book',['userID'=>$UserId, 'bookID'=>$BookId])
+        ]);
 
         return $this->render('book.html.twig', [
             'stylesheets' => $this->stylesheets,
-            'form'=>$form->createView(),
-            'form1'=>$form1->createView(),
+            'ReviewForm'=>$ReviewForm->createView(),
+            'FollowBookForm'=>$FollowBookForm->createView(),
+            'UnfollowBookForm' => $UnfollowBookForm->createView(),
             'last_username' => $this->lastUsername,
-            'title' => $title,
-            'nrFollowers'=>$nrFollowers,
-            'author'=>$author,
-            'pages'=>$pages,
-            'isbn'=>$isbn,
-            'rating'=>$rating,
-            'library'=>$library,
-            'display' => $display,
-            'ff'=>$ff,
-            'bookid'=>$bookid,
-            'userid'=>$userID,
-            'follow' => $follow,
-
+            'BookTitle' => $BookTitle,
+            'BookNrOfFollowers'=>$BookNrOfFollowers,
+            'BookNrOfPages'=>$BookNrOfPages,
+            'BookIsbn'=>$BookIsbn,
+            'BookRating'=>$BookRating,
+            'LibraryName'=>$LibraryNameObject,
+            'ReviewsPerBook' => $ReviewsPerBookObject,
+            'UserFollowsBookBoolean'=>$UserFollowsBookBoolean,
+            'BookId'=>$BookId,
+            'UserId'=>$UserId,
         ]);
     }
 
-    /*#[Route("/Book/{id}/Unfollow", name: "Book_Unfollow")]
-    #[IsGranted('ROLE_USER')]
-    public function unfollowBook(Request $request, EntityManagerInterface $em, int $id):Response
+    /**
+     * @Route("/unfollow_book/{userID}/{bookID}", name="unfollow_book")
+     */
+    public function unfollowBook(int $userID, int $bookID, Request $request, EntityManagerInterface $em): Response
     {
-        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
-        $book = $em->getRepository(Books::class)->find($id);
-
         $form = $this->createForm(UnfollowFormType::class);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $userBook = $em->getRepository(UserBook::class)
-                ->findOneBy(['user' => $user, 'book' => $book]);
-            if ($userBook) {
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userBook = $em->getRepository(UserBook::class)->findUserBook($userID, $bookID);
+
+            if ($userBook !== null) {
                 $em->remove($userBook);
                 $em->flush();
-                $this->addFlash('success', 'Book Unfollowed Successfully');
-            } else {
-                $this->addFlash('error', 'You are not following this book');
             }
+            $this->addFlash('success', 'Book Unfollowed successfully!');
+            return $this->redirectToRoute('Book', ['BookId' => $bookID]);
         }
-        return $this->redirectToRoute('Book', [
-
-            'id' => $book->getId()]);
-
-    }*/
-
+        return new RedirectResponse($request->headers->get('referer'));
+    }
 
 }
