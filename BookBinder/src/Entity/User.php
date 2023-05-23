@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 #[ORM\Entity(repositoryClass: UserRepository :: class)]
 #[ORM\Table("user")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -20,6 +21,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
     #[ORM\Column(type: "string",length: 50, nullable: false)]
     private ?string $username = null;
+
+
     #[ORM\Column(type: "string",length: 50, nullable: false)]
     private ?string $first_name = null;
     #[ORM\Column(type: "string",length: 50, nullable: false)]

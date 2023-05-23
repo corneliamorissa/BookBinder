@@ -9,8 +9,8 @@
                             Top Trending This Week
                         </h2>
                         {% for book in books %}
-                            <div class="text-center"  onclick="location.href='{{ path('Book', {'id': 178}) }}';" style="cursor: pointer;">
-                                <img id="BookPic" class="rounded-3" src="" alt="BookCover">
+                            <div class="text-center"  onclick="location.href='{{ path('Book', {'id': book.id}) }}';" style="cursor: pointer;">
+                                <img id="BookPic" class="rounded-3 w-50" src="{{ asset('/assets/no_cover.jpg') }}" alt="BookCover">
                                 <h3 id="booktitle"> {{ book.title }} </h3>
                                 <h4 id="bookauthor"> {{ book.author }}</h4>
                                 <p id="bookgenres"> Book followers : {{ book.number_of_followers }}</p>
@@ -18,21 +18,6 @@
                             <script src="{{ asset('javascript/api.js') }}"></script>
                             <script>fetch_details('{{ book.isbn }}');</script>
                         {% endfor %}
-                        {#<div class="text-center"  onclick="location.href='{{ path('Book', {'id': 178}) }}';" style="cursor: pointer;">
-                            <h3 id="booktitle"> The Missing Painting </h3>
-                            <h4 id="bookauthor"> By Meg Rosoff</h4>
-                            <p id="bookgenres"> Genres Young Adult, Contemporary, Fiction, Romance, Family</p>
-                        </div>
-                        <div class="text-center"  onclick="location.href='{{ path('Book', {'id': 184}) }}';" style="cursor: pointer;">
-                            <h3 id="booktitle"> The Great Godden </h3>
-                            <h4 id="bookauthor"> By Meg Rosoff</h4>
-                            <p id="bookgenres"> Genres Young Adult, Contemporary, Fiction, Romance, Family</p>
-                        </div>
-                        <div class="text-center"  onclick="location.href='{{ path('Book', {'id': 212}) }}';" style="cursor: pointer;">
-                            <h3 id="booktitle"> The Great Godden </h3>
-                            <h4 id="bookauthor"> By Meg Rosoff</h4>
-                            <p id="bookgenres"> Genres Young Adult, Contemporary, Fiction, Romance, Family</p>
-                        </div>#}
                     </div>
                 </div>
             </div>
@@ -59,11 +44,22 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="card-body">
+                        <h2 style="color: #311E69; padding-top: 20px; padding-bottom: 10px">My Favorites Book</h2>
+                        <div class="card rounded-2 mb-3 flex-row">
+                            {% for book in books %}
+                                <div class="text-center"  onclick="location.href='{{ path('Book', {'id': book.id}) }}';" style="cursor: pointer;">
+                                    <img id="BookPic" class="rounded-3 w-50" src="{{ asset('/assets/no_cover.jpg') }}" alt="BookCover">
+                                    <h3 id="booktitle"> {{ book.title }} </h3>
+                                    <h4 id="bookauthor"> {{ book.author }}</h4>
+                                </div>
+                                <script src="{{ asset('javascript/api.js') }}"></script>
+                                <script>fetch_details('{{ book.isbn }}');</script>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    </div>
             </div>
         </div>
     </div>
-
-
-
 {% endblock %}

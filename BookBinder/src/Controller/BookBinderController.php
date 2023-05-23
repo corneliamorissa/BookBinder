@@ -47,15 +47,12 @@ class BookBinderController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function home(EntityManagerInterface $em): Response {
         $library = $em->getRepository(Library::class)->findNearestLibrary($this->lastUsername);
-
         $books = $em->getRepository(Books::class)->findTopBooks();
-
-
         return $this->render('home.html.twig', [
             'stylesheets' => $this->stylesheets,
             'last_username' => $this->lastUsername,
             'books' => $books,
-            'library' => $library
+            'library' => $library,
         ]);
     }
 
