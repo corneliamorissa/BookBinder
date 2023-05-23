@@ -8,6 +8,7 @@ use App\Entity\Library;
 use App\Entity\Review;
 use App\Entity\UserBook;
 use App\Form\BookReviewFormType;
+use App\Form\FollowFormType;
 use App\Form\LoginFormType;
 use App\Form\MeetUpInviteFormType;
 use App\Form\SearchBookFormType;
@@ -194,9 +195,11 @@ class BookBinderController extends AbstractController
             return $this->redirectToRoute('Book', ['id' => $id]);
         }
 
+
         return $this->render('book.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
+           /* 'test'=>$testForm->createView(),*/
             'last_username' => $this->lastUsername,
             'title' => $title,
             'nrFollowers'=>$nrFollowers,
