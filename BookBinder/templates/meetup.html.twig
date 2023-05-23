@@ -23,10 +23,11 @@
                     <div>
                         <img id="userpict" src="/assets/user1.jpg" alt="userpict"/>
                     </div>
+                    {% set formattedDateTime = datetime|date('Y-m-d\\TH:i') %}
                     <div class="usersright">
                         <p id="username">Katlyn DB</p>
                         <p id="library">Bib Tweebronnen</p>
-                        <label for="datetime">Select date and time : </label> <input id="datetime" type="datetime-local"/>
+                        <label for="datetime">Select date and time : </label> <input id="datetime" type="datetime-local" value="{{ formattedDateTime }}"/>
                         <button id="requestmeetup">Request to Meet Up</button>
                     </div>
                 </div>

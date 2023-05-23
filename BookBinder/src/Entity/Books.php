@@ -4,6 +4,10 @@ namespace App\Entity;
 
 use App\Repository\BooksRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+
 #[ORM\Entity(repositoryClass: BooksRepository :: class)]
 #[ORM\Table("books")]
 class Books
@@ -13,39 +17,39 @@ class Books
     #[ORM\Column(type: "integer", nullable: false)]
     private int $id ;
 
-    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    #[ORM\Column(type: "string", nullable: false)]
     private string $title;
     #[ORM\Column(type: "integer", nullable: false)]
-    private int $numberOfPages ;
+    private int $number_of_pages ;
 
-    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    #[ORM\Column(type: "string", nullable: false)]
     private string $author ;
-    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    #[ORM\Column(type: "string", nullable: false)]
     private string $isbn ;
     #[ORM\Column(type: "integer", nullable: false)]
-    private int $numberOfFollowers ;
+    private int $number_of_followers ;
 
-    #[ManyToOne(targetEntity: Library::class, inversedby:"books")]
-    #[JoinColumn(name: 'libraryID', referencedColumnName: 'id')]
+    #[ManyToOne(targetEntity: Library::class, inversedBy:"books")]
+    #[JoinColumn(name: 'library', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
-    private int $library ;
+    private int $library;
     #[ORM\Column(type:"decimal",precision : 3,scale : 1)]
     private float $rating ;
     #[ORM\Column(type: "integer", nullable: false)]
-    private int $numberOfVotes ;
+    private int $number_of_votes ;
 
-    #[OneToMany(targetEntity: UserBook::class, mappedby:"bookid")]
+    #[OneToMany(mappedBy: "id", targetEntity: UserBook::class)]
     private $userbooks;
-    public function __construct(string $title,int $numberOfPages,string $author, string $ISBN, int $numberOfFollowers,
+    public function __construct(string $title,int $numberOfPages,string $author, string $isbn, int $numberOfFollowers,
                                 int $libraryID, float $rating, int $numberOfVotes ) {
         $this->title = $title;
-        $this->numberOfPages = $numberOfPages;
+        $this->number_of_pages = $numberOfPages;
         $this->author = $author;
-        $this->ISBN = $ISBN;
-        $this->numberOfFollowers = $numberOfFollowers;
+        $this->isbn = $isbn;
+        $this->number_of_followers = $numberOfFollowers;
         $this->library = $libraryID;
         $this->rating = $rating;
-        $this->numberOfVotes = $numberOfVotes;
+        $this->number_of_votes = $numberOfVotes;
 
     }
 
@@ -68,17 +72,17 @@ class Books
     /**
      * @return int
      */
-    public function getNumberOfPages(): int
+    public function getNumberOfpages(): int
     {
-        return $this->numberOfPages;
+        return $this->number_of_pages;
     }
 
     /**
-     * @param int $numberOfPages
+     * @param int $number_of_pages
      */
-    public function setNumberOfPages(int $numberOfPages): void
+    public function setNumberOfpages(int $number_of_pages): void
     {
-        $this->numberOfPages = $numberOfPages;
+        $this->number_of_pages = $number_of_pages;
     }
 
     /**
@@ -102,7 +106,7 @@ class Books
      */
     public function getISBN(): string
     {
-        return $this->ISBN;
+        return $this->isbn;
     }
 
     /**
@@ -110,23 +114,23 @@ class Books
      */
     public function setISBN(string $ISBN): void
     {
-        $this->ISBN = $ISBN;
+        $this->isbn = $ISBN;
     }
 
     /**
      * @return int
      */
-    public function getNumberOfFollowers(): int
+    public function getNumberOffollowers(): int
     {
-        return $this->numberOfFollowers;
+        return $this->number_of_followers;
     }
 
     /**
-     * @param int $numberOfFollowers
+     * @param int $number_of_followers
      */
-    public function setNumberOfFollowers(int $numberOfFollowers): void
+    public function setNumberOffollowers(int $number_of_followers): void
     {
-        $this->numberOfFollowers = $numberOfFollowers;
+        $this->number_of_followers = $number_of_followers;
     }
 
     /**
@@ -164,30 +168,20 @@ class Books
     /**
      * @return int
      */
-    public function getNumberOfVotes(): int
+    public function getNumberOfvotes(): int
     {
-        return $this->numberOfVotes;
+        return $this->number_of_votes;
     }
 
     /**
-     * @param int $numberOfVotes
+     * @param int $number_of_votes
      */
-    public function setNumberOfVotes(int $numberOfVotes): void
+    public function setNumberOfvotes(int $number_of_votes): void
     {
-        $this->numberOfVotes = $numberOfVotes;
+        $this->number_of_votes = $number_of_votes;
     }
 
 
-    public function getTitleByID(int $ID) : ?Books {
-        $db = Db::getConnection();
-        $stm = $db->prepare('SELECT title FROM books WHERE bookId = :ID;');
-        $stm->execute([':ID' => $ID]);
-
-        $item = $stm->fetch();
-        $title = $item['Title'];
-
-        return $title;
-    }
 
 
 

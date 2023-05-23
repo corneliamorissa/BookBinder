@@ -1,14 +1,22 @@
 {% extends 'base.html.twig' %}
-{% block stylesheet%} <link href="{{ asset('css/SignUp.css') }}" rel="stylesheet" /> {% endblock %}
+{% block stylesheet%}
+    {{ parent() }}
+    <link href="{{ asset('css/SignUp.css') }}" rel="stylesheet" />
+{% endblock %}
 {#Header updated with bootstrap#}
 {%  block header %}
     <header class="landing-header">
         <div class="container">
-            <nav class="navbar navbar-expand rounded-3 " style="background-color: #311E69;" >
+            <nav class="navbar navbar-expand-lg rounded-3" >
                 <div class="container-fluid">
                     <a class="navbar-brand" href="{{ path('LogIn') }}">
-                        <img src="{{ asset('/assets/logo.png') }}" alt="bookbinderlogo" width="200px">
+                        <img src="{{ asset('/public/assets/logo.png') }}" alt="bookbinderlogo" width="200px">
                     </a>
+
+                    <button class="navbar-toggler bg-white"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                         <div class="navbar-nav" id="nav">
                             <a class="nav-link active" aria-current="page" href="{{ path('LogIn') }}">LogIn</a>
@@ -22,17 +30,81 @@
 {% endblock %}
 
 {#No bootstrap required here#}
+{#No bootstrap required here#}
 {% block content %}
-    <div class="landing-main">
-        <div class="landing-welcome">
+    <div class="landing-m">
+        <div class="landing-wel">
             <h1 class="signUpLbl"> Sign Up </h1>
             <p class="signUpLbl2"> Please enter the required information</p>
             <div class="form">
-                {{ form(form) }}
+
+                <form method="{{ form.vars.method }}" action="{{ form.vars.action }}">
+                    {{ form_start(form) }}
+
+                    <div class="custom-form">
+                        {# Render each form field manually #}
+                        <div class="form-row" style="width: 400px">
+                            <div class="form-widget" style="display: grid; grid-template-columns: auto auto auto; align-items: center">
+                                {% for choice in form.avatar %}
+                                    <label for="avatar" class="avatar-choice" style="padding: 20px">
+                                        {% if choice.vars['attr']['data-image-url'] is defined %}
+                                            <img src="{{ choice.vars['attr']['data-image-url'] }}" alt="Avatar" style="width: 50px; height: 50px;">
+                                        {% endif %}
+                                        {{ form_label(choice) }}
+                                        {{ form_widget(choice, {'attr': {'class': 'avatar-choice', 'id': 'avatar'}}) }}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                            {{ form_errors(form.avatar) }}
+                        </div>
+                        {{ form_row(form.username) }}
+                        {{ form_row(form.password) }}
+                        {{ form_row(form.first_name) }}
+                        {{ form_row(form.last_name) }}
+                        {{ form_row(form.birthdate) }}
+                        {{ form_row(form.street) }}
+                        {{ form_row(form.house_number) }}
+                        {{ form_row(form.postcode) }}
+                        {{ form_row(form.terms_and_condition) }}
+                    </div>
+
+                    <div class="custom-form-signup">
+                        {{ form_row(form.submit) }}
+                    </div>
+
+                    {{ form_end(form) }}
+                </form>
+
+                {#{% block custom_avatar %}
+                    <div class="form-row" style="width: 400px" >
+                        <div class="form-widget" style="display: grid; grid-template-columns: auto auto auto; align-items: center">
+                            {% for choice in form.avatar %}
+                                <label for='avatar' class="avatar-choice" style="padding: 20px">
+                                    {% if choice.vars['attr']['data-image-url'] is defined %}
+                                        <img src="{{ choice.vars['attr']['data-image-url'] }}" alt="Avatar" style="width: 50px; height: 50px;">
+                                    {% endif %}
+                                    {{ form_label(choice) }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                        {{ form_errors(form) }}
+                    </div>
+                {% endblock custom_avatar %}
+
+                {{ form(form) }}#}
+
+
+
             </div>
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
+
 
 {#No bootstrap required here#}
 {% set footer_class = 'landing-footer' %}
@@ -42,3 +114,5 @@
         <div><a href="{{ path('privacypolicy') }}" style="color: #311E69 ">  Privacy Policy</a> | <a href="{{ path('termsofservice') }}" style="color: #311E69 "> Terms of Use</a></div>
     </footer>
 {% endblock %}
+
+

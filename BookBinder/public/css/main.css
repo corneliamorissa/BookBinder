@@ -67,9 +67,7 @@ main{
     padding: 10px;
 }
 .landing-main{
-    padding-top: 40px;
-    padding-left:20px;
-    padding-right:20px;
+    padding: 40px 20px;
     margin: 0 30px 30px 30px;
     background-color: #311E69;
     display: flex;
@@ -78,7 +76,7 @@ main{
     color: white;
     font-family: "Figtree SemiBold", Arial, sans-serif;;
     width: 100%;
-    height: 700px;
+    height: auto;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
 }
@@ -159,7 +157,6 @@ div#nav {
     max-width: 100%;
     min-height: 180px;
     max-height: 180px;
-    margin-left: 36px;
     padding: 30px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     background-size: 100%;
@@ -201,16 +198,11 @@ div#nav {
 }
 
 #nearest{
-    min-width: max-content;
-    max-width: max-content;
-    margin: 10px 0 0 230px;
-    padding: 30px 0 0 30px;
     font-family: 'Figtree', Arial, sans-serif;;
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
     line-height: 60px;
-    text-align: right;
     color: #311E69;
 }
 
@@ -221,16 +213,12 @@ div#nav {
 }
 
 .bibname{
-    padding: 45px 30px 15px 30px;
-    width: 200px;
-    height: 150px;
     justify-content: center;
     align-items: center;
     text-align: center;
     text-justify: distribute;
-    background: #8572ED;
     color: white;
-    border-radius: 10px 0 0 10px;
+    font-family: Figtree, Arial, sans-serif;
 }
 
 .open{
@@ -271,12 +259,13 @@ div#nav {
     font-size: small;
 }
 
-#username{
+/*#username{
     color: #311E69;
     font-family: "Figtree SemiBold", Arial, sans-serif;;
     font-weight: bold;
     font-size: medium;
-}
+
+}*/
 
 #library{
     margin: 8px;
@@ -451,7 +440,7 @@ button{
     color: white; /* change text color to blue */
     cursor: pointer;
     align-self: center;
-    margin: 10px;
+    /*margin: 10px;*/
 }
 
 .RegisterBtn{
@@ -498,14 +487,12 @@ button{
 }
 
 .loggedin_user{
-    width: max-content;
     text-indent: 0px;
     margin-left: 20px;
     text-decoration: none;
     pointer-events: none;
     cursor: default;
     height: 40px;
-    padding: 8px 16px;
     color: white;
     background: #8572ED;
     border-color: #8572ED;

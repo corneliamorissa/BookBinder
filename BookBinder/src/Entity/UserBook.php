@@ -23,7 +23,7 @@ class UserBook
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $userid = null;
 
-    #[ORM\Column(type: "varchar",length: 255, nullable: true)]
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $comment = null;
 
     /**

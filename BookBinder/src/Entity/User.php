@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -29,14 +31,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $postcode = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: false)]
     private ?\DateTime $birthdate = null;
-    #[ORM\Column(type: "integer", nullable: false)]
+    #[ORM\Column(type: "integer", nullable: false,  options: ["default" => 0])]
     private ?int $private_account = null;
-    #[ManyToOne(targetEntity: Avatar::class)]
-    #[JoinColumn(name: 'avatar_id', referencedColumnName: 'id')]
+
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $avatar_id = null;
+
+    #[ManyToOne(targetEntity: Avatar::class, inversedBy: "users")]
+    #[JoinColumn(name: 'avatar_id', referencedColumnName: 'id')]
+    private ?Avatar $avatar;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
@@ -52,11 +57,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[OneToMany(targetEntity: Meetup::class, mappedby:"id_user_invited")]
     private $invited_user;
 
+    private bool $terms_and_condition;
+
+    /**
+     * @return bool
+     */
+    public function isTermsAndCondition(): bool
+    {
+        return $this->terms_and_condition;
+    }
+
+    /**
+     * @param bool $terms_and_condition
+     */
+    public function setTermsAndCondition(bool $terms_and_condition): void
+    {
+        $this->terms_and_condition = $terms_and_condition;
+    }
+
 
 
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
+        $this->private_account = 0;
     }
 
     /**
@@ -204,21 +228,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->private_account = $private_account;
     }
 
-    /**
-     * @return int
-     */
-    public function getAvatarId(): int
+
+
+    public function getAvatarId(): ?int
     {
         return $this->avatar_id;
     }
 
-    /*
-     * @param int $AvatarId
-     */
-    public function setAvatarId(int $avatar_id): void
+    public function setAvatarId(?int $avatar_id): User
     {
-        $this->avatar_id = $avatar_id;
+        $this->avatar_id= $avatar_id;
+        return $this;
     }
+
+    public function getAvatar(): ?Avatar
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?Avatar $avatar): User
+    {
+        $this->avatar= $avatar;
+        return $this;
+    }
+
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -282,4 +315,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return (string) $this->username;
     }
+
+
+
+
+
 }

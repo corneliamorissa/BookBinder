@@ -2,13 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Books;
+use App\Entity\MeetUp;
+use App\Entity\Library;
+use App\Entity\Review;
 use App\Form\BookReviewFormType;
 use App\Form\LoginFormType;
+use App\Form\MeetUpInviteFormType;
 use App\Form\SearchBookFormType;
 use App\Form\SignUpFormType;
 use App\Form\UserDetailsType;
 use App\Repository\UserRepository;
 use App\Service\AuthenticationService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use http\Client\Curl\User;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -34,17 +40,22 @@ class BookBinderController extends AbstractController
         $this->stylesheets[] = 'main.css';
         /*the last username to store username that is logged in in every pages, so usernale could be siplayed at top right*/
         $this->lastUsername = $authenticationUtils->getLastUsername();
-
     }
 
 
     #[Route("/Home", name: "Home")]
     #[IsGranted('ROLE_USER')]
-    public function home(): Response {
+    public function home(EntityManagerInterface $em): Response {
+        $library = $em->getRepository(Library::class)->findNearestLibrary($this->lastUsername);
+
+        $books = $em->getRepository(Books::class)->findTopBooks();
+
 
         return $this->render('home.html.twig', [
             'stylesheets' => $this->stylesheets,
-            'last_username' => $this->lastUsername
+            'last_username' => $this->lastUsername,
+            'books' => $books,
+            'library' => $library
         ]);
     }
 
@@ -66,7 +77,6 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-
     #[Route("/Search", name: "Search")]
     #[IsGranted('ROLE_USER')]
     public function search(Request $request, EntityManagerInterface $em): Response {
@@ -85,20 +95,46 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-
     #[Route("/MeetUp", name: "MeetUp")]
     #[IsGranted('ROLE_USER')]
-    public function meetup(): Response {
+    public function meetup(Request $request, EntityManagerInterface $em): Response {
+        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $userID = $user->getID();
+        $allSentMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID]);
+        $allReceivedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID]);
+        $allMeetups = array_merge($allSentMeetups,$allReceivedMeetups);
+        $allOpenMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID,'accepted' => 0,'declined' => 0]);
+        $allAcceptedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID,'accepted' => 1,'declined' => 0]);
+
+        /* Form to invite someone*/
+        $datetime = new DateTime();
+        $meetupform = new MeetUp($userID,0,$datetime,0,0,0);
+        $form = $this->createForm(MeetUpInviteFormType::class);
+        if($form->isSubmitted() && $form->isValid()) {
+            $meetupform = $form->getData();
+            $em->persist($meetupform);
+            $em->flush();
+            /*Message to be displayed in the case of successful review submission and the reload the page to prevent multiple submissions by reloading the page!*/
+            $this->addFlash('success', 'Your Meetup request was submitted successfully!');
+            return $this->redirectToRoute('MeetUp');
+        }
         return $this->render('meetup.html.twig', [
             'stylesheets' => $this->stylesheets,
-            'last_username' => $this->lastUsername
+            'last_username' => $this->lastUsername,
+            'all_meetups' => $allMeetups,
+            'all_received_meetups' => $allReceivedMeetups,
+            'all_sent_meetups' => $allSentMeetups,
+            'all_open_meetups' => $allOpenMeetups,
+            'all_accepted_meetups' => $allAcceptedMeetups,
         ]);
     }
-
 
     #[Route("/User", name: "User")]
     #[IsGranted('ROLE_USER')]
     public function user(Request $request, EntityManagerInterface $em): Response {
+        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $userID = $user->getID();
+        //$user = $em ->getRepository(User::class) -> find($id);
         $form = $this->createForm(UserDetailsType::class);
         $form ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -114,23 +150,50 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-
-    #[Route("/Book", name: "Book")]
+    #[Route("/Book/{id}", name: "Book")]
     #[IsGranted('ROLE_USER')]
-    public function book(Request $request, EntityManagerInterface $em ): Response {
-        $form = $this->createForm(BookReviewFormType::class);
+    public function book(Request $request, EntityManagerInterface $em, int $id ): Response {
+        /*Book details*/
+        $book = $em->getRepository(Books::class)->find($id);
+        $title  =$book->getTitle();
+
+        /*Getting reviews for a book based on the book name*/
+        $display = $em->getRepository(Review::class)->getReviewBasedOnBookName($title);
+        /*End of getting reviews*/
+
+        $nrFollowers = $book->getNumberOffollowers();
+        $author = $book->getAuthor();
+        $pages = $book->getNumberOfpages();
+        $isbn = $book->getISBN();
+        $rating = $book->getRating();
+        $libraryId = $book->getLibrary();
+        $library = $em->getRepository(Books::class)->getLibraryNameById($libraryId);
+
+        /*Feedback form*/
+        $reviewform = new Review();
+        $form = $this->createForm(BookReviewFormType::class, $reviewform);
         $form ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $feedBackForm = $form->getData();
-            $em->persist($feedBackForm);
+            $reviewform = $form->getData();
+            $em->persist($reviewform);
             $em->flush();
-            return $this->redirectToRoute('Home');
+            /*Message to be displayed in the case of successful review submission and the reload the page to prevent multiple submissions by reloading the page!*/
+            $this->addFlash('success', 'Your review was submitted successfully!');
+            return $this->redirectToRoute('Book', ['id' => $id]);
         }
 
         return $this->render('book.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
-            'last_username' => $this->lastUsername
+            'last_username' => $this->lastUsername,
+            'title' => $title,
+            'nrFollowers'=>$nrFollowers,
+            'author'=>$author,
+            'pages'=>$pages,
+            'isbn'=>$isbn,
+            'rating'=>$rating,
+            'library'=>$library,
+            'display' => $display,
         ]);
     }
 

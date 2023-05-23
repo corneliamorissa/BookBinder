@@ -4,6 +4,8 @@ namespace App\Repository;
 use App\Entity\Books;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use http\QueryString;
+
 /**
  * @extends ServiceEntityRepository<Books>
  *
@@ -22,4 +24,52 @@ class BooksRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Books::class);
     }
+
+
+    public function getTitleByID(int $ID): string {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('
+        SELECT b.title FROM App\Entity\Books b WHERE b.id = :ID')
+            ->setParameter('ID', $ID);
+        return $query->getSingleScalarResult();
+    }
+
+    public function getLibraryNameById(int $ID): string {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('
+        SELECT c.name
+        FROM App\Entity\Library c
+        where c.id = :ID
+    ')->setParameter('ID', $ID);
+        return $query->getSingleScalarResult();
+    }
+
+    public function findTopBooks() : array {
+        $queryBuilder = $this->createQueryBuilder('b')
+            ->select('b.id', 'b.title', 'b.author', 'b.rating','b.isbn', 'b.number_of_followers' )
+            ->orderBy('b.rating', 'DESC')
+            ->addOrderBy('b.number_of_followers', 'DESC')
+            ->setMaxResults(3);
+
+        $result = $queryBuilder->getQuery()->getScalarResult();
+
+        $books = [];
+        foreach ($result as $row) {
+            $book = [
+                'id' => $row['id'],
+                'title' => $row['title'],
+                'author' => $row['author'],
+                'rating' => $row['rating'],
+                'isbn' => $row['isbn'],
+                'number_of_followers' => $row['number_of_followers'],
+            ];
+            $books[] = $book;
+        }
+
+        return $books;
+    }
+
+
+
+
 }

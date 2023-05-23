@@ -42,22 +42,7 @@ div#nav a:active {
     padding: 10px;
 }
 
-.landing-main{
 
-    padding: 40px;
-    margin: 0px 30px 30px 30px;
-    background-color: #311E69;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-family: "Figtree SemiBold";
-    max-width: 100%;
-    max-height: max-content;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-}
 
 .logo {
     padding: 0px;
@@ -81,8 +66,21 @@ div#nav {
     text-align: center;
     text-decoration: none;
 }
-
-.landing-welcome{
+.landing-m{
+    padding: 40px 20px;
+    margin: 0 30px 30px 30px;
+    background-color: #311E69;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: white;
+    font-family: "Figtree SemiBold", Arial, sans-serif;;
+    width: 100%;
+    height: auto;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+.landing-wel{
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -94,7 +92,7 @@ div#nav {
 form{
     padding: 20px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -108,7 +106,7 @@ form{
     margin-top: 10px;
     margin-bottom: 30px;
     box-sizing: border-box;
-    width: 396px;
+    width: 350px;
     height: 45px;
     /* White */
     background: #FFFFFF;
@@ -172,4 +170,10 @@ select{
     color: #808088;
     text-align: center;
     font-weight: bold
+}
+
+.custom-form{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }

@@ -13,9 +13,9 @@ class Library
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
 
-    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    #[ORM\Column(type: "string", nullable: false)]
     private ?string $name = null;
-    #[ORM\Column(type: "varchar",length: 45, nullable: false)]
+    #[ORM\Column(type: "string", nullable: false)]
     private ?string $street = null;
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $housenumber = null;
@@ -118,20 +118,18 @@ class Library
         $this->postcode = $postcode;
     }
 
-    //Not tested yet
-    static function getLibraryByID(int $ID) : ?Library {
+    //Not used- Kept for reference
+    /*static function getLibraryByID(int $ID) : ?Library {
         $db = Db::getConnection();
-        $stm = $db->prepare('SELECT LibraryID, Name,Street, Housenumber, Postcode FROM libraries WHERE LibraryID = :ID;');
+        $stm = $db->prepare('SELECT id, name,street, housenumber, postcode FROM libraries WHERE id = :ID;');
         $stm->execute([':ID' => $ID]);
-
         $library = null;
         while($item = $stm->fetch()) {
             $library = new Library($item['Name'],$item['Street'],$item['Housenumber'],$item['Postcode']);
             $library -> setId($item['LibraryID']);
         }
-
         return $library;
-    }
+    }*/
 
 
 }
