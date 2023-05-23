@@ -54,6 +54,13 @@ class Books
         $this->number_of_votes = $numberOfVotes;
 
     }
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     /**
      * @return string

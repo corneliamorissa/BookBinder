@@ -7,7 +7,9 @@ use App\Entity\Books;
 use App\Entity\MeetUp;
 use App\Entity\Library;
 use App\Entity\Review;
+use App\Entity\UserBook;
 use App\Form\BookReviewFormType;
+use App\Form\FollowFormType;
 use App\Form\LoginFormType;
 use App\Form\MeetUpInviteFormType;
 use App\Form\SearchBookFormType;
@@ -158,11 +160,25 @@ class BookBinderController extends AbstractController
         /*Book details*/
         $book = $em->getRepository(Books::class)->find($id);
         $title  =$book->getTitle();
-
+        $bookid = $book->getId();
+        /*Get follow information*/
+        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $userID = $user->getID();
+        $follow =$em->getRepository(UserBook::class)->getBooksByUserID($userID);
+        /*I can refactor this probably but ill do sa later. :)*/
+        if (empty($follow)){
+            $ff = 0; /*User doesnt follow the book-> display the follow btn*/
+        }else{
+            $followids = array_column($follow, 'bookid');
+            if(in_array($bookid,$followids)){
+                $ff = 1;
+            }else{
+                $ff=0;
+            }
+        }
         /*Getting reviews for a book based on the book name*/
         $display = $em->getRepository(Review::class)->getReviewBasedOnBookName($title);
         /*End of getting reviews*/
-
         $nrFollowers = $book->getNumberOffollowers();
         $author = $book->getAuthor();
         $pages = $book->getNumberOfpages();
@@ -170,7 +186,6 @@ class BookBinderController extends AbstractController
         $rating = $book->getRating();
         $libraryId = $book->getLibrary();
         $library = $em->getRepository(Books::class)->getLibraryNameById($libraryId);
-
         /*Feedback form*/
         $reviewform = new Review();
         $form = $this->createForm(BookReviewFormType::class, $reviewform);
@@ -183,10 +198,21 @@ class BookBinderController extends AbstractController
             $this->addFlash('success', 'Your review was submitted successfully!');
             return $this->redirectToRoute('Book', ['id' => $id]);
         }
+        $followform = new UserBook();
+        $form1 = $this->createForm(FollowFormType::class,$followform);
+        $form1->handleRequest($request);
+        if($form1->isSubmitted()&&$form1->isValid()){
+            $followform = $form1->getData();
+            $em->persist($followform);
+            $em->flush();
+            $this->addFlash('success', 'Book Followed Successfully');
+            return $this->redirectToRoute('Book', ['id' => $id]);
+        }
 
         return $this->render('book.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
+            'form1'=>$form1->createView(),
             'last_username' => $this->lastUsername,
             'title' => $title,
             'nrFollowers'=>$nrFollowers,
@@ -196,6 +222,9 @@ class BookBinderController extends AbstractController
             'rating'=>$rating,
             'library'=>$library,
             'display' => $display,
+            'ff'=>$ff,
+            'bookid'=>$bookid,
+            'userid'=>$userID,
         ]);
     }
 
