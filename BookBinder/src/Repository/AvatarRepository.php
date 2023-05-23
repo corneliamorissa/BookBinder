@@ -32,6 +32,31 @@ class AvatarRepository extends ServiceEntityRepository
         ');
         return $query->getResult();
     }
+    public function findAvatarByName(string $username): ?array{
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('
+        SELECT  a.id, a.image
+        FROM App\Entity\User u
+        JOIN App\Entity\Avatar a 
+        WHERE a.id = u.avatar_id
+        AND u.username = :username
+
+    ');
+        $query->setParameter('username', $username);
+        $query->setMaxResults(1);
+        $result = $query->getScalarResult();
+
+        $avatar = [];
+
+        foreach ($result as $row) {
+            $avatar = [
+                'id'   => $row['id'],
+                'image' => $row['image'],
+            ];
+            $avatar[] = $avatar;
+        }
+        return $avatar;
+    }
 
 
 

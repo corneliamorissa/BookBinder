@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Avatar;
 use App\Entity\Books;
 use App\Entity\MeetUp;
 use App\Entity\Library;
@@ -60,6 +61,8 @@ class BookBinderController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function user(Request $request, EntityManagerInterface $em): Response {
         $user = $em->getRepository(\App\Entity\User::class)->findUserByName($this->lastUsername);
+        $avatar = $em ->getRepository(Avatar::class)->findAvatarByName($this->lastUsername);
+        $id = $avatar -> getId();
         $library = $em->getRepository(Library::class)->findNearestLibrary($this->lastUsername);
         $form = $this->createForm(UserDetailsType::class);
         $form ->handleRequest($request);
@@ -74,7 +77,8 @@ class BookBinderController extends AbstractController
             'form'=>$form->createView(),
             'last_username' => $this->lastUsername,
             'user' => $user,
-            'library' => $library
+            'library' => $library,
+            'avatar'=> $avatar
         ]);
     }
     #[Route("/privacypolicy", name: "privacypolicy")]
