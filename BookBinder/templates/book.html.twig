@@ -21,10 +21,13 @@
                             Rating : {{ rating}} <br>
                             Library : {{ library }} <br>
                         </p>
-                        {#<div class="btn-group buttons">
-                            <input type="submit" value="Vote Book" name="Vote_Book" class="BookBtns">
-                            <input type="submit" value="Follow Book" name="Follow_Book" class="BookBtns">
-                        </div>#}
+                        <div class="btn-group buttons">
+                            {% if ff == 1 %}
+                                <input type="submit" value="Unfollow Book" name="UnfollowBook" class="BookBtns" id="UnfollowBook">
+                            {% else %}
+                                <input type="submit" value="Follow Book" name="FollowBook" class="BookBtns" id="FollowBook">
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
