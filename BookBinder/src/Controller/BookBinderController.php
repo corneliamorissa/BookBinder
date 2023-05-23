@@ -156,7 +156,7 @@ class BookBinderController extends AbstractController
         /*Book details*/
         $book = $em->getRepository(Books::class)->find($id);
         $title  =$book->getTitle();
-        $id = $book->getId();
+        $bookid = $book->getId();
         /*Get follow information*/
         $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
         $userID = $user->getID();
@@ -166,7 +166,7 @@ class BookBinderController extends AbstractController
             $ff = 0; /*User doesnt follow the book-> display the follow btn*/
         }else{
             $followids = array_column($follow, 'bookid');
-            if(in_array($id,$followids)){
+            if(in_array($bookid,$followids)){
                 $ff = 1;
             }else{
                 $ff=0;
@@ -194,12 +194,21 @@ class BookBinderController extends AbstractController
             $this->addFlash('success', 'Your review was submitted successfully!');
             return $this->redirectToRoute('Book', ['id' => $id]);
         }
-
+        $followform = new UserBook();
+        $form1 = $this->createForm(FollowFormType::class,$followform);
+        $form1->handleRequest($request);
+        if($form1->isSubmitted()&&$form1->isValid()){
+            $followform = $form1->getData();
+            $em->persist($followform);
+            $em->flush();
+            $this->addFlash('success', 'Book Followed Successfully');
+            return $this->redirectToRoute('Book', ['id' => $id]);
+        }
 
         return $this->render('book.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
-           /* 'test'=>$testForm->createView(),*/
+            'form1'=>$form1->createView(),
             'last_username' => $this->lastUsername,
             'title' => $title,
             'nrFollowers'=>$nrFollowers,
@@ -210,6 +219,8 @@ class BookBinderController extends AbstractController
             'library'=>$library,
             'display' => $display,
             'ff'=>$ff,
+            'bookid'=>$bookid,
+            'userid'=>$userID,
         ]);
     }
 
