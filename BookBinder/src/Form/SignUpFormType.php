@@ -14,6 +14,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -113,7 +114,7 @@ class SignUpFormType extends AbstractType
                     'placeholder' => 'Enter your Address'
                 ]
             ])
-            ->add('house_number', TextType::class,[
+            ->add('house_number', NumberType::class,[
                 'mapped' => true,
                 'label'=>'House nr.',
                 'attr'=>[
@@ -121,7 +122,7 @@ class SignUpFormType extends AbstractType
                     'placeholder'=>"House nr",
                 ]
             ])
-            ->add('postcode', TextType::class,[
+            ->add('postcode', NumberType::class,[
                 'mapped' => true,
                 'label'=>'Post code',
                 'attr'=>[

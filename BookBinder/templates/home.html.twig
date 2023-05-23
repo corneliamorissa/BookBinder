@@ -44,7 +44,21 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="card-body">
+                        <h2 style="color: #311E69; padding-top: 20px; padding-bottom: 10px">My Favorites Book</h2>
+                        <div class="card rounded-2 mb-3 flex-row">
+                            {% for book in books %}
+                                <div class="text-center"  onclick="location.href='{{ path('Book', {'id': 178}) }}';" style="cursor: pointer;">
+                                    <img id="BookPic" class="rounded-3" src="" alt="BookCover">
+                                    <h3 id="booktitle"> {{ book.title }} </h3>
+                                    <h4 id="bookauthor"> {{ book.author }}</h4>
+                                </div>
+                                <script src="{{ asset('javascript/api.js') }}"></script>
+                                <script>fetch_details('{{ book.isbn }}');</script>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    </div>
             </div>
         </div>
     </div>
