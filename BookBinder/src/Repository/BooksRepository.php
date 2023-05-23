@@ -50,9 +50,7 @@ class BooksRepository extends ServiceEntityRepository
             ->orderBy('b.rating', 'DESC')
             ->addOrderBy('b.number_of_followers', 'DESC')
             ->setMaxResults(3);
-
         $result = $queryBuilder->getQuery()->getScalarResult();
-
         $books = [];
         foreach ($result as $row) {
             $book = [
@@ -65,11 +63,7 @@ class BooksRepository extends ServiceEntityRepository
             ];
             $books[] = $book;
         }
-
         return $books;
     }
-
-
-
 
 }
