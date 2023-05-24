@@ -5,18 +5,18 @@
             <div class="col-lg-3">
                 <div class="card rounded-2 mb-4">
                     <div class="card-body">
-                        <h2 id="" class="card-title text-white text-center rounded-3" style="background: #866ff7;">
-                            Top Trending This Week
-                        </h2>
+                        <h3 id="" class="card-title text-white text-center rounded-3 p-3 mb-3 " style="background: #866ff7;">
+                            Trending This Week
+                        </h3>
+
                         {% for book in books %}
-                            <div class="text-center"  onclick="location.href='{{ path('Book', {'BookId': book.id}) }}';" style="cursor: pointer;">
-                                <img id="BookPic" class="rounded-3 w-50" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
-                                <h3 id="booktitle"> {{ book.title }} </h3>
-                                <h4 id="bookauthor"> {{ book.author }}</h4>
-                                <p id="bookgenres"> Book followers : {{ book.number_of_followers }}</p>
+                            <div class="text-center" onclick="location.href='{{ path('Book', {'BookId': book.id}) }}';" style="cursor: pointer;">
+                                <img id="BookPic" class="rounded-3 w-50 book-image" data-isbn="{{ book.isbn }}" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
+                                <h5 id="booktitle">{{ book.title }}</h5>
+                                <h6 id="bookauthor">{{ book.author }}</h6>
+                                <p id="bookgenres">Book followers: {{ book.number_of_followers }}</p>
                             </div>
-                            <script src="{{ asset('javascript/api.js') }}"></script>
-                            <script>fetch_details('{{ book.isbn }}');</script>
+                            <hr>
                         {% endfor %}
                     </div>
                 </div>
@@ -46,18 +46,18 @@
                     </div>
                     <div class="card-body">
                         <h2 style="color: #311E69; padding-top: 20px; padding-bottom: 10px">My Favorites Book</h2>
-                        <div class="card rounded-2 mb-3 flex-row">
+                        <div class="flex-column">
                             {% for book in books %}
-                                <div class="text-center"  onclick="location.href='{{ path('Book', {'BookId': book.id}) }}';" style="cursor: pointer;">
-                                    <img id="BookPic" class="rounded-3 w-50" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
-                                    <h3 id="booktitle"> {{ book.title }} </h3>
-                                    <h4 id="bookauthor"> {{ book.author }}</h4>
+                                <div class="card rounded-1 mb-3">
+                                    <div class="text-center" onclick="location.href='{{ path('Book', {'BookId': book.id}) }}';" style="cursor: pointer;">
+                                        <img id="BookPic" class="rounded-3 w-50 book-image" data-isbn="{{ book.isbn }}" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
+                                        <h3 id="booktitle">{{ book.title }}</h3>
+                                        <h4 id="bookauthor">{{ book.author }}</h4>
+                                        <p id="bookgenres">Book followers: {{ book.number_of_followers }}</p>
+                                    </div>
                                 </div>
-                                <script src="{{ asset('javascript/api.js') }}"></script>
-                                <script>fetch_details('{{ book.isbn }}');</script>
                             {% endfor %}
                         </div>
-                    </div>
                     </div>
             </div>
         </div>

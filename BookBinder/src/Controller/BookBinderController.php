@@ -53,11 +53,16 @@ class BookBinderController extends AbstractController
     public function home(EntityManagerInterface $em): Response {
         $library = $em->getRepository(Library::class)->findNearestLibrary($this->lastUsername);
         $books = $em->getRepository(Books::class)->findTopBooks();
+        $UserObject = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $UserId = $UserObject->getID();
+        $FollowedBookByUser = $em->getRepository(UserBook::class)->displayFollowedBooksPerUser($UserId);
         return $this->render('home.html.twig', [
             'stylesheets' => $this->stylesheets,
             'last_username' => $this->lastUsername,
             'books' => $books,
             'library' => $library,
+            'followedBooks'=>$FollowedBookByUser,
+            'javascripts' => ['api.js'],
         ]);
     }
 
