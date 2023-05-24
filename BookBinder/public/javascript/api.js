@@ -19,7 +19,6 @@ Array.from(bookImages).forEach((image) => {
     xhttp.send();
 });
 
-
 function fetch_details(isbn){
     const xhttp = new XMLHttpRequest();
     //What happens when we receive the answer (json)
