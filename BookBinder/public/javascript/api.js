@@ -19,7 +19,6 @@ Array.from(bookImages).forEach((image) => {
     xhttp.send();
 });
 
-
 function fetch_details(isbn){
     const xhttp = new XMLHttpRequest();
     //What happens when we receive the answer (json)
@@ -55,10 +54,10 @@ function getAuthor(bookdata){
     if(bookdata){
         const authors = bookdata.authors;
         const authorName = authors[0].name;
-        /*console.log(authorName);*/
         document.getElementById('BookAuthor').textContent ='Author: ' + authorName;
     }else {
         document.getElementById('BookAuthor').textContent = 'An error occurred. Try to load the page again.';
     }
 }
+
 

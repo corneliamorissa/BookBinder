@@ -24,9 +24,34 @@ class UserBookRepository extends ServiceEntityRepository
     public function getBooksByUserID(int $ID) : ?array{
         $entitymanager = $this->getEntityManager();
         $query = $entitymanager->createQuery(
-            'SELECT b.bookid, b.userid from App\Entity\UserBook b WHERE b.userid = :ID')
+            'SELECT b from App\Entity\UserBook b WHERE b.userid = :ID')
             ->setParameter(':ID', $ID);
         return $query->getResult();
     }
 
+    public function findUserBook(int $userid, int $bookid):?UserBook{
+        return $this->findOneBy(['userid'=>$userid, 'bookid'=>$bookid]);
+    }
+
+    public function displayFollowedBooksPerUser(int $UserId) : array{
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('ub.id', 'b.title ', 'b.isbn','b.author ', 'ub.userid', 'ub.bookid')
+            ->from('App\Entity\UserBook', 'ub')
+            ->leftJoin('App\Entity\Books', 'b', 'WITH', 'ub.bookid = b.id')
+            ->where('ub.userid = :userId')
+            ->setParameter('userId', $UserId);
+
+        $result =  $qb->getQuery()->getScalarResult();
+        $books = [];
+        foreach ($result as $row) {
+            $book = [
+                'id'=>$row['bookid'],
+                'title' => $row['title'],
+                'author' => $row['author'],
+                'isbn' => $row['isbn'],
+            ];
+            $books[] = $book;
+        }
+        return $books;
+    }
 }

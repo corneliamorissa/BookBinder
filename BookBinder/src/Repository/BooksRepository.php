@@ -3,6 +3,7 @@
 namespace App\Repository;
 use App\Entity\Books;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\AST\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use http\QueryString;
 
@@ -50,6 +51,7 @@ class BooksRepository extends ServiceEntityRepository
             ->orderBy('b.rating', 'DESC')
             ->addOrderBy('b.number_of_followers', 'DESC')
             ->setMaxResults(3);
+
         $result = $queryBuilder->getQuery()->getScalarResult();
         $books = [];
         foreach ($result as $row) {
