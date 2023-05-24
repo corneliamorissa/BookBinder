@@ -34,4 +34,30 @@ class UserRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function findUserByName(string $username): ?array{
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('
+        SELECT u.first_name, u.last_name, u.birthdate, u.street, u.house_number, u.postcode
+        FROM App\Entity\User u
+        WHERE u.username = :username
+    ');
+        $query->setParameter('username', $username);
+        $query->setMaxResults(1);
+        $result = $query->getScalarResult();
+        $user = [];
+
+        foreach ($result as $row) {
+            $user = [
+                'first_name' => $row['first_name'],
+                'last_name' => $row['last_name'],
+                'birthdate' => $row['birthdate'],
+                'street' => $row['street'],
+                'house_number' => $row['house_number'],
+                'postcode' => $row['postcode'],
+            ];
+            $user[] = $user;
+        }
+        return $user;
+    }
+
 }

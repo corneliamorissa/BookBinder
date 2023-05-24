@@ -1,0 +1,5 @@
+
+GET https://openlibrary.org/api/books?bibkeys=ISBN:978-0307474278&jscmd=data&format=json
+
+Content-Type: application/json
+Accept: application/json

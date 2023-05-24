@@ -2,15 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Avatar;
 use App\Entity\Books;
 use App\Entity\MeetUp;
 use App\Entity\Library;
 use App\Entity\Review;
+use App\Entity\UserBook;
 use App\Form\BookReviewFormType;
+use App\Form\FollowFormType;
 use App\Form\LoginFormType;
 use App\Form\MeetUpInviteFormType;
 use App\Form\SearchBookFormType;
 use App\Form\SignUpFormType;
+use App\Form\UnfollowFormType;
 use App\Form\UserDetailsType;
 use App\Repository\UserRepository;
 use App\Service\AuthenticationService;
@@ -56,7 +60,30 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-
+    #[Route("/User", name: "User")]
+    #[IsGranted('ROLE_USER')]
+    public function user(Request $request, EntityManagerInterface $em): Response {
+        $user = $em->getRepository(\App\Entity\User::class)->findUserByName($this->lastUsername);
+        $avatar = $em ->getRepository(Avatar::class)->findAvatarByName($this->lastUsername);
+        $id = $avatar -> getId();
+        $library = $em->getRepository(Library::class)->findNearestLibrary($this->lastUsername);
+        $form = $this->createForm(UserDetailsType::class);
+        $form ->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $feedBackForm = $form->getData();
+            $em->persist($feedBackForm);
+            $em->flush();
+            return $this->redirectToRoute('Home');
+        }
+        return $this->render('user.html.twig', [
+            'stylesheets' => $this->stylesheets,
+            'form'=>$form->createView(),
+            'last_username' => $this->lastUsername,
+            'user' => $user,
+            'library' => $library,
+            'avatar'=> $avatar
+        ]);
+    }
     #[Route("/privacypolicy", name: "privacypolicy")]
     #[IsGranted('ROLE_USER')]
     public function privacypolicy(): Response {
@@ -126,38 +153,31 @@ class BookBinderController extends AbstractController
         ]);
     }
 
-    #[Route("/User", name: "User")]
-    #[IsGranted('ROLE_USER')]
-    public function user(Request $request, EntityManagerInterface $em): Response {
-        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
-        $userID = $user->getID();
-        //$user = $em ->getRepository(User::class) -> find($id);
-        $form = $this->createForm(UserDetailsType::class);
-        $form ->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $feedBackForm = $form->getData();
-            $em->persist($feedBackForm);
-            $em->flush();
-            return $this->redirectToRoute('Home');
-        }
-        return $this->render('user.html.twig', [
-            'stylesheets' => $this->stylesheets,
-            'form'=>$form->createView(),
-            'last_username' => $this->lastUsername
-        ]);
-    }
-
     #[Route("/Book/{id}", name: "Book")]
     #[IsGranted('ROLE_USER')]
     public function book(Request $request, EntityManagerInterface $em, int $id ): Response {
         /*Book details*/
         $book = $em->getRepository(Books::class)->find($id);
         $title  =$book->getTitle();
-
+        $bookid = $book->getId();
+        /*Get follow information*/
+        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $userID = $user->getID();
+        $follow =$em->getRepository(UserBook::class)->getBooksByUserID($userID);
+        /*I can refactor this probably but ill do sa later. :)*/
+        if (empty($follow)){
+            $ff = 0; /*User doesnt follow the book-> display the follow btn*/
+        }else{
+            $followids = array_column($follow, 'bookid');
+            if(in_array($bookid,$followids)){
+                $ff = 1;
+            }else{
+                $ff=0;
+            }
+        }
         /*Getting reviews for a book based on the book name*/
         $display = $em->getRepository(Review::class)->getReviewBasedOnBookName($title);
         /*End of getting reviews*/
-
         $nrFollowers = $book->getNumberOffollowers();
         $author = $book->getAuthor();
         $pages = $book->getNumberOfpages();
@@ -165,7 +185,6 @@ class BookBinderController extends AbstractController
         $rating = $book->getRating();
         $libraryId = $book->getLibrary();
         $library = $em->getRepository(Books::class)->getLibraryNameById($libraryId);
-
         /*Feedback form*/
         $reviewform = new Review();
         $form = $this->createForm(BookReviewFormType::class, $reviewform);
@@ -178,10 +197,22 @@ class BookBinderController extends AbstractController
             $this->addFlash('success', 'Your review was submitted successfully!');
             return $this->redirectToRoute('Book', ['id' => $id]);
         }
+        $followform = new UserBook();
+        $form1 = $this->createForm(FollowFormType::class,$followform);
+        $form1->handleRequest($request);
+        if($form1->isSubmitted()&&$form1->isValid()){
+            $followform = $form1->getData();
+            $em->persist($followform);
+            $em->flush();
+            $this->addFlash('success', 'Book Followed Successfully');
+            return $this->redirectToRoute('Book', ['id' => $id]);
+        }
+
 
         return $this->render('book.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
+            'form1'=>$form1->createView(),
             'last_username' => $this->lastUsername,
             'title' => $title,
             'nrFollowers'=>$nrFollowers,
@@ -191,8 +222,39 @@ class BookBinderController extends AbstractController
             'rating'=>$rating,
             'library'=>$library,
             'display' => $display,
+            'ff'=>$ff,
+            'bookid'=>$bookid,
+            'userid'=>$userID,
+            'follow' => $follow,
+
         ]);
     }
+
+    /*#[Route("/Book/{id}/Unfollow", name: "Book_Unfollow")]
+    #[IsGranted('ROLE_USER')]
+    public function unfollowBook(Request $request, EntityManagerInterface $em, int $id):Response
+    {
+        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $book = $em->getRepository(Books::class)->find($id);
+
+        $form = $this->createForm(UnfollowFormType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $userBook = $em->getRepository(UserBook::class)
+                ->findOneBy(['user' => $user, 'book' => $book]);
+            if ($userBook) {
+                $em->remove($userBook);
+                $em->flush();
+                $this->addFlash('success', 'Book Unfollowed Successfully');
+            } else {
+                $this->addFlash('error', 'You are not following this book');
+            }
+        }
+        return $this->redirectToRoute('Book', [
+
+            'id' => $book->getId()]);
+
+    }*/
 
 
 }

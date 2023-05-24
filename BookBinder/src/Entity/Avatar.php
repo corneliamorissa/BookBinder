@@ -18,7 +18,7 @@ class Avatar
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id;
 
-    #[ORM\Column(type: "blob",length: 16777215, nullable: false)]
+    #[ORM\Column(type: "blob", nullable: false)]
     private $image;
 
     #[ORM\OneToMany(mappedBy: 'avatar', targetEntity: User::class)]

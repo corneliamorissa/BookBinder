@@ -73,6 +73,7 @@ class RegistrationController extends AbstractController
         return $this->render('signup.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
+            'javascripts' => ['signupform.js'],
             'avatar' => $avatar
         ]);
     }
