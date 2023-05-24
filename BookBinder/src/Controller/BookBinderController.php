@@ -64,6 +64,7 @@ class BookBinderController extends AbstractController
             'last_username' => $this->lastUsername,
             'books' => $books,
             'library' => $library,
+            'javascripts' => ['api.js']
         ]);
     }
 
