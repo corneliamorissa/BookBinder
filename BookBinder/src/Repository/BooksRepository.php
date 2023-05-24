@@ -68,4 +68,16 @@ class BooksRepository extends ServiceEntityRepository
         return $books;
     }
 
+    public function findBookByISBN(string $isbn): ?array
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('
+            SELECT c.id, c.title, c.author, c.rating, c.isbn, c.number_of_followers
+            FROM App\Entity\Books c
+            WHERE c.isbn = :isbn
+        ')->setParameter('isbn', $isbn);
+
+        return $query->getOneOrNullResult();
+    }
+
 }

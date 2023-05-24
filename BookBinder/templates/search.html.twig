@@ -1,27 +1,61 @@
 {% extends 'base.html.twig' %}
-{% block title %} <title> BookBinder </title>{% endblock %}
+
+{% block title %}
+    <title>BookBinder</title>
+{% endblock %}
+
 {% block stylesheet %}
     {{ parent() }}
     <link href="{{ asset('css/Search.css') }}" rel="stylesheet">
 {% endblock %}
+
 {% block content %}
     <div class="main">
         <div class="container">
             <div class="BookSearch">
-                <h1> Book search <br> </h1>
-                <h2> Enter the title or ISBN of the book you want to find </h2>
-                <form class="d-flex" role="search">
-                    {{ form_start(form) }}
-                    {{ form_row(form.Search)}}
-                    {{ form_row(form.SearchBtn) }}
-                    {{ form_end(form) }}
+                <h1>Book search</h1>
+                <h2>Enter the ISBN of the book you want to find</h2>
+                <form class="d-flex">
+                    <input type="text" id="isbn" placeholder="ISBN" required>
+                    <button type="button" id="searchButton">Search</button>
                 </form>
-                <h1> Discover!</h1>
+
+                <p id="bookTitle">Title</p>
+                <p id="bookAuthor">Author</p>
+                <p id="bookRating">Rating</p>
+                <p id="bookNumberOfFollowers">Number of Followers</p>
+                <!-- Add more <p> elements for other book parameters -->
+
+                <h1>Discover!</h1>
             </div>
             <div class="Trendings">
-                <h1> Trendings to be added later on.</h1>
-                <p> This space is formated to display the books from the database</p>
+                <h1>Trendings to be added later on.</h1>
+                <p>This space is formatted to display the books from the database.</p>
             </div>
         </div>
     </div>
+
+
+
+    <script>
+        function searchBookByISBN() {
+            var isbn = document.getElementById('isbn').value;
+            fetch(`/search/book/${isbn}`)
+                .then(response => response.json())
+                .then(data => {
+                    var book = data;
+                    document.getElementById('bookTitle').textContent = book.title || 'No book found';
+                    document.getElementById('bookAuthor').textContent = book.author || '';
+                    document.getElementById('bookRating').textContent = book.rating || '';
+                    document.getElementById('bookNumberOfFollowers').textContent = book.number_of_followers || '';
+                    // Update other <p> elements for additional book parameters
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        window.onload = function() {
+            var searchButton = document.getElementById('searchButton');
+            searchButton.addEventListener('click', searchBookByISBN);
+        };
+    </script>
 {% endblock %}

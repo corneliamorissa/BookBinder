@@ -23,11 +23,10 @@
                     <div>
                         <img id="userpict" src="/assets/user1.jpg" alt="userpict"/>
                     </div>
-                    {% set formattedDateTime = datetime|date('Y-m-d\\TH:i') %}
                     <div class="usersright">
                         <p id="username">Katlyn DB</p>
                         <p id="library">Bib Tweebronnen</p>
-                        <label for="datetime">Select date and time : </label> <input id="datetime" type="datetime-local" value="{{ formattedDateTime }}"/>
+                        <label for="datetime">Select date and time : </label> <input id="datetime" type="datetime-local"/>
                         <button id="requestmeetup">Request to Meet Up</button>
                     </div>
                 </div>
@@ -77,6 +76,26 @@
                     <li id="coming-up">With Sofia at Bib Tweebronnen</li>
                     <li id="coming-up">With  Dave  at Bib Tweebronnen</li>
                 </ul>
+            </div>
+            <div class ="writeInvitation">
+                <h1>Invite a friend</h1>
+                {{ form_start(form) }}
+                {{ form_row(form.nameInvited) }}
+                {% for message in app.flashes('failname') %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+                {{ form_row(form.dateTime) }}
+                {{ form_row(form.library) }}
+                {% for message in app.flashes('faillibrary') %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
