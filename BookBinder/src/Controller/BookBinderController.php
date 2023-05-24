@@ -6,6 +6,8 @@ use App\Entity\Avatar;
 use App\Entity\Books;
 use App\Entity\MeetUp;
 use App\Entity\Library;
+use App\Entity\MeetUpData;
+use App\Entity\User;
 use App\Entity\Review;
 use App\Entity\UserBook;
 use App\Form\BookReviewFormType;
@@ -21,7 +23,7 @@ use App\Repository\UserRepository;
 use App\Service\AuthenticationService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Client\Curl\User;
+//use http\Client\Curl\User;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -37,11 +39,13 @@ use App\Entity\LoginUser;
 use App\Entity\Db;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use function PHPUnit\Framework\isInstanceOf;
 
 class BookBinderController extends AbstractController
 {
     private array $stylesheets;
     private string $lastUsername;
+
 
     public function __construct(AuthenticationService $userService, AuthenticationUtils $authenticationUtils) {
         $this->stylesheets[] = 'main.css';
@@ -142,20 +146,38 @@ class BookBinderController extends AbstractController
 
         /* Form to invite someone*/
         $datetime = new DateTime();
-        $meetupform = new MeetUp($userID,0,$datetime,0,0,0);
-        $form = $this->createForm(MeetUpInviteFormType::class);
+        $meetUpForm = new MeetUpData("",$datetime,"");
+        $meetup = new MeetUp($userID,0,$datetime,0,0,0);
+        $form = $this->createForm(MeetUpInviteFormType::class,$meetUpForm);
+        $form ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            $meetupform = $form->getData();
-            $em->persist($meetupform);
-            $em->flush();
+            if (($invitedUser = ($em->getRepository(User::class)->findOneBy(['username' => $meetUpForm->getNameUserInvited()]))) != null){
+                $user1 = $invitedUser;
+                $meetup->setIdUserInvited($user1->getId());
+                if (($library = $em->getRepository(Library::class)->findOneBy(['name' => $meetUpForm->getNameLibrary()])) != null){
+                    $library1 = $library;
+                    $meetup->setIdLibrary($library1->getID());
+                    $meetup->setDateTime($meetUpForm->getDateTime());
+                    $em->persist($meetup);
+                    $em->flush();
+                }
+                else{
+                    $this->addFlash('faillibrary', 'Please enter a valid library name.');
+                }
+            }
+            else{
+                $this->addFlash('failname', 'Please enter a valid  username.');
+            }
             /*Message to be displayed in the case of successful review submission and the reload the page to prevent multiple submissions by reloading the page!*/
             $this->addFlash('success', 'Your Meetup request was submitted successfully!');
             return $this->redirectToRoute('MeetUp');
         }
         return $this->render('meetup.html.twig', [
             'stylesheets' => $this->stylesheets,
+            'form'=>$form->createView(),
             'last_username' => $this->lastUsername,
             'all_meetups' => $allMeetups,
+            'date_time' => $datetime,
             'all_received_meetups' => $allReceivedMeetups,
             'all_sent_meetups' => $allSentMeetups,
             'all_open_meetups' => $allOpenMeetups,
