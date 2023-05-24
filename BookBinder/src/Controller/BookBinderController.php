@@ -16,6 +16,7 @@ use App\Form\SearchBookFormType;
 use App\Form\SignUpFormType;
 use App\Form\UnfollowFormType;
 use App\Form\UserDetailsType;
+use App\Repository\BooksRepository;
 use App\Repository\UserRepository;
 use App\Service\AuthenticationService;
 use DateTime;
@@ -27,7 +28,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\LoginUser;
@@ -103,20 +106,27 @@ class BookBinderController extends AbstractController
 
     #[Route("/Search", name: "Search")]
     #[IsGranted('ROLE_USER')]
-    public function search(Request $request, EntityManagerInterface $em): Response {
-        $form = $this->createForm(SearchBookFormType::class);
-        $form ->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $feedBackForm = $form->getData();
-            $em->persist($feedBackForm);
-            $em->flush();
-            return $this->redirectToRoute('Home');
-        }
+    public function search(Request $request, BooksRepository $booksRepository)
+    {
         return $this->render('search.html.twig', [
             'stylesheets' => $this->stylesheets,
-            'form'=>$form->createView(),
-            'last_username' => $this->lastUsername
+            'last_username' => $this->lastUsername,
         ]);
+    }
+
+    #[Route("/search/book/{isbn}", name: "search_book")]
+    #[IsGranted('ROLE_USER')]
+    public function findBookByISBN(string $isbn, BooksRepository $booksRepository): JsonResponse
+    {
+        $book = $booksRepository->findBookByISBN($isbn);
+
+        if ($book) {
+            $response = $book;
+        } else {
+            $response = ['title' => null];
+        }
+
+        return new JsonResponse($response);
     }
 
     #[Route("/MeetUp", name: "MeetUp")]
