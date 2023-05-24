@@ -86,8 +86,17 @@ main{
     height: max-content;
     font-family: Figtree, Arial, sans-serif;;
     border-radius: 10px;
+    background-color: #311E69;
+}
+
+.landing-main-left-carousel{
+    width: 400px;
+    height: max-content;
+    font-family: Figtree, Arial, sans-serif;;
+    border-radius: 10px;
     background-color: white;
 }
+
 .landing-trending {
     display: flex;
     flex-direction: column;

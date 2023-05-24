@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Books;
+use App\Entity\Library;
 use App\Form\LoginFormType;
 use App\Service\AuthenticationService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,8 +27,11 @@ class LoginController extends AbstractController
      * @Route("/", name="LogIn", methods={"GET", "POST"})
      */
     #[Route("/", name: "LogIn")]
-    public function index(AuthenticationUtils $authenticationUtils): Response {
-
+    public function index(AuthenticationUtils $authenticationUtils,EntityManagerInterface $em): Response {
+        $books = $em->getRepository(Books::class)->findTopBooks();
+        $first_book = $books[0];
+        $second_book = $books[1];
+        $third_book = $books[2];
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -34,7 +39,11 @@ class LoginController extends AbstractController
         return $this->render('login.html.twig', [
             'stylesheets' => $this->stylesheets,
             'last_username' => $lastUsername,
-            'error'         => $error
+            'error'         => $error,
+            'first_book' => $first_book,
+            'second_book' => $second_book,
+            'third_book' => $third_book,
+            'javascripts' => ['api.js'],
         ]);
     }
 
