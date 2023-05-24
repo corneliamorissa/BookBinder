@@ -33,4 +33,25 @@ class UserBookRepository extends ServiceEntityRepository
         return $this->findOneBy(['userid'=>$userid, 'bookid'=>$bookid]);
     }
 
+    public function displayFollowedBooksPerUser(int $UserId) : array{
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('ub.id', 'b.title ', 'b.isbn','b.author ', 'ub.userid', 'ub.bookid')
+            ->from('App\Entity\UserBook', 'ub')
+            ->leftJoin('App\Entity\Books', 'b', 'WITH', 'ub.bookid = b.id')
+            ->where('ub.userid = :userId')
+            ->setParameter('userId', $UserId);
+
+        $result =  $qb->getQuery()->getScalarResult();
+        $books = [];
+        foreach ($result as $row) {
+            $book = [
+                'id'=>$row['bookid'],
+                'title' => $row['title'],
+                'author' => $row['author'],
+                'isbn' => $row['isbn'],
+            ];
+            $books[] = $book;
+        }
+        return $books;
+    }
 }
