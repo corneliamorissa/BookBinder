@@ -77,8 +77,13 @@ class BookBinderController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function user(Request $request, EntityManagerInterface $em): Response {
         $user = $em->getRepository(\App\Entity\User::class)->findUserByName($this->lastUsername);
-        $avatar = $em ->getRepository(Avatar::class)->findAvatarByName($this->lastUsername);
-        $id = $avatar -> getId();
+        $avatarid = $user['avatar_id'];
+        $avatar = $em ->getRepository(Avatar::class) -> findOneBy(['id' => $avatarid ]);
+        if($avatar) {
+            $imageBlob = $avatar->getImage();
+            $base64Image = base64_encode(stream_get_contents($imageBlob));
+            $dataUri = 'data:image/png;base64,' . $base64Image;
+        }
         $library = $em->getRepository(Library::class)->findNearestLibrary($this->lastUsername);
         $form = $this->createForm(UserDetailsType::class);
         $form ->handleRequest($request);
@@ -94,7 +99,9 @@ class BookBinderController extends AbstractController
             'last_username' => $this->lastUsername,
             'user' => $user,
             'library' => $library,
-            'avatar'=> $avatar
+            'avatar'=> $avatar,
+            'data_image_url' => $dataUri
+
         ]);
     }
     #[Route("/privacypolicy", name: "privacypolicy")]

@@ -24,6 +24,12 @@ class Avatar
     #[ORM\OneToMany(mappedBy: 'avatar', targetEntity: User::class)]
     private Collection $users;
 
+    public function __construct()
+    {
+        $this->roles = array('ROLE_USER');
+        $this->private_account = 0;
+    }
+
     /**
      * @return Collection
      */
@@ -86,8 +92,6 @@ class Avatar
         return (string) $this->id;
     }
 
-    public function __construct() {
-        }
 
     /**
      * @return string

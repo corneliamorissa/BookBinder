@@ -45,10 +45,9 @@ class AvatarRepository extends ServiceEntityRepository
         $query->setParameter('username', $username);
         $query->setMaxResults(1);
         $result = $query->getScalarResult();
-
         $avatar = [];
-
         foreach ($result as $row) {
+
             $avatar = [
                 'id'   => $row['id'],
                 'image' => $row['image'],

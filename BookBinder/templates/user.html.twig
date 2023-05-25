@@ -57,11 +57,11 @@
                                     This a 1st version of the Profile page. Many changes can be made.
                                 </div>
                             </div> -->
-                        </div>
-                        <div class="card-body text-center"> {#Card sees the form as text#}
-                            <p> <Strong>Avatar: </Strong>
 
                             </p>
+                            {% if avatar %}
+                                <img src="{{ data_image_url }}" style="width: 100px; height: 100px;" alt="Avatar">
+                            {% endif %}
                             <hr>
                             <p> <Strong>First name: </Strong>{{ user.first_name }}</p>
                             <hr>
