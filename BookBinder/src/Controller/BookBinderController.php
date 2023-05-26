@@ -13,6 +13,8 @@ use App\Entity\UserBook;
 use App\Form\BookReviewFormType;
 use App\Form\FollowFormType;
 use App\Form\LoginFormType;
+use App\Form\MeetUpAcceptFormType;
+use App\Form\MeetUpDeclineFormType;
 use App\Form\MeetUpInviteFormType;
 use App\Form\SearchBookFormType;
 use App\Form\SignUpFormType;
@@ -151,10 +153,37 @@ class BookBinderController extends AbstractController
     public function meetup(Request $request, EntityManagerInterface $em): Response {
         $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
         $userID = $user->getID();
-        $allSentMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID]);
-        $allReceivedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID]);
-        $allMeetups = array_merge($allSentMeetups,$allReceivedMeetups);
-        $allOpenMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID,'accepted' => 0,'declined' => 0]);
+        //$allSentMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID]);
+        //$allReceivedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID]);
+        //$allMeetups = array_merge($allSentMeetups,$allReceivedMeetups);
+        $allOpenMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID,'accepted' => 0,'declined' => 0]);
+        $allOpenMeetupsData = array();
+        $formsAccept = array();
+        $formsDecline = array();
+        foreach ( $allOpenMeetups as $meetUp){
+            $meetUpData = new MeetUpData(
+                ($em->getRepository(\App\Entity\User::class)->findOneBy(['id'=> $meetUp->getIdUserInviter()]))->getUsername(),
+                $meetUp->getDateTime(),
+                ($em->getRepository(Library::class)->findOneBy(['id'=> $meetUp->getIdLibrary()]))->getName()
+            );
+            $formAccept = $this->createForm(MeetUpAcceptFormType::class,$meetUp);
+            $formAccept ->handleRequest($request);
+            if($formAccept->isSubmitted() && $formAccept->isValid()){
+                $meetUp->setAccepted(1);
+                $em->flush();
+                return $this->redirectToRoute('MeetUp');
+            }
+            $formDecline = $this->createForm(MeetUpDeclineFormType::class,$meetUp);
+            $formDecline ->handleRequest($request);
+            if($formDecline->isSubmitted() && $formDecline->isValid()){
+                $meetUp->setDeclined(1);
+                $em->flush();
+                return $this->redirectToRoute('MeetUp');
+            }
+            array_push($allOpenMeetupsData,$meetUpData);
+            array_push($formsAccept,$formAccept->createView());
+            array_push($formsDecline,$formDecline->createView());
+        }
         $allAcceptedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID,'accepted' => 1,'declined' => 0]);
 
         /* Form to invite someone*/
@@ -185,15 +214,20 @@ class BookBinderController extends AbstractController
             $this->addFlash('success', 'Your Meetup request was submitted successfully!');
             return $this->redirectToRoute('MeetUp');
         }
+
+        /*Form to accept invite*/
+
         return $this->render('meetup.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
+            'formAccept'=>$formsAccept,
+            'formDecline'=>$formsDecline,
             'last_username' => $this->lastUsername,
-            'all_meetups' => $allMeetups,
+            //'all_meetups' => $allMeetups,
             'date_time' => $datetime,
-            'all_received_meetups' => $allReceivedMeetups,
-            'all_sent_meetups' => $allSentMeetups,
-            'all_open_meetups' => $allOpenMeetups,
+            //'all_received_meetups' => $allReceivedMeetups,
+            //'all_sent_meetups' => $allSentMeetups,
+            'all_open_meetups' => $allOpenMeetupsData,
             'all_accepted_meetups' => $allAcceptedMeetups,
         ]);
     }

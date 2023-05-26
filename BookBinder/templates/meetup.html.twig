@@ -49,25 +49,26 @@
             <div>
                 <h2 class="titleinvite"> Meet Up Invitation</h2>
                 <ul class="invitationlist">
-                    <div class="invitation">
-                        <div>
-                            <p id="invitename">Sophia</p>
-                            <p id="librarymeet">Bib Tweebronnen</p>
+                    {% set index = 0 %}
+                    {% for MeetUp in all_open_meetups %}
+                        <div class="invitation">
+                            <div>
+                                <p id="invitename">{{ MeetUp.nameInvited }}</p>
+                                <p id="librarymeet">Library:
+                                    {{ MeetUp.library }}</p>
+                            </div>
+                            <p id="datetimeinvitation">{{ MeetUp.dateTime|date('d/m/Y H:i') }}</p>
+                            {% if loop.index0 == index %}
+                                {{ form_start(formAccept[index]) }}
+                                {{ form_end(formAccept[index]) }}
+                            {% endif %}
+                            {% if loop.index0 == index %}
+                                {{ form_start(formDecline[index]) }}
+                                {{ form_end(formDecline[index]) }}
+                                {% set index = index + 1 %}
+                            {% endif %}
                         </div>
-                        <p id="datetimeinvitation">25/04/2023 13:00</p>
-                        <button id="accept">Accept</button>
-                        <button id="decline">Decline</button>
-                    </div>
-
-                    <div class="invitation">
-                        <div>
-                            <p id="invitename">Isabella</p>
-                            <p id="librarymeet">Bib Tweebronnen</p>
-                        </div>
-                        <p id="datetimeinvitation">01/05/2023 11:00</p>
-                        <button id="accept">Accept</button>
-                        <button id="decline">Decline</button>
-                    </div>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="coming-up-block">
