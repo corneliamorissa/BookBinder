@@ -46,7 +46,7 @@
                     <h2 style="color: #311E69; padding-top: 20px; padding-bottom: 10px">Your Favorite Books</h2>
                     <div class="card-group">
                         {% for book in followedBooks %}
-                            <div class="card rounded-1 mb-sm-3">
+                            <div id="fav_book" class="card rounded-1 mb-sm-3">
                                 <div class="text-center" onclick="location.href='{{ path('Book', {'BookId': book.id}) }}';" style="cursor: pointer;">
                                     <img id="BookPic" class="rounded-3 w-50 book-image pt-1" data-isbn="{{ book.isbn }}" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
                                     <h5 class="pt-1" id="booktitle">{{ book.title }}</h5>

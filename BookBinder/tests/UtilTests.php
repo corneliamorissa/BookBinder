@@ -24,22 +24,30 @@ class UtilTests extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testRouteHome():void
     {
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
 
         //retrive the test user
-        $testUser = $userRepository->findOneBy(['username'=> 'Amal__York1720']);
+        $crawler = $client->request('GET', '/');
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = 'Amal__York1720';
+        $form['_password'] = 'OUC51OZS0OH';
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+        $lastUsername = $crawler->filter('#last_username');
+        $this->assertStringContainsString("Amal__York1720", $lastUsername->text());
 
-        //simulate $testUser being logged in
-        $client->loginUser($testUser);
-
-        //test the home page rout if its rendered the right html file
-        $client->request('GET', 'Home');
+        $client->request('GET', '/Home');
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('#trending_home', 'Trending This Week');
         $this->assertSelectorTextContains('#nearest','Your nearest library');
+        $favBook = $crawler->filter("#fav_book");
+        $this->assertEquals(2,$favBook->count());
     }
 
 }
