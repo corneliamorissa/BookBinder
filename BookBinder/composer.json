@@ -36,7 +36,8 @@
         "symfony/phpunit-bridge": "^6.2",
         "symfony/stopwatch": "6.2.*",
         "symfony/web-profiler-bundle": "6.2.*",
-        "symfony/panther": "*"
+        "symfony/panther": "*",
+        "dbrekelmans/bdi": "*"
     },
     "config": {
         "allow-plugins": {
