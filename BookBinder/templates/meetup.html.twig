@@ -61,9 +61,12 @@
                             {% if loop.index0 == index %}
                                 {{ form_start(formAccept[index]) }}
                                 {{ form_end(formAccept[index]) }}
+                            {% endif %}
+                            {% if loop.index0 == index %}
+                                {{ form_start(formDecline[index]) }}
+                                {{ form_end(formDecline[index]) }}
                                 {% set index = index + 1 %}
                             {% endif %}
-                            <button id="decline">Decline</button>
                         </div>
                     {% endfor %}
                 </ul>

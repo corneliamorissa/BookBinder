@@ -14,6 +14,7 @@ use App\Form\BookReviewFormType;
 use App\Form\FollowFormType;
 use App\Form\LoginFormType;
 use App\Form\MeetUpAcceptFormType;
+use App\Form\MeetUpDeclineFormType;
 use App\Form\MeetUpInviteFormType;
 use App\Form\SearchBookFormType;
 use App\Form\SignUpFormType;
@@ -158,6 +159,7 @@ class BookBinderController extends AbstractController
         $allOpenMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID,'accepted' => 0,'declined' => 0]);
         $allOpenMeetupsData = array();
         $formsAccept = array();
+        $formsDecline = array();
         foreach ( $allOpenMeetups as $meetUp){
             $meetUpData = new MeetUpData(
                 ($em->getRepository(\App\Entity\User::class)->findOneBy(['id'=> $meetUp->getIdUserInviter()]))->getUsername(),
@@ -171,8 +173,16 @@ class BookBinderController extends AbstractController
                 $em->flush();
                 return $this->redirectToRoute('MeetUp');
             }
+            $formDecline = $this->createForm(MeetUpDeclineFormType::class,$meetUp);
+            $formDecline ->handleRequest($request);
+            if($formDecline->isSubmitted() && $formDecline->isValid()){
+                $meetUp->setDeclined(1);
+                $em->flush();
+                return $this->redirectToRoute('MeetUp');
+            }
             array_push($allOpenMeetupsData,$meetUpData);
             array_push($formsAccept,$formAccept->createView());
+            array_push($formsDecline,$formDecline->createView());
         }
         $allAcceptedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID,'accepted' => 1,'declined' => 0]);
 
@@ -211,6 +221,7 @@ class BookBinderController extends AbstractController
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
             'formAccept'=>$formsAccept,
+            'formDecline'=>$formsDecline,
             'last_username' => $this->lastUsername,
             //'all_meetups' => $allMeetups,
             'date_time' => $datetime,
