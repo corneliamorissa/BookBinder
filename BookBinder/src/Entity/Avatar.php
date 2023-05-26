@@ -27,7 +27,6 @@ class Avatar
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
-        $this->private_account = 0;
     }
 
     /**
@@ -86,6 +85,7 @@ class Avatar
         $this->id = $id;
         return $this;
     }
+
 
     public function __toString()
     {
