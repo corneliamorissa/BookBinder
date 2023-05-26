@@ -24,7 +24,7 @@ class UtilTests extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    /*public function testRouteHome():void
+    public function testRouteHome():void
     {
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
@@ -40,6 +40,6 @@ class UtilTests extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('#trending_home', 'Trending This Week');
         $this->assertSelectorTextContains('#nearest','Your nearest library');
-    }*/
+    }
 
 }
