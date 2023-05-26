@@ -108,4 +108,14 @@ class Avatar
         return $this;
     }
 
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        // Return a string representation of the Avatar
+        // For example, you could return the avatar's name or any other relevant property
+        return $this->id;
+    }
 }

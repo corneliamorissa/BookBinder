@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use App\Repository\UserRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UtilTests extends WebTestCase
@@ -50,4 +51,34 @@ class UtilTests extends WebTestCase
         $this->assertEquals(2,$favBook->count());
     }
 
+    public function testRouteSignUp() : void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/SignUp');
+        //$form['form[avatar]'] = $crawler->selectImage('2');
+        $form = $crawler->filter('form[name="signup"]')->form();
+        $form['sign_up_form[avatar]'] = 2;
+        $form['sign_up_form[username]'] = 'Becky_Jhj'; //can only used one time in a test, after run once, need to test with unique username
+        $form['sign_up_form[password][first]'] = 'Secret678';
+        $form['sign_up_form[password][second]'] = 'Secret678';
+        $form['sign_up_form[first_name]'] = 'Becky';
+        $form['sign_up_form[last_name]'] = 'Jessica';
+        $form['sign_up_form[birthdate][month]'] = 10;
+        $form['sign_up_form[birthdate][day]'] = 19;
+        $form['sign_up_form[birthdate][year]'] = 2006;
+        $form['sign_up_form[street]'] = 'NewMiles South';
+        $form['sign_up_form[house_number]'] = 34;
+        $form['sign_up_form[postcode]'] = 3232;
+        $form['sign_up_form[terms_and_condition]'] = true;
+
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = 'Becky_J';
+        $form['_password'] = 'Secret678';
+        $client->submit($form);
+        $client->request('GET', '/Search');
+        $this->assertResponseIsSuccessful();
+
+    }
 }
