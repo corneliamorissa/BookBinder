@@ -30,14 +30,11 @@ class Library
      * @param int $housenumber
      * @param int $postcode
      */
-    public function __construct(string $name, string $street, int $housenumber, int $postcode)
+    public function __construct()
     {
-        $this->name = $name;
-        $this->street = $street;
-        $this->housenumber = $housenumber;
-        $this->postcode = $postcode;
-    }
+        $this->roles = array('ROLE_USER');
 
+    }
     /**
      * @return int|null
      */
@@ -45,7 +42,6 @@ class Library
     {
         return $this->id;
     }
-
     /**
      * @param int|null $id
      */
@@ -53,7 +49,6 @@ class Library
     {
         $this->id = $id;
     }
-
     /**
      * @return string
      */
@@ -61,7 +56,6 @@ class Library
     {
         return $this->name;
     }
-
     /**
      * @param string $name
      */
@@ -69,7 +63,6 @@ class Library
     {
         $this->name = $name;
     }
-
     /**
      * @return string
      */
@@ -77,7 +70,6 @@ class Library
     {
         return $this->street;
     }
-
     /**
      * @param string $street
      */
@@ -85,7 +77,6 @@ class Library
     {
         $this->street = $street;
     }
-
     /**
      * @return int
      */
@@ -93,7 +84,6 @@ class Library
     {
         return $this->housenumber;
     }
-
     /**
      * @param int $housenumber
      */
@@ -101,7 +91,6 @@ class Library
     {
         $this->housenumber = $housenumber;
     }
-
     /**
      * @return int
      */
@@ -109,7 +98,6 @@ class Library
     {
         return $this->postcode;
     }
-
     /**
      * @param int $postcode
      */
@@ -117,7 +105,6 @@ class Library
     {
         $this->postcode = $postcode;
     }
-
     //Not used- Kept for reference
     /*static function getLibraryByID(int $ID) : ?Library {
         $db = Db::getConnection();

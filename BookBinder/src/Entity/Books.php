@@ -41,6 +41,16 @@ class Books
     #[OneToMany(mappedBy: "id", targetEntity: UserBook::class)]
     private $userbooks;
 
+    public function __construct()
+    {
+        $this->roles = array('ROLE_USER');
+    }
+
+
+    public function setId(int $id):void
+    {
+        $this ->id = $id;
+    }
     /**
      * @return int
      */
