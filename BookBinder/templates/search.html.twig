@@ -7,6 +7,7 @@
 {% block stylesheet %}
     {{ parent() }}
     <link href="{{ asset('css/Search.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/Book.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -19,13 +20,22 @@
                     <input type="text" id="isbn" placeholder="ISBN" required>
                     <button type="button" id="searchButton">Search</button>
                 </form>
-
-                <p id="bookTitle">Title</p>
-                <p id="bookAuthor">Author</p>
-                <p id="bookRating">Rating</p>
-                <p id="bookNumberOfFollowers">Number of Followers</p>
                 <!-- Add more <p> elements for other book parameters -->
+                <div class="col-lg-3">
+                    <div class="card rounded-2 mb-4">
+                        <div class="card-body">
+                            <h3 id="trending_home" class="card-title text-white text-center rounded-3 p-3 mb-3"
+                                style="background: #866ff7;">
+                            </h3>
+                            <div class="text-center" onclick="location.href=redirectToBook()" style="cursor: pointer;">
+                                <img id="BookPic" class="rounded-3 w-50 book-image pt-1" data-isbn="" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
+                                <h5 id="bookTitle">1</h5>
+                                <h6 id="bookAuthor">2</h6>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
                 <h1>Discover!</h1>
             </div>
             <div class="Trendings">
@@ -36,10 +46,27 @@
     </div>
 
 
-
     <script>
+        function redirectToBook() {
+            var isbn = document.getElementById('isbn').value;
+            console.log("0");
+            fetch(`/search/book/${isbn}`)
+                .then(response => response.json())
+                .then(data => {
+                    var book = data;
+                    var id = book.id;
+                    var url = '/Book/' + id;
+                    console.log("url: " + url);
+                    window.location.href = url;
+                    document.getElementById('BookPic').setAttribute('data-isbn', isbn);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+
         function searchBookByISBN() {
             var isbn = document.getElementById('isbn').value;
+
             fetch(`/search/book/${isbn}`)
                 .then(response => response.json())
                 .then(data => {
@@ -48,14 +75,17 @@
                     document.getElementById('bookAuthor').textContent = book.author || '';
                     document.getElementById('bookRating').textContent = book.rating || '';
                     document.getElementById('bookNumberOfFollowers').textContent = book.number_of_followers || '';
-                    // Update other <p> elements for additional book parameters
+                    document.getElementById('id').textContent = book.id || '';
+                    document.getElementById('isbn').textContent = book.isbn || '';
+                    document.getElementById('bookgenres').textContent = book.genres || '';
                 })
                 .catch(error => console.error('Error:', error));
         }
 
-        window.onload = function() {
+        window.onload = function () {
             var searchButton = document.getElementById('searchButton');
             searchButton.addEventListener('click', searchBookByISBN);
         };
     </script>
+
 {% endblock %}
