@@ -9,7 +9,7 @@
                             Trending This Week
                         </h3>
                         {% for book in books %}
-                            <div class="text-center" onclick="location.href='{{ path('Book', {'BookId': book.id}) }}';" style="cursor: pointer;">
+                            <div id="trendingBook" class="text-center" onclick="location.href='{{ path('Book', {'BookId': book.id}) }}';" style="cursor: pointer;">
                                 <img id="BookPic" class="rounded-3 w-50 book-image" data-isbn="{{ book.isbn }}" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
                                 <h5 id="booktitle">{{ book.title }}</h5>
                                 <h6 id="bookauthor">{{ book.author }}</h6>
