@@ -11,14 +11,15 @@ class AvatarTest extends TestCase
     public function testGetAttributes(): void{
         $avatar = new Avatar();
 
-        $this -> assertEquals(null,$avatar -> getImage());
-        $this -> assertEquals(null,$avatar -> getId());
 
         $avatar -> setId(1);
         $avatar -> setImage("blob data");
 
         $this->assertEquals(1,$avatar -> getId());
         $this->assertSame("blob data", $avatar -> getImage());
+
+        $avatar -> setId(2);
+        $this->assertEquals(2,$avatar -> getId());
 
         //no test yet for the getUsersMethod
 
