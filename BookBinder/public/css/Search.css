@@ -13,6 +13,7 @@
     height: auto;
     left: 451px;
     top: 138px;
+
 }
 
 .Trendings{
@@ -30,4 +31,8 @@
 
 .SearchBar{
 
+}
+
+.d-flex{
+    margin-bottom: 20px;
 }

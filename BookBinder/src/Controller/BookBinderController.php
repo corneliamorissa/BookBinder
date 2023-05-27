@@ -125,12 +125,21 @@ class BookBinderController extends AbstractController
 
     #[Route("/Search", name: "Search")]
     #[IsGranted('ROLE_USER')]
-    public function search(Request $request, BooksRepository $booksRepository)
+    public function search(Request $request, BooksRepository $booksRepository, EntityManagerInterface $em)
     {
+        $books = $em->getRepository(Books::class)->findTopBooks();
+        $UserObject = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $UserId = $UserObject->getID();
+        $FollowedBookByUser = $em->getRepository(UserBook::class)->displayFollowedBooksPerUser($UserId);
         return $this->render('search.html.twig', [
             'stylesheets' => $this->stylesheets,
             'last_username' => $this->lastUsername,
+            'books' => $books,
+            'followedBooks'=>$FollowedBookByUser,
+            'javascripts' => ['api.js'],
         ]);
+
+
     }
 
     #[Route("/search/book/{isbn}", name: "search_book")]

@@ -60,4 +60,66 @@ function getAuthor(bookdata){
     }
 }
 
+function redirectToBook() {
+    var isbn = document.getElementById('isbn').value;
+    console.log("0");
+    fetch(`/search/book/${isbn}`)
+        .then(response => response.json())
+        .then(data => {
+            var book = data;
+            var id = book.id;
+            var url = '/Book/' + id;
+            console.log("url: " + url);
+            window.location.href = url;
+
+
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+
+function searchBookByISBN() {
+    var isbn = document.getElementById('isbn').value;
+    console.log(isbn)
+    var bookPic = document.getElementById('BookPic');
+    bookPic.setAttribute('data-isbn', isbn);
+
+    fetch(`/search/book/${isbn}`)
+        .then(response => response.json())
+        .then(data => {
+            var book = data;
+            Array.from(bookImages).forEach((image) => {
+                const isbn = image.getAttribute('data-isbn');
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload=function (){
+                    const bookData = JSON.parse(this.responseText);
+                    const isbnKey = 'ISBN:' + isbn;
+                    if(bookData[isbnKey]){
+                        image.src = bookData[isbnKey].cover.large;
+                    }else{
+                        image.src = '/public/assets/no_cover.jpg';
+                    }
+
+                };
+                //create and send the request
+                xhttp.open("GET", `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&jscmd=data&format=json`, true);
+                xhttp.send();
+            });
+            document.getElementById('bookTitle').textContent = book.title || 'No book found';
+            document.getElementById('bookAuthor').textContent = book.author || '';
+            document.getElementById('bookRating').textContent = book.rating || '';
+            document.getElementById('bookNumberOfFollowers').textContent = book.number_of_followers || '';
+            document.getElementById('id').textContent = book.id || '';
+            document.getElementById('isbn').textContent = book.isbn || '';
+            document.getElementById('bookgenres').textContent = book.genres || '';
+
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+window.onload = function () {
+    var searchButton = document.getElementById('searchButton');
+    searchButton.addEventListener('click', searchBookByISBN);
+};
+
 
