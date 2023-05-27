@@ -7,6 +7,7 @@
                 Upcoming MeetUps
             </h1> #}
             <h2 class="titleMeetups">Upcoming Meetups</h2>
+            <div class="booklovers-container">
             <ul class="bookloverslist">
                 {% for MeetUp in all_accepted_meetups %}
                     <div class="users">
@@ -24,11 +25,13 @@
                 {% endfor %}
 
             </ul>
+            </div>
         </div>
 
         <div class="meetright">
             <div>
                 <h2 class="titleinvite"> Meet Up Invitation</h2>
+                <div class="booklovers-container">
                 <ul class="invitationlist">
                     {% set index = 0 %}
                     {% for MeetUp in all_open_meetups %}
@@ -51,6 +54,7 @@
                         </div>
                     {% endfor %}
                 </ul>
+                </div>
             </div>
 
         </div>

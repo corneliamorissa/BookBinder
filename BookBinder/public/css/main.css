@@ -230,6 +230,10 @@ div#nav {
     font-family: Figtree, Arial, sans-serif;
 }
 
+.booklovers-container{
+    overflow: auto;
+    max-height: 550px;
+}
 .meetUpText{
     font-weight: 700;
     padding-left: 10px;
