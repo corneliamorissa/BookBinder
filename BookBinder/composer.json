@@ -32,7 +32,7 @@
 
     },
     "require-dev": {
-        "dbrekelmans/bdi": "*",
+        "dbrekelmans/bdi": "^1.0",
         "phpunit/phpunit": "^9",
         "symfony/browser-kit": "v6.2.7",
         "symfony/css-selector": "6.2.*",

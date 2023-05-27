@@ -49,6 +49,7 @@ class UtilTests extends WebTestCase
         $this->assertSelectorTextContains('#nearest','Your nearest library');
         $favBook = $crawler->filter("#fav_book");
         $this->assertEquals(2,$favBook->count());
+
     }
 
     public function testRouteSignUp() : void
@@ -79,6 +80,7 @@ class UtilTests extends WebTestCase
         $client->submit($form);
         $client->request('GET', '/Search');
         $this->assertResponseIsSuccessful();
+
 
     }
 }
