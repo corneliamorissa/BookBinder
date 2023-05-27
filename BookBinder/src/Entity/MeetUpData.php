@@ -9,6 +9,7 @@ class MeetUpData
     public string $nameInvited;
     private DateTime $dateTime;
     public string $library;
+    public string $dataUri;
 
     public function __construct(string $nameInvited, DateTime $dateTime, string $library){
         $this->nameInvited = $nameInvited;
@@ -62,6 +63,22 @@ class MeetUpData
     public function setNameLibrary(string $library): void
     {
         $this->library = $library;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDataUri(): string
+    {
+        return $this->dataUri;
+    }
+
+    /**
+     * @param string $DataUri
+     */
+    public function setDataUri(string $DataUri): void
+    {
+        $this->dataUri = $DataUri;
     }
 
 }

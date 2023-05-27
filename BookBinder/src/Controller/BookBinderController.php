@@ -193,8 +193,41 @@ class BookBinderController extends AbstractController
             array_push($formsAccept,$formAccept->createView());
             array_push($formsDecline,$formDecline->createView());
         }
-        $allAcceptedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID,'accepted' => 1,'declined' => 0]);
 
+
+        /*To pass accepted meetups*/
+        $currentDateTime = new DateTime('now');
+        $allAcceptedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID,'accepted' => 1,'declined' => 0]);
+        $allAcceptedMeetupsData = array();
+        foreach( $allAcceptedMeetups as $meetup ) {
+            if ($meetup->getDateTime() > $currentDateTime) {
+            $meetUpData = new MeetUpData(
+                ($em->getRepository(\App\Entity\User::class)->findOneBy(['id' => $meetup->getIdUserInviter()]))->getUsername(),
+                $meetup->getDateTime(),
+                ($em->getRepository(Library::class)->findOneBy(['id' => $meetup->getIdLibrary()]))->getName()
+            );
+            $avatarid = ($em->getRepository(\App\Entity\User::class)->findOneBy(['id' => $meetup->getIdUserInviter()]))->getAvatarId();
+            $avatar = $em->getRepository(Avatar::class)->findOneBy(['id' => $avatarid]);
+            if ($avatar) {
+                $imageBlob = $avatar->getImage();
+                $base64Image = base64_encode(stream_get_contents($imageBlob));
+                $dataUri = 'data:image/png;base64,' . $base64Image;
+            }
+            $meetUpData->setDataUri($dataUri);
+            array_push($allAcceptedMeetupsData, $meetUpData);
+            }
+        }
+
+        usort($allAcceptedMeetupsData, function ($a, $b) {
+            $datetimeA = $a->getDateTime();
+            $datetimeB = $b->getDateTime();
+
+            if ($datetimeA == $datetimeB) {
+                return 0;
+            }
+
+            return ($datetimeA < $datetimeB) ? -1 : 1;
+        });
         /* Form to invite someone*/
         $datetime = new DateTime();
         $meetUpForm = new MeetUpData("",$datetime,"");
@@ -237,7 +270,7 @@ class BookBinderController extends AbstractController
             //'all_received_meetups' => $allReceivedMeetups,
             //'all_sent_meetups' => $allSentMeetups,
             'all_open_meetups' => $allOpenMeetupsData,
-            'all_accepted_meetups' => $allAcceptedMeetups,
+            'all_accepted_meetups' => $allAcceptedMeetupsData,
         ]);
     }
 

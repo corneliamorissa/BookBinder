@@ -3,45 +3,26 @@
 {% block content %}
     <div class="meetuppage">
         <div class="booklovers">
-            <h1 class="bltitle">
-                Book lovers near you
-            </h1>
+            {# <h1 class="bltitle">
+                Upcoming MeetUps
+            </h1> #}
+            <h2 class="titleMeetups">Upcoming Meetups</h2>
             <ul class="bookloverslist">
-                <div class="users">
-                    <div>
-                        <img id="userpict" src="/assets/user1.jpg" alt="userpic" />
+                {% for MeetUp in all_accepted_meetups %}
+                    <div class="users">
+                        <div>
+                            <img id="userpict" src="{{ MeetUp.dataUri }}" alt="userpic" />
+                        </div>
+                        <div class="usersright">
+                            <p>Username:</p>
+                            <p class="meetUpText">{{ MeetUp.nameInvited }}</p>
+                            <p>Library:</p>
+                            <p class="meetUpText">{{ MeetUp.library }}</p>
+                            <p class="date">{{ MeetUp.dateTime|date('d/m/Y H:i') }}</p>
+                        </div>
                     </div>
-                    <div class="usersright">
-                        <p id="username">Katlyn DB</p>
-                        <p id="library">Bib Tweebronnen</p>
-                        <label for="datetime">Select date and time : </label> <input id="datetime" type="datetime-local"/>
-                        <button id="requestmeetup">Request to Meet Up</button>
-                    </div>
-                </div>
+                {% endfor %}
 
-                <div class="users">
-                    <div>
-                        <img id="userpict" src="/assets/user1.jpg" alt="userpict"/>
-                    </div>
-                    <div class="usersright">
-                        <p id="username">Katlyn DB</p>
-                        <p id="library">Bib Tweebronnen</p>
-                        <label for="datetime">Select date and time : </label> <input id="datetime" type="datetime-local"/>
-                        <button id="requestmeetup">Request to Meet Up</button>
-                    </div>
-                </div>
-
-                <div class="users">
-                    <div>
-                        <img id="userpict" src="/assets/user1.jpg" alt="userpict"/>
-                    </div>
-                    <div class="usersright">
-                        <p id="username">Katlyn DB</p>
-                        <p id="library">Bib Tweebronnen</p>
-                        <label for="datetime">Select date and time : </label> <input id="datetime" type="datetime-local"/>
-                        <button id="requestmeetup">Request to Meet Up</button>
-                    </div>
-                </div>
             </ul>
         </div>
 
@@ -71,33 +52,27 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div class="coming-up-block">
-                <h1>Coming Up Meet Up</h1>
-                <ul>
-                    <li id="coming-up">With Sofia at Bib Tweebronnen</li>
-                    <li id="coming-up">With  Dave  at Bib Tweebronnen</li>
-                </ul>
-            </div>
-            <div class ="writeInvitation">
-                <h1>Invite a friend</h1>
-                {{ form_start(form) }}
-                {{ form_row(form.nameInvited) }}
-                {% for message in app.flashes('failname') %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{message}}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
-                {{ form_row(form.dateTime) }}
-                {{ form_row(form.library) }}
-                {% for message in app.flashes('faillibrary') %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{message}}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
-                {{ form_end(form) }}
-            </div>
+
+        </div>
+        <div class ="writeInvitation">
+            <h2 class="titleMeetups">Invite a friend</h2>
+            {{ form_start(form) }}
+            {{ form_row(form.nameInvited) }}
+            {% for message in app.flashes('failname') %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+            {{ form_row(form.dateTime) }}
+            {{ form_row(form.library) }}
+            {% for message in app.flashes('faillibrary') %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+            {{ form_end(form) }}
         </div>
     </div>
 

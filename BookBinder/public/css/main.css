@@ -230,6 +230,16 @@ div#nav {
     font-family: Figtree, Arial, sans-serif;
 }
 
+.meetUpText{
+    font-weight: 700;
+    padding-left: 10px;
+}
+
+.date{
+    font-weight: 500;
+    padding-left: 40px;
+}
+
 .open{
     padding: 30px;
     flex-direction: column;
@@ -256,7 +266,7 @@ div#nav {
     flex-direction: row;
     height:200px;
     margin-top: 0;
-    width: 300px;
+    width: 330px;
     background: #FFFFFF;
     border: 2px solid #000000;
     border-radius: 8px;
@@ -309,7 +319,7 @@ button{
 
 #userpict{
     height: 198px;
-    width: 120px;
+    width: 150px;
     object-fit: cover;
     justify-content: center;
     border-radius: 6px 0 0 6px;
@@ -325,6 +335,16 @@ button{
     color: black;
     font-family: Figtree, Arial, sans-serif;
     text-align: center;
+}
+
+.titleMeetups{
+    margin: 30px 0 0 0;
+    padding: 20px 20px 10px 20px;
+    width: 330px;
+    height: 65px ;
+    color: white;
+    background: #8670F7;
+    border-radius: 10px 10px 0 0;
 }
 
 .titleinvite{
@@ -388,6 +408,10 @@ button{
     margin: 10px;
     padding: 10px;
     width: 130px;
+}
+
+.writeInvitation{
+    margin: 10px;
 }
 
 .decline{
