@@ -14,6 +14,8 @@ class MeetUp
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
+
+
     #[ManyToOne(targetEntity: User::class)]
     #[JoinColumn(name: 'id_user_inviter', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
@@ -41,16 +43,35 @@ class MeetUp
      * @param int $declined
      * @param int $id_library
      */
-    public function __construct(int $id_user_inviter, int $id_user_invited, DateTime $date_time, int $accepted, int $declined, int $id_library)
+    //public function __construct(int $id_user_inviter, int $id_user_invited, DateTime $date_time, int $accepted, int $declined, int $id_library)
+    public function __construct()
     {
+        $this->roles = array('ROLE_USER');
+        /*
         $this->id_user_inviter = $id_user_inviter;
         $this->id_user_invited = $id_user_invited;
         $this->date_time = $date_time;
         $this->accepted = $accepted;
         $this->declined = $declined;
         $this->id_library = $id_library;
+        */
     }
 
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int|null $id
+     */
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
     /**
      * @return int
      */
