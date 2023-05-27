@@ -170,11 +170,16 @@ class BookBinderController extends AbstractController
         $formsAccept = array();
         $formsDecline = array();
         foreach ( $allOpenMeetups as $meetUp){
-            $meetUpData = new MeetUpData(
+            /*$meetUpData = new MeetUpData(
                 ($em->getRepository(\App\Entity\User::class)->findOneBy(['id'=> $meetUp->getIdUserInviter()]))->getUsername(),
                 $meetUp->getDateTime(),
                 ($em->getRepository(Library::class)->findOneBy(['id'=> $meetUp->getIdLibrary()]))->getName()
             );
+            */
+            $meetUpData = new MeetUpData();
+            $meetUpData-> setNameUserInvited(($em->getRepository(\App\Entity\User::class)->findOneBy(['id'=> $meetUp->getIdUserInviter()]))->getUsername());
+            $meetUpData -> setDateTime($meetUp->getDateTime());
+            $meetUpData -> setNameLibrary(($em->getRepository(Library::class)->findOneBy(['id'=> $meetUp->getIdLibrary()]))->getName());
             $formAccept = $this->createForm(MeetUpAcceptFormType::class,$meetUp);
             $formAccept ->handleRequest($request);
             if($formAccept->isSubmitted() && $formAccept->isValid()){
@@ -197,8 +202,19 @@ class BookBinderController extends AbstractController
 
         /* Form to invite someone*/
         $datetime = new DateTime();
-        $meetUpForm = new MeetUpData("",$datetime,"");
-        $meetup = new MeetUp($userID,0,$datetime,0,0,0);
+        //$meetUpForm = new MeetUpData("",$datetime,"");
+        $meetUpForm = new MeetUpData();
+        $meetUpForm -> setNameUserInvited("");
+        $meetUpForm -> setDateTime($datetime);
+        $meetUpForm -> setNameLibrary("");
+        //$meetup = new MeetUp($userID,0,$datetime,0,0,0);
+        $meetup = new Meetup();
+        $meetup -> setIdUserInviter($userID);
+        $meetup -> setIdUserInvited(0);
+        $meetup -> setDateTime($datetime);
+        $meetup -> setAccepted(0);
+        $meetup -> setDeclined(0);
+        $meetup -> setIdLibrary(0);
         $form = $this->createForm(MeetUpInviteFormType::class,$meetUpForm);
         $form ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {

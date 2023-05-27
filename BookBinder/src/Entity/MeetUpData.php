@@ -10,10 +10,11 @@ class MeetUpData
     private DateTime $dateTime;
     public string $library;
 
-    public function __construct(string $nameInvited, DateTime $dateTime, string $library){
-        $this->nameInvited = $nameInvited;
+    //public function __construct(string $nameInvited, DateTime $dateTime, string $library){
+    public function __construct(){
+        /*$this->nameInvited = $nameInvited;
         $this->dateTime = $dateTime;
-        $this->library = $library;
+        $this->library = $library;*/
     }
 
     /**
