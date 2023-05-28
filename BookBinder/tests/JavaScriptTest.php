@@ -25,5 +25,18 @@ class JavaScriptTest extends PantherTestCase
         $this->assertSelectorTextContains('#message_check', 'Username already exist');
         $this->takeScreenshotIfTestFailed();
         $client->quit();
+
+        $client = static::createPantherClient();
+        $crawler = $client->request('GET', '/SignUp');
+
+        $crawler->filter('#sign_up_form_username')->sendKeys('Becky_J');
+        $crawler->filter('body')->click(); //AJAX request is onChange, so exit the input field
+
+        $client->waitForElementToContain('#message_check','Username already exist',5);
+
+        $this->assertSelectorTextContains('#message_check', 'Username already exist');
+        $this->takeScreenshotIfTestFailed();
+        $client->quit();
     }
+
 }
