@@ -41,8 +41,6 @@ class RegistrationController extends AbstractController
     public function signup(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, AvatarRepository $ap): Response {
 
         $avatar = $entityManager->getRepository(Avatar::class)->findAll();
-
-        $form = null;
         $form = $this->createForm(SignUpFormType::class);
         $form->handleRequest($request);
 
@@ -65,11 +63,9 @@ class RegistrationController extends AbstractController
             // 4) save the User!
             $entityManager->persist($user);
             $entityManager->flush();
-
-            $this->addFlash('success', 'Account Succesfully Created! Log in is needed');
+            $this->addFlash('success', 'Account Successfully Created! Log in is needed');
             return $this->redirectToRoute('LogIn');
         }
-
         return $this->render('signup.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
