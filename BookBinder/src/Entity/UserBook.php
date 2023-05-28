@@ -30,11 +30,10 @@ class UserBook
      * @param int $bookid
      * @param int $userid
      */
-   /* public function __construct(int $bookid, int $userid)
+    public function __construct()
     {
-        $this->bookid = $bookid;
-        $this->userid = $userid;
-    }*/
+
+    }
 
     /**
      * @return int|null

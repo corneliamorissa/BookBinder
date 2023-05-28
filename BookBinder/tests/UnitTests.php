@@ -5,7 +5,9 @@ namespace App\Tests;
 use App\Entity\Library;
 use App\Entity\MeetUp;
 use App\Entity\MeetUpData;
+use App\Entity\Review;
 use App\Entity\User;
+use App\Entity\UserBook;
 use PHPUnit\Framework\TestCase;
 use App\Entity\Avatar;
 use App\Entity\Books;
@@ -19,13 +21,18 @@ class UnitTests extends TestCase
 
         $avatar = new Avatar();
 
+
+
         //$this->assertSame(null, $avatar -> getImage());
 
         $avatar -> setId(1);
         $avatar -> setImage("blob data");
+        $avatar -> setDataUri("www.test");
 
         $this->assertSame(1,$avatar -> getId());
         $this->assertSame("blob data", $avatar -> getImage());
+        $this -> assertSame("www.test",$avatar->getDataUri());
+        $this -> assertSame("1",$avatar -> __toString());
 
 
 
@@ -83,6 +90,65 @@ class UnitTests extends TestCase
 
 
     }
+/*
+
+    public function testMeetupGetAttributes(): void
+    {
+        $datetime = new DateTime();
+        $meetup = new Meetup();
+        $meetup -> setId(1);
+        $meetup -> setIdUserInviter(1);
+        $meetup -> setIdUserInvited(22);
+        $meetup -> setDateTime($datetime);
+        $meetup -> setAccepted(0);
+        $meetup -> setDeclined(0);
+        $meetup -> setIdLibrary(0);
+
+        $this->assertSame(1,$meetup->getId());
+        $this->assertSame(1,$meetup->getIdUserInviter());
+        $this->assertSame(22,$meetup->getIdUserInvited());
+        $this->assertSame($datetime,$meetup->getDateTime());
+        $this->assertSame(0,$meetup->getAccepted());
+        $this->assertSame(0,$meetup->getDeclined());
+        $this->assertSame(0,$meetup->getIdLibrary());
+
+
+    }
+*/
+
+    public function testMeetupDataGetAttributes(): void{
+
+        $datetime = new DateTime();
+        $meetUpForm = new MeetUpData();
+        $meetUpForm -> setNameUserInvited("Joop");
+        $meetUpForm -> setDateTime($datetime);
+        $meetUpForm -> setNameLibrary("La Library");
+
+        $this -> assertSame("Joop",$meetUpForm->getNameInvited());
+        $this -> assertSame($datetime,$meetUpForm->getDateTime());
+        $this -> assertSame("La Library",$meetUpForm->getNameLibrary());
+
+    }
+    public function testReviewGetAttributes(): void{
+        $review = new Review();
+
+        //$this -> assertSame(null,$review->getText());
+
+        $review -> setId(1);
+        $review -> setText("Great");
+        $review -> setAuthor("Billy__Boma5879");
+        $review -> setBook("The Hobbit");
+        $review -> setRate(8);
+
+        $this -> assertSame(1,$review->getId());
+        $this -> assertSame("Great",$review->getText());
+        $this -> assertSame("Billy__Boma5879",$review->getAuthor());
+        $this -> assertSame("The Hobbit",$review -> getBook());
+        $this -> assertSame(8,$review->getRate());
+
+
+
+    }
 
     public function testUserGetAttributes(): void{
         $user = new User();
@@ -115,44 +181,26 @@ class UnitTests extends TestCase
         $this->assertSame(2,$user -> getAvatarId());
         $this->assertSame("azertyqwerty",$user -> getPassword());
 
-
     }
-    public function testMeetupGetAttributes(): void
+
+    public function testUserBookGetAttributes(): void
     {
-        $datetime = new DateTime();
-        $meetup = new Meetup();
-        $meetup -> setId(1);
-        $meetup -> setIdUserInviter(1);
-        $meetup -> setIdUserInvited(22);
-        $meetup -> setDateTime($datetime);
-        $meetup -> setAccepted(0);
-        $meetup -> setDeclined(0);
-        $meetup -> setIdLibrary(0);
+        $userbook = new UserBook();
 
-        $this->assertSame(1,$meetup->getId());
-        $this->assertSame(1,$meetup->getIdUserInviter());
-        $this->assertSame(22,$meetup->getIdUserInvited());
-        $this->assertSame($datetime,$meetup->getDateTime());
-        $this->assertSame(0,$meetup->getAccepted());
-        $this->assertSame(0,$meetup->getDeclined());
-        $this->assertSame(0,$meetup->getIdLibrary());
+        $userbook -> setId(1);
+        $userbook -> setBookid(225);
+        $userbook -> setUserid(88);
+
+        $this -> assertSame(1,$userbook->getId());
+        $this -> assertSame(225,$userbook -> getBookid());
+        $this -> assertSame(88,$userbook-> getUserid());
 
 
     }
 
-    public function testMeetupDataGetAttributes(): void{
 
-        $datetime = new DateTime();
-        $meetUpForm = new MeetUpData();
-        $meetUpForm -> setNameUserInvited("Joop");
-        $meetUpForm -> setDateTime($datetime);
-        $meetUpForm -> setNameLibrary("La Library");
 
-        $this -> assertSame("Joop",$meetUpForm->getNameUserInvited());
-        $this -> assertSame($datetime,$meetUpForm->getDateTime());
-        $this -> assertSame("La Library",$meetUpForm->getNameLibrary());
+
+
 
     }
-
-
-}

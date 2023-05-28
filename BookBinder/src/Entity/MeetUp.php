@@ -43,18 +43,17 @@ class MeetUp
      * @param int $declined
      * @param int $id_library
      */
-    //public function __construct(int $id_user_inviter, int $id_user_invited, DateTime $date_time, int $accepted, int $declined, int $id_library)
-    public function __construct()
+    public function __construct(int $id_user_inviter, int $id_user_invited, DateTime $date_time, int $accepted, int $declined, int $id_library)
     {
         $this->roles = array('ROLE_USER');
-        /*
+
         $this->id_user_inviter = $id_user_inviter;
         $this->id_user_invited = $id_user_invited;
         $this->date_time = $date_time;
         $this->accepted = $accepted;
         $this->declined = $declined;
         $this->id_library = $id_library;
-        */
+
     }
 
     /**
