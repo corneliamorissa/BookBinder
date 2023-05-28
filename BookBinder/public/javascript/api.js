@@ -61,6 +61,7 @@ function getAuthor(bookdata){
     }
 }
 /*End of bookpage functions*/
+
 function redirectToBook() {
     var isbn = document.getElementById('isbn').value;
     console.log("0");
