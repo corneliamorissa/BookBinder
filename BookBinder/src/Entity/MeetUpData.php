@@ -14,7 +14,7 @@ class MeetUpData
     public function __construct(string $nameInvited, DateTime $dateTime, string $library){
 
 
-        $this-> dateTime = new DateTime();
+        $this-> dateTime = $dateTime;
         $this->nameInvited = $nameInvited;
         $this->library = $library;
     }
