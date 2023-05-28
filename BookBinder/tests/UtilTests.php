@@ -54,6 +54,7 @@ class UtilTests extends WebTestCase
 
     }
 
+    /*
     public function testRouteSignUp() : void
     {
         $client = static::createClient();
@@ -82,6 +83,46 @@ class UtilTests extends WebTestCase
         $client->submit($form);
         $client->request('GET', '/Search');
         $this->assertResponseIsSuccessful();
+
+
+
+
+    }
+
+
+    /**
+
+    @throws \Exception*/
+    public function testRouteUser():void{
+        $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+
+        //retrive the test user
+        $crawler = $client->request('GET', '/');
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = 'Amal__York1720';
+        $form['_password'] = 'OUC51OZS0OH';
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+        $lastUsername = $crawler->filter('#last_username');
+        $this->assertStringContainsString("Amal__York1720", $lastUsername->text());
+
+        $client->request('GET', '/User');
+        $this->assertResponseIsSuccessful();
+
+        //Check if it displays al the info of the user
+
+        $this->assertSelectorTextContains('#FirstNameUser', 'Amal');
+        $this->assertSelectorTextContains('#LastNameUser', 'York');
+        $this->assertSelectorTextContains('#DateOfBirthUser', '2007-02-26');
+        $this->assertSelectorTextContains('#StreetUser', '3576 Ipsum St.');
+        $this->assertSelectorTextContains('#HouseNumberUser', '91');
+        $this->assertSelectorTextContains('#PostcodeUser', '8375');
+        $this->assertSelectorTextContains('#LibraryUser', 'Curae Inc.');
+
+
+
+
 
 
     }

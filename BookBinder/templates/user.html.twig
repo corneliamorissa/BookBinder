@@ -42,25 +42,25 @@
                 <div class="col-lg-8">
                     <div class="card text-bg-light mb-4">
                         <div class="card-header text-center">
-                            <strong>Details</strong>
+                            <strong>Avatar</strong>
                             <br>
                             {% if avatar %}
                                 <img src="{{ data_image_url }}" style="width: 100px; height: 100px;" alt="Avatar">
                             {% endif %}
                             <hr>
-                            <p> <Strong>First name: </Strong>{{ user.first_name }}</p>
+                            <p id = "FirstNameUser"> <Strong>First name: </Strong>{{ user.first_name }}</p>
                             <hr>
-                            <p> <Strong>Last name: </Strong>{{ user.last_name }}</p>
+                            <p id = "LastNameUser"> <Strong>Last name: </Strong>{{ user.last_name }}</p>
                             <hr>
-                            <p> <Strong>Date of birth: </Strong>{{ user.birthdate }}</p>
+                            <p id = "DateOfBirthUser"> <Strong>Date of birth: </Strong>{{ user.birthdate }}</p>
                             <hr>
-                            <p> <Strong>Street: </Strong>{{ user.street }}</p>
+                            <p id = "StreetUser"> <Strong>Street: </Strong>{{ user.street }}</p>
                             <hr>
-                            <p> <Strong>House nr: </Strong>{{ user.house_number }}</p>
+                            <p id = "HouseNumberUser"> <Strong>House nr: </Strong>{{ user.house_number }}</p>
                             <hr>
-                            <p> <Strong>Postcode: </Strong>{{ user.postcode }}</p>
+                            <p id = "PostcodeUser"> <Strong>Postcode: </Strong>{{ user.postcode }}</p>
                             <hr>
-                            <p> <Strong>Library: </Strong>{{ library.name }}</p>
+                            <p id = "LibraryUser"> <Strong>Library: </Strong>{{ library.name }}</p>
                         </div>
                     </div>
                 </div>
