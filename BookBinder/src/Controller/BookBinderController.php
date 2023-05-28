@@ -232,7 +232,6 @@ class BookBinderController extends AbstractController
         /* Form to invite someone*/
         $datetime = new DateTime();
         $meetUpForm = new MeetUpData("",$datetime,"");
-
         $meetup = new MeetUp($userID,0,$datetime,0,0,0);
         $form = $this->createForm(MeetUpInviteFormType::class,$meetUpForm);
         $form ->handleRequest($request);
