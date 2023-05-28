@@ -36,17 +36,17 @@ function fetch_details(isbn){
 
 function getCover(bookdata){
     if(bookdata){
-        document.getElementById('BookPic').src = bookdata.cover.large;
+        document.getElementsByClassName('rounded-3 w-50 book-image p-4').src = bookdata.cover.large;
     }else{
-        document.getElementById('BookPic').src = '/public/assets/no_cover.jpg';
+        document.getElementById('rounded-3 w-50 book-image p-4').src = '/public/assets/no_cover.jpg';
     }
 }
 
 function getTitle(bookdata){
     if(bookdata){
-        document.getElementById('BookTitle').textContent = bookdata.title;
+        document.getElementsByClassName('BookTitle').textContent = bookdata.title;
     }else{
-        document.getElementById('BookTitle').textContent = 'An error occurred. Try to load the page again.';
+        document.getElementsByClassName('BookTitle').textContent = 'An error occurred. Try to load the page again.';
     }
 }
 
@@ -54,9 +54,9 @@ function getAuthor(bookdata){
     if(bookdata){
         const authors = bookdata.authors;
         const authorName = authors[0].name;
-        document.getElementById('BookAuthor').textContent ='Author: ' + authorName;
+        document.getElementsByClassName('BookAuthor').textContent ='Author: ' + authorName;
     }else {
-        document.getElementById('BookAuthor').textContent = 'An error occurred. Try to load the page again.';
+        document.getElementsByClassName('BookAuthor').textContent = 'An error occurred. Try to load the page again.';
     }
 }
 
