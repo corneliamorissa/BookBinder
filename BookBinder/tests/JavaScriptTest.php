@@ -39,4 +39,41 @@ class JavaScriptTest extends PantherTestCase
         $client->quit();
     }
 
+    /**
+     * @throws NoSuchElementException
+     * @throws TimeoutException
+     * @throws \Exception
+     */
+    public function testTrendingBookJavascriptByIsbn(): void
+    {
+        $client = static::createPantherClient();
+        $crawler = $client->request('GET', '/');
+
+        // Put user credentials to pass the login authentication
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = 'Amal__York1720';
+        $form['_password'] = 'OUC51OZS0OH';
+        $client->submit($form);
+        $client->request('GET', '/Home');
+
+        // Wait for the book cover images to be updated
+        $client->wait(5000, function () use ($client) {
+            $crawler = $client->getCrawler();
+            $bookImagesCount = $crawler->filter('.rounded-3.w-50.book-image[src!="/public/assets/no_cover.jpg"]')->count();
+            $expectedBookImagesCount = 3;
+            return $bookImagesCount === $expectedBookImagesCount;
+        });
+
+        // Assert the updated book cover image
+        $crawler = $client->getCrawler();
+        $bookImage = $crawler->filter('#BookPicTrending_home[data-isbn]')->first();
+        $expectedImageUrl = 'https://covers.openlibrary.org/b/id/6389112-L.jpg'; // Update with the expected image URL
+        $this->assertSame($expectedImageUrl, $bookImage->attr('src'));
+
+        $this->takeScreenshotIfTestFailed();
+        $client->quit();
+    }
+
+
+
 }
