@@ -8,6 +8,8 @@ use App\Entity\MeetUpData;
 use App\Entity\Review;
 use App\Entity\User;
 use App\Entity\UserBook;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 use App\Entity\Avatar;
 use App\Entity\Books;
@@ -29,10 +31,23 @@ class UnitTests extends TestCase
         $avatar -> setImage("blob data");
         $avatar -> setDataUri("www.test");
 
+        $user1 = new User();
+        $user2 = new User();
+        $users = new ArrayCollection([$user1,$user2]);
+        $avatar -> setUsers($users);
+
+
         $this->assertSame(1,$avatar -> getId());
         $this->assertSame("blob data", $avatar -> getImage());
         $this -> assertSame("www.test",$avatar->getDataUri());
         $this -> assertSame("1",$avatar -> __toString());
+        $this -> assertSame($users,$avatar -> getUsers());
+
+        $user3 = new User();
+        $users -> add($user3);
+        $avatar -> setAvatar($user3);
+
+        $this -> assertSame($users,$avatar->getUsers());
 
 
 
@@ -186,6 +201,9 @@ class UnitTests extends TestCase
         $user -> setAvatarId(2);
         $user -> setPassword("azertyqwerty");
         $user -> setTermsAndCondition(true);
+        $avatar = new Avatar();
+        $user -> setAvatar($avatar);
+
 
 
         $this->assertSame(1,$user->getId());
@@ -201,6 +219,14 @@ class UnitTests extends TestCase
         $this->assertSame("azertyqwerty",$user -> getPassword());
         $this->assertSame(true,$user -> isTermsAndCondition());
         $this -> assertSame("Bert__Smith1578",$user->getUserIdentifier());
+        $this -> assertSame($avatar,$user -> getAvatar());
+
+        $expectedRoles = ['ROLE_USER'];
+        $this -> assertSame($expectedRoles,$user -> getRoles());
+        $user->setRoles(['ROLE_ADMIN']);
+        $expectedRoles2 = ['ROLE_ADMIN','ROLE_USER'];
+        $this -> assertSame($expectedRoles2,$user -> getRoles());
+
 
     }
 
