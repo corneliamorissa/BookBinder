@@ -63,7 +63,7 @@ function getAuthor(bookdata){
 function redirectToBook() {
     var isbn = document.getElementById('isbn').value;
     console.log("0");
-    fetch(`/search/book/${isbn}`)
+    fetch(`/public/search/book/${isbn}`)
         .then(response => response.json())
         .then(data => {
             var book = data;
@@ -84,7 +84,7 @@ function searchBookByISBN() {
     var bookPic = document.getElementById('BookPic');
     bookPic.setAttribute('data-isbn', isbn);
 
-    fetch(`/search/book/${isbn}`)
+    fetch(`/public/search/book/${isbn}`)
         .then(response => response.json())
         .then(data => {
             var book = data;
