@@ -49,7 +49,6 @@ class Avatar
 
     public string $dataUri;
 
-    private $rawPhoto;
 
     /**
      * @return string

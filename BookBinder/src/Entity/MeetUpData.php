@@ -11,17 +11,18 @@ class MeetUpData
     public string $library;
     public string $dataUri;
 
-    //public function __construct(string $nameInvited, DateTime $dateTime, string $library){
-    public function __construct(){
-        /*$this->nameInvited = $nameInvited;
-        $this->dateTime = $dateTime;
-        $this->library = $library;*/
+    public function __construct(string $nameInvited, DateTime $dateTime, string $library){
+
+
+        $this-> dateTime = new DateTime();
+        $this->nameInvited = $nameInvited;
+        $this->library = $library;
     }
 
     /**
      * @return string
      */
-    public function getNameUserInvited(): string
+    public function getNameInvited(): string
     {
         return $this->nameInvited;
     }

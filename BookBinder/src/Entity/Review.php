@@ -27,10 +27,22 @@ class Review
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $book = null;
 
+    public function __construct(){
+        $this->roles = array('ROLE_USER');
+    }
+
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @param int|null $id
+     */
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
     }
 
     public function getText(): ?string
