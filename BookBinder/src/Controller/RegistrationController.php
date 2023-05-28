@@ -45,14 +45,10 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
             $user = $form->getData();
             $avatar = $form ->get('avatar')->getData();
             $user->setAvatarId($avatar->getId());
-
             $plaintextPassword = $user->getPassword() ;
-
             // hash the password (based on the security.yaml config for the $user class)
             $hashedPassword = $passwordHasher->hashPassword(
                 $user,

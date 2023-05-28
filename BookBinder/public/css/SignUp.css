@@ -1,6 +1,6 @@
 
 .landing-header{
-    background-color: #311E69;
+    background-color: rgb(49, 30, 105);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -69,33 +69,17 @@ div#nav {
 .landing-m{
     padding: 40px 20px;
     margin: 0 30px 30px 30px;
-    background-color: #311E69;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    color: white;
-    font-family: "Figtree SemiBold", Arial, sans-serif;;
+    background-color: rgb(49, 30, 105);
+    color: rgb(255, 255, 255);
     width: 100%;
     height: auto;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
 }
 .landing-wel{
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
     border-radius: 20px;
-    justify-content: center;
-    align-items: center;
 }
-form{
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+
 .field-form{
     /* Auto layout */
     color: #311E69;
@@ -162,13 +146,11 @@ select{
 }
 
 .signUpLbl{
-    color: #311E69;
-    text-align: center;
+    color: rgb(49, 30, 105);
 }
 
 .signUpLbl2{
-    color: #808088;
-    text-align: center;
+    color: rgb(128, 128, 136);
     font-weight: bold
 }
 
