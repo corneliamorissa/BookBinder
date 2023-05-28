@@ -138,8 +138,6 @@ class BookBinderController extends AbstractController
             'followedBooks'=>$FollowedBookByUser,
             'javascripts' => ['api.js'],
         ]);
-
-
     }
 
     #[Route("/search/book/{isbn}", name: "search_book")]
@@ -153,7 +151,6 @@ class BookBinderController extends AbstractController
         } else {
             $response = ['title' => null];
         }
-
         return new JsonResponse($response);
     }
 
@@ -194,8 +191,6 @@ class BookBinderController extends AbstractController
             array_push($formsAccept,$formAccept->createView());
             array_push($formsDecline,$formDecline->createView());
         }
-
-
         /*To pass accepted meetups*/
         $currentDateTime = new DateTime('now');
         $allAcceptedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID,'accepted' => 1,'declined' => 0]);

@@ -19,6 +19,7 @@ Array.from(bookImages).forEach((image) => {
     xhttp.send();
 });
 
+/*Start of bookpage functions*/
 function fetch_details(isbn){
     const xhttp = new XMLHttpRequest();
     //What happens when we receive the answer (json)
@@ -36,17 +37,17 @@ function fetch_details(isbn){
 
 function getCover(bookdata){
     if(bookdata){
-        document.getElementsByClassName('rounded-3 w-50 book-image p-4').src = bookdata.cover.large;
+        document.getElementById('BookPic').src = bookdata.cover.large;
     }else{
-        document.getElementById('rounded-3 w-50 book-image p-4').src = '/public/assets/no_cover.jpg';
+        document.getElementById('BookPic').src = '/public/assets/no_cover.jpg';
     }
 }
 
 function getTitle(bookdata){
     if(bookdata){
-        document.getElementsByClassName('BookTitle').textContent = bookdata.title;
+        document.getElementById('BookTitle').textContent = bookdata.title;
     }else{
-        document.getElementsByClassName('BookTitle').textContent = 'An error occurred. Try to load the page again.';
+        document.getElementById('BookTitle').textContent = 'An error occurred. Try to load the page again.';
     }
 }
 
@@ -54,21 +55,22 @@ function getAuthor(bookdata){
     if(bookdata){
         const authors = bookdata.authors;
         const authorName = authors[0].name;
-        document.getElementsByClassName('BookAuthor').textContent ='Author: ' + authorName;
+        document.getElementById('BookAuthor').textContent ='Author: ' + authorName;
     }else {
-        document.getElementsByClassName('BookAuthor').textContent = 'An error occurred. Try to load the page again.';
+        document.getElementById('BookAuthor').textContent = 'An error occurred. Try to load the page again.';
     }
 }
+/*End of bookpage functions*/
 
 function redirectToBook() {
     var isbn = document.getElementById('isbn').value;
     console.log("0");
-    fetch(`/search/book/${isbn}`)
+    fetch(`/public/search/book/${isbn}`)
         .then(response => response.json())
         .then(data => {
             var book = data;
             var id = book.id;
-            var url = '/Book/' + id;
+            var url = '/public/Book/' + id;
             console.log("url: " + url);
             window.location.href = url;
 
@@ -84,7 +86,7 @@ function searchBookByISBN() {
     var bookPic = document.getElementById('BookPic');
     bookPic.setAttribute('data-isbn', isbn);
 
-    fetch(`/search/book/${isbn}`)
+    fetch(`/public/search/book/${isbn}`)
         .then(response => response.json())
         .then(data => {
             var book = data;

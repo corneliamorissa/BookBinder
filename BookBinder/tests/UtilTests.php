@@ -15,7 +15,7 @@ class UtilTests extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('#login_top_trending', 'Top Trending Books');
-        $trendingBook = $crawler->filter('#BookPic');
+        $trendingBook = $crawler->filter('.booktitle');
         $this->assertEquals(3, $trendingBook->count());
         $form = $crawler->selectButton('Login')->form();
         $form['_username'] = 'Amal__York1720';
@@ -47,8 +47,10 @@ class UtilTests extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('#trending_home', 'Trending This Week');
         $this->assertSelectorTextContains('#nearest','Your nearest library');
-        $favBook = $crawler->filter("#fav_book");
-        $this->assertEquals(2,$favBook->count());
+        $trendingBook = $crawler->filter("#BookPicTrending_home");
+        $this->assertEquals(3,$trendingBook->count());
+        $favBook = $crawler->filter("#BookPicFav");
+        $this->assertEquals(4, $favBook->count());
 
     }
 
@@ -59,9 +61,9 @@ class UtilTests extends WebTestCase
         //$form['form[avatar]'] = $crawler->selectImage('2');
         $form = $crawler->filter('form[name="signup"]')->form();
         $form['sign_up_form[avatar]'] = 2;
-        $form['sign_up_form[username]'] = 'Becky_Jhj'; //can only used one time in a test, after run once, need to test with unique username
-        $form['sign_up_form[password][first]'] = 'Secret678';
-        $form['sign_up_form[password][second]'] = 'Secret678';
+        $form['sign_up_form[username]'] = 'Becky_Jrcf2hj'; //can only used one time in a test, after run once, need to test with unique username
+        $form['sign_up_form[password][first]'] = 'Secretf678';
+        $form['sign_up_form[password][second]'] = 'Secretf678';
         $form['sign_up_form[first_name]'] = 'Becky';
         $form['sign_up_form[last_name]'] = 'Jessica';
         $form['sign_up_form[birthdate][month]'] = 10;
