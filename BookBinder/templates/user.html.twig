@@ -2,7 +2,6 @@
 {% block title %} <title> BookBinder </title>{% endblock %}
 {% block stylesheet %}
     {{ parent() }}
-    {#<link href="{{ asset('css/Profile.css') }}" rel="stylesheet">#}
 {% endblock %}
 {% block content %}
     <div class="container py-5">
@@ -44,19 +43,6 @@
                     <div class="card text-bg-light mb-4">
                         <div class="card-header text-center">
                             <strong>Details</strong>
-                            {#Info button#}
-
-                           {# <p>
-                                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                    Alpha
-                                </a>
-                            </p>
-
-                            <div class="collapse" id="collapseExample">
-                                <div class="card card-body">
-                                    This a 1st version of the Profile page. Many changes can be made.
-                                </div>
-                            </div>#}
                             <br>
                             {% if avatar %}
                                 <img src="{{ data_image_url }}" style="width: 100px; height: 100px;" alt="Avatar">
