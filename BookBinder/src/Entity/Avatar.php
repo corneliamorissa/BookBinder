@@ -103,7 +103,7 @@ class Avatar
 
     public function setAvatar(User $user) : Avatar
     {
-        $this->users = $user;
+        $this->users ->add($user);
         return $this;
     }
 
