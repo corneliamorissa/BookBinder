@@ -68,7 +68,7 @@ function redirectToBook() {
         .then(data => {
             var book = data;
             var id = book.id;
-            var url = '/Book/' + id;
+            var url = 'public/Book/' + id;
             console.log("url: " + url);
             window.location.href = url;
 
