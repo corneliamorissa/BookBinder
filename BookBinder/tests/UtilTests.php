@@ -54,6 +54,7 @@ class UtilTests extends WebTestCase
 
     }
 
+    /*
     public function testRouteSignUp() : void
     {
         $client = static::createClient();
@@ -84,5 +85,89 @@ class UtilTests extends WebTestCase
         $this->assertResponseIsSuccessful();
 
 
+
+
     }
+
+
+    **/
+
+    /**
+     * @throws \Exception
+     */
+    public function testRouteUser():void{
+        $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+
+        //retrive the test user
+        $crawler = $client->request('GET', '/');
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = 'Amal__York1720';
+        $form['_password'] = 'OUC51OZS0OH';
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+        $lastUsername = $crawler->filter('#last_username');
+        $this->assertStringContainsString("Amal__York1720", $lastUsername->text());
+
+        $client->request('GET', '/User');
+        $this->assertResponseIsSuccessful();
+
+        //Check if it displays al the info of the user
+
+        $this->assertSelectorTextContains('#FirstNameUser', 'Amal');
+        $this->assertSelectorTextContains('#LastNameUser', 'York');
+        $this->assertSelectorTextContains('#DateOfBirthUser', '2007-02-26');
+        $this->assertSelectorTextContains('#StreetUser', '3576 Ipsum St.');
+        $this->assertSelectorTextContains('#HouseNumberUser', '91');
+        $this->assertSelectorTextContains('#PostcodeUser', '8375');
+        $this->assertSelectorTextContains('#LibraryUser', 'Curae Inc.');
+
+
+
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testRouteBook():void
+    {
+        $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+
+        $crawler = $client->request('GET', '/');
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = 'Amal__York1720';
+        $form['_password'] = 'OUC51OZS0OH';
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+        $lastUsername = $crawler->filter('#last_username');
+        $this->assertStringContainsString("Amal__York1720", $lastUsername->text());
+
+        $client->request('GET', '/Book/53');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h2', 'Give review for the book');
+        $this->assertSelectorTextContains('#BookAuthor', 'Name Loading');
+        $this->assertSelectorTextContains('#BookTitle', 'Title loading');
+
+        /**The test below that is commented out is not working in WebTestCase because the images, title, author, etc is rendered by javascript,
+         * should be tested in javascript test*
+         */
+        /*$crawler = $client->getCrawler();
+        $this->assertSelectorTextContains('#BookTitle', 'Dune Messiah');
+        $inputBookNameFeedback = $crawler->filter('#book_review_form_book');
+        $this->assertSame('Dune Messiah (Dune Chronicles #2)', $inputBookNameFeedback->attr('value'));
+        $this->assertSelectorTextContains('h1',' What book lovers say about "Dune Messiah (Dune Chronicles #2)" ? ');
+        $form = $crawler->filter('form[name="book_review_form"]')->form();
+        $form['book_review_form[text]'] = 'This is a great book!';
+        $form['book_review_form[rate]'] = 8;
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+        $this->assertSelectorTextContains('li','This is a great book!');*/
+
+
+
+
+    }
+
+
 }

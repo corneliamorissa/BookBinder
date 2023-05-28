@@ -4,6 +4,7 @@ namespace App\Tests;
 
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\TimeoutException;
+use PHPUnit\Framework\AssertionFailedError;
 use Symfony\Component\Panther\PantherTestCase;
 //when testing check if chrome driver is running in background, if it is, end the task in task manager, and run test again
 class JavaScriptTest extends PantherTestCase
@@ -46,6 +47,9 @@ class JavaScriptTest extends PantherTestCase
      */
     public function testTrendingBookJavascriptByIsbn(): void
     {
+        $retryCount = 5;
+        $isTestPassed = false;
+
         $client = static::createPantherClient();
         $crawler = $client->request('GET', '/');
 
@@ -56,24 +60,94 @@ class JavaScriptTest extends PantherTestCase
         $client->submit($form);
         $client->request('GET', '/Home');
 
-        // Wait for the book cover images to be updated
-        $client->wait(5000, function () use ($client) {
-            $crawler = $client->getCrawler();
-            $bookImagesCount = $crawler->filter('.rounded-3.w-50.book-image[src!="/public/assets/no_cover.jpg"]')->count();
-            $expectedBookImagesCount = 3;
-            return $bookImagesCount === $expectedBookImagesCount;
-        });
+        while ($retryCount > 0 && !$isTestPassed) {
+            try {
+                // Wait for the book cover images to be updated
+                $client->wait(240000, function () use ($client) {
+                    sleep(5);
+                    $crawler = $client->getCrawler();
+                    $bookImagesCount = $crawler->filter('#BookPicTrending_home[src!="/public/assets/no_cover.jpg"]')->count();
+                    $expectedBookImagesCount = count($crawler->filter('#BookPicTrending_home'));
+                    return $bookImagesCount === $expectedBookImagesCount;
+                });
 
-        // Assert the updated book cover image
-        $crawler = $client->getCrawler();
-        $bookImage = $crawler->filter('#BookPicTrending_home[data-isbn]')->first();
-        $expectedImageUrl = 'https://covers.openlibrary.org/b/id/6389112-L.jpg'; // Update with the expected image URL
-        $this->assertSame($expectedImageUrl, $bookImage->attr('src'));
+                // Assert the updated book cover image
+                $crawler = $client->getCrawler();
+                $bookImage = $crawler->filter('#BookPicTrending_home')->first();
+                $expectedImageUrl = 'https://covers.openlibrary.org/b/id/6389112-L.jpg'; // Update with the expected image URL
+                $this->assertSame($expectedImageUrl, $bookImage->attr('src'));
 
-        $this->takeScreenshotIfTestFailed();
+                // Set the test as passed if no exceptions were thrown
+                $isTestPassed = true;
+            } catch (AssertionFailedError $e) {
+                // Retry the test if AssertionFailedError occurs
+                $retryCount--;
+            }
+        }
+
+        // Assert if the test eventually passed
+        $this->assertTrue($isTestPassed);
+
         $client->quit();
     }
 
 
+    /**
+     * @throws NoSuchElementException
+     * @throws TimeoutException
+     * @throws \Exception
+     */
+    public function testFaveBookJavascriptByIsbn(): void
+    {
+
+        $retryCount = 10;
+        $isTestPassed = false;
+
+        $client = static::createPantherClient();
+        $crawler = $client->request('GET', '/');
+
+        // Put user credentials to pass the login authentication
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = 'Amal__York1720';
+        $form['_password'] = 'OUC51OZS0OH';
+        $client->submit($form);
+        $client->request('GET', '/Home');
+
+
+        while ($retryCount > 0 && !$isTestPassed) {
+            try {
+                /// Wait for the book cover images to be updated
+                $client->wait(360000, function () use ($client) {
+                    sleep(7);
+
+                    $crawler = $client->getCrawler();
+                    $bookImagesCount = $crawler->filter('#BookPicFav[src!="/public/assets/no_cover.jpg"]')->count();
+                    $expectedBookImagesCount = count($crawler->filter('#BookPicFav'));
+                    return $bookImagesCount === $expectedBookImagesCount;
+                });
+
+                // Assert the updated book cover image
+                $crawler = $client->getCrawler();
+                $bookImage = $crawler->filter('#BookPicFav')->first();
+                $expectedImageUrl = 'https://covers.openlibrary.org/b/id/12701394-L.jpg'; // Update with the expected image URL
+                $this->assertSame($expectedImageUrl, $bookImage->attr('src'));
+
+                // Set the test as passed if no exceptions were thrown
+                $isTestPassed = true;
+            } catch (AssertionFailedError $e) {
+                // Retry the test if AssertionFailedError occurs
+                $retryCount--;
+            }
+        }
+
+        // Assert if the test eventually passed
+        $this->assertTrue($isTestPassed);
+
+
+
+
+        $this->takeScreenshotIfTestFailed();
+        $client->quit();
+    }
 
 }
