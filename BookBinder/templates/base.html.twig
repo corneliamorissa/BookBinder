@@ -21,7 +21,7 @@
 {% block header %}
     <header class="header">
         <div class="container">
-            <nav class="navbar navbar-expand-lg rounded-3 " style="background-color: rgb(49,30,105);">
+            <nav class="navbar navbar-expand-lg rounded-3">
                 <div class="container">
                     <a class="navbar-brand" href="{{ path('Home') }}">
                         <img src="{{ asset('/public/assets/logo.png') }}" alt="bookbinderlogo" width="200">
@@ -51,9 +51,8 @@
     {% endblock %}
 </main>
 
-{% set footer_class = footer_class|default('footer') %}
 {% block footer %}
-    <footer class="{{ footer_class }} fixed-bottom">
+    <footer class="footer">
         <div>Copyright © 2022 WebTech. KUL All rights Reserved.</div>
         <div><a href="{{ path('privacypolicy') }}" style="color: white ">  Privacy Policy</a> | <a href="{{ path('termsofservice') }}" style="color: white"> Terms of Use</a></div>
     </footer>
