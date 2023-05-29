@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BooksRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -38,12 +40,12 @@ class Books
     #[ORM\Column(type: "integer", nullable: false)]
     private int $number_of_votes ;
 
-    #[OneToMany(mappedBy: "id", targetEntity: UserBook::class)]
-    private $userbooks;
+    #[OneToMany(mappedBy: "book", targetEntity: UserBook::class)]
+    private Collection $userbooks;
 
     public function __construct()
     {
-        $this->roles = array('ROLE_USER');
+        $this->userbooks = new ArrayCollection();
     }
 
 
