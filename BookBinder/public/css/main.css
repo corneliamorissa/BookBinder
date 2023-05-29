@@ -514,8 +514,25 @@ button{
     pointer-events: none;
     cursor: default;
     height: 40px;
-    color: white;
-    background: #8572ED;
-    border-color: #8572ED;
+    color: rgb(255, 255, 255);
+    background: rgb(133, 114, 237);
+    border-color: rgb(133, 114, 237);
     border-radius: 15px;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.card_background{
+    background: rgb(111,66,193);
+}
+.card_background2{
+    background: rgb(134,111,247);
+}
+
+.h2{
+    color: rgb(49, 30, 105);
+    padding-top: 20px;
+    padding-bottom: 10px;
 }

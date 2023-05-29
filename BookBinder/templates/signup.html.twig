@@ -34,27 +34,26 @@
                 <div class="landing-wel col-lg-6 mb-3 bg-white">
                     <h1 class="signUpLbl text-center pt-3"> Sign Up </h1>
                     <p class="signUpLbl2 text-center"> Please enter the required information</p>
-                    <div class="pt-4 pb-4">
+                    <form method="{{ form.vars.method }}" action="{{ form.vars.action }}" name="signup">
                         {{ form_start(form) }}
                         <div class="custom-form">
-                            <div style="width: 400px;">
-                                <div style="display: grid; grid-template-columns: auto auto auto; align-items: center">
+                            {# Render each form field manually #}
+                            <div class="form-row custom-form-1">
+                                <div class="form-widget custom-form-2">
                                     {% for choice in form.avatar %}
-                                        <div class="form-check" style="padding: 20px">
-                                            {{ form_widget(choice, {'attr': {'class': 'form-check-input avatar-choice form-input', 'id': 'avatar-' ~ loop.index}}) }}
-                                            <label class="form-check-label" for="avatar-{{ loop.index }}">
-                                                {% if choice.vars['attr']['data-image-url'] is defined %}
-                                                    <img src="{{ choice.vars['attr']['data-image-url'] }}" alt="Avatar" style="width: 50px; height: 50px;">
-                                                {% endif %}
-                                                {{ form_label(choice, null, {'label_attr': {'class': 'form-check-label'}}) }}
-                                            </label>
-                                        </div>
+                                        <label for="avatar" class="avatar-choice p-4">
+                                            {% if choice.vars['attr']['data-image-url'] is defined %}
+                                                <img src="{{ choice.vars['attr']['data-image-url'] }}" alt="Avatar" class="Avatar">
+                                            {% endif %}
+                                            {{ form_label(choice) }}
+                                            {{ form_widget(choice, {'attr': {'class': 'avatar-choice', 'id': 'avatar'}}) }}
+                                        </label>
                                     {% endfor %}
                                 </div>
                                 {{ form_errors(form.avatar) }}
                             </div>
                             {{ form_row(form.username) }}
-                            <p id="message_check" style="color: rgb(139,0,0)"></p>
+                            <p id="message_check" class="message_check"></p>
                             {{ form_row(form.password) }}
                             {{ form_row(form.first_name) }}
                             {{ form_row(form.last_name) }}
@@ -67,8 +66,9 @@
                         <div class="custom-form-signup">
                             {{ form_row(form.submit) }}
                         </div>
+
                         {{ form_end(form) }}
-                    </div>
+                    </form>
                     {% for message in app.flashes('success') %}
                         <div class="alert alert-success">
                             {{ message }}
@@ -86,7 +86,7 @@
 {% block footer %}
     <footer class="{{ footer_class }}">
         <div>Copyright © 2022 WebTech. KUL All rights Reserved.</div>
-        <div><a href="{{ path('privacypolicy') }}" style="color: #311E69 ">  Privacy Policy</a> | <a href="{{ path('termsofservice') }}" style="color: #311E69 "> Terms of Use</a></div>
+        <div><a href="{{ path('privacypolicy') }}" class="footer_login_links">  Privacy Policy</a> | <a href="{{ path('termsofservice') }}" class="footer_login_links"> Terms of Use</a></div>
     </footer>
 {% endblock %}
 
