@@ -28,31 +28,31 @@
         <div class="container">
             <div class="row justify-content-between">
                 <div class="d-none d-sm-block col-lg-5 mb-3 landing-main-left bg-white">
-                    <h1 id="login_top_trending" class="p-4" style="color: rgb(49,30,105);">Top Trending Books</h1>
+                    <h1 id="login_top_trending" class="p-4 login_top_trending">Top Trending Books</h1>
                         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active text-center" data-bs-interval = "10000">
-                                    <img class="rounded-3 w-50 book-image p-4" style="align-items: center; justify-content: center" data-isbn="{{ first_book.isbn }}" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
+                                    <img class="rounded-3 w-50 book-image p-4 image" data-isbn="{{ first_book.isbn }}" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
                                     <div class="d-5 d-md-block ">
-                                        <h5 class="booktitle" style="color: rgb(49,30,105); text-align: center">{{ first_book.title }}</h5>
-                                        <h6 class="bookauthor" style="color: rgb(49,30,105); text-align: center">{{ first_book.author }}</h6>
-                                        <p class="bookgenres"  style="color: rgb(49,30,105); text-align: center">Book followers: {{ first_book.number_of_followers }}</p>
+                                        <h5 class="bookdetails">{{ first_book.title }}</h5>
+                                        <h6 class="bookdetails">{{ first_book.author }}</h6>
+                                        <p class="bookdetails" >Book followers: {{ first_book.number_of_followers }}</p>
                                     </div>
                                 </div>
                                 <div class="carousel-item text-center" data-bs-interval="2000">
-                                    <img class="rounded-3 w-50 book-image p-4" style="align-items: center; justify-content: center" data-isbn="{{ second_book.isbn }}" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
+                                    <img class="rounded-3 w-50 book-image p-4 image" data-isbn="{{ second_book.isbn }}" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
                                     <div class="d-5 d-md-block ">
-                                        <h5 class="booktitle" style="color: rgb(49,30,105); text-align: center">{{ second_book.title }}</h5>
-                                        <h6 class="bookauthor" style="color: rgb(49,30,105); text-align: center">{{ second_book.author }}</h6>
-                                        <p class="bookgenres"  style="color: rgb(49,30,105); text-align: center">Book followers: {{ second_book.number_of_followers }}</p>
+                                        <h5 class="bookdetails">{{ second_book.title }}</h5>
+                                        <h6 class="bookdetails">{{ second_book.author }}</h6>
+                                        <p class="bookdetails" >Book followers: {{ second_book.number_of_followers }}</p>
                                     </div>
                                 </div>
                                 <div class="carousel-item text-center">
-                                    <img class="rounded-3 w-50 book-image p-4" style="align-items: center; justify-content: center" data-isbn="{{ third_book.isbn }}" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
+                                    <img class="rounded-3 w-50 book-image p-4 image" data-isbn="{{ third_book.isbn }}" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
                                     <div class="d-5 d-md-block ">
-                                        <h5 class="booktitle" style="color: rgb(49,30,105); text-align: center">{{ third_book.title }}</h5>
-                                        <h6 class="bookauthor" style="color: rgb(49,30,105); text-align: center">{{ third_book.author }}</h6>
-                                        <p class="bookgenres"  style="color: rgb(49,30,105); text-align: center">Book followers: {{ third_book.number_of_followers }}</p>
+                                        <h5 class="bookdetails">{{ third_book.title }}</h5>
+                                        <h6 class="bookdetails">{{ third_book.author }}</h6>
+                                        <p class="bookdetails">Book followers: {{ third_book.number_of_followers }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -75,11 +75,11 @@
                     {% endif %}
                         <form action="{{ path('LogIn') }}" method="post">
                             <div class="mb-3">
-                                <label style="color: rgb(49,30,105)" for="username" class="form-label">User Name:</label>
+                                <label for="username" class="form-label userdetails">User Name:</label>
                                 <input type="text" class="form-control text-center"  id="username" name="_username" value="{{ last_username }}" required>
                             </div>
                             <div class="mb-3">
-                                <label style="color: rgb(49,30,105)" for="password" class="form-label">Password:</label>
+                                <label for="password" class="form-label userdetails">Password:</label>
                                 <input class="form-control text-center" type="password" id="password" name="_password" required>
                             </div>
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -98,6 +98,6 @@
 {% block footer %}
     <footer class="landing-footer">
         <div>Copyright © 2022 WebTech. KUL All rights Reserved.</div>
-        <div><a href="{{ path('privacypolicy') }}" style="color: rgb(49,30,105) ">  Privacy Policy</a> | <a href="{{ path('termsofservice') }}" style="color: rgb(49,30,105) "> Terms of Use</a></div>
+        <div><a href="{{ path('privacypolicy') }}" class="footer_login_links">  Privacy Policy</a> | <a href="{{ path('termsofservice') }}" class="footer_login_links"> Terms of Use</a></div>
     </footer>
 {% endblock %}

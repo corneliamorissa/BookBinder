@@ -42,6 +42,27 @@ main{
     flex-direction: row;
 }
 
+.footer_base_links{
+    color: rgb(255, 255, 255);
+}
+.footer_login_links{
+    color: rgb(49,30,105);
+}
+.login_top_trending{
+    color: rgb(49,30,105);
+}
+.image{
+    align-items: center;
+    justify-content: center;
+}
+.bookdetails{
+    color: rgb(49,30,105);
+    text-align: center;
+}
+
+
+
+
 .landing-header{
     max-width: 100%;
     max-height: min-content;
@@ -247,17 +268,13 @@ div#nav {
     font-size: small;
 }
 
-/*#username{
-    color: #311E69;
-    font-family: "Figtree SemiBold", Arial, sans-serif;;
-    font-weight: bold;
-    font-size: medium;
-
-}*/
+.userdetails{
+    color: rgb(49,30,105);
+}
 
 #library{
     margin: 8px;
-    color: black;
+    color: rgb(0, 0, 0);
 }
 
 #requestmeetup{
