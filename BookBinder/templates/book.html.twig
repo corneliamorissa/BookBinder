@@ -9,7 +9,7 @@
     <div class="container py-5">
         <div class="row">
             <div class="col-lg-4">
-                <div class="card rounded-3 mb-sm-4 justify-content-sm-center" style="width: 350px; border-color: #6f42c1">
+                <div class="card rounded-3 mb-sm-4 justify-content-sm-center Book-border">
                     <img id="BookPic" class="rounded-3 w-100" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
                     <div class="card-body text-center">
                         <h1 id="BookTitle" class="card-title"> Title loading </h1>
@@ -68,7 +68,10 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('javascript/api.js') }}"></script>
-    <script>fetch_details('{{ BookIsbn }}');</script>
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ asset('javascript/api.js') }}"></script>
+<script>fetch_details('{{ BookIsbn }}');</script>
 {% endblock %}
