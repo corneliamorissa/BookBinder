@@ -3,7 +3,6 @@
 namespace App\Tests;
 
 use App\Repository\UserRepository;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UtilTests extends WebTestCase
@@ -31,7 +30,6 @@ class UtilTests extends WebTestCase
     public function testRouteHome():void
     {
         $client = static::createClient();
-        $userRepository = static::getContainer()->get(UserRepository::class);
 
         //retrive the test user
         $crawler = $client->request('GET', '/');
@@ -54,43 +52,63 @@ class UtilTests extends WebTestCase
 
     }
 
-    /*
-    public function testRouteSignUp() : void
+
+
+    /*public function testRouteSignUp() : void
     {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/SignUp');
-        //$form['form[avatar]'] = $crawler->selectImage('2');
-        $form = $crawler->filter('form[name="signup"]')->form();
-        $form['sign_up_form[avatar]'] = 2;
-        $form['sign_up_form[username]'] = 'Becky_Jrcf2hj'; //can only used one time in a test, after run once, need to test with unique username
-        $form['sign_up_form[password][first]'] = 'Secretf678';
-        $form['sign_up_form[password][second]'] = 'Secretf678';
-        $form['sign_up_form[first_name]'] = 'Becky';
-        $form['sign_up_form[last_name]'] = 'Jessica';
-        $form['sign_up_form[birthdate][month]'] = 10;
-        $form['sign_up_form[birthdate][day]'] = 19;
-        $form['sign_up_form[birthdate][year]'] = 2006;
-        $form['sign_up_form[street]'] = 'NewMiles South';
-        $form['sign_up_form[house_number]'] = 34;
-        $form['sign_up_form[postcode]'] = 3232;
-        $form['sign_up_form[terms_and_condition]'] = true;
+        // open csv file and load data
+        if (($handle = fopen(__DIR__."/mockdata/users_register.csv", "r")) !== FALSE) {
+            // read first line with headers
+            $headers = fgetcsv($handle, 1000, ",");
+            // read rest of file and create entities for every line
+            $counter = 0;
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE && $counter < 6) {
+                $client = static::createClient();
+                $crawler = $client->request('GET', '/SignUp');
+                // Debugging: Check if the page was loaded correctly
+                if (!$client->getResponse()->isSuccessful()) {
+                    throw new \Exception('Failed to load the "/SignUp" page.');
+                }
 
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-        $form = $crawler->selectButton('Login')->form();
-        $form['_username'] = 'Becky_J';
-        $form['_password'] = 'Secret678';
-        $client->submit($form);
-        $client->request('GET', '/Search');
-        $this->assertResponseIsSuccessful();
+                // Debugging: Check if the form element exists
+                if ($crawler->filter('form[name="signup"]')->count() === 0) {
+                    throw new \Exception('Form element with name "signup" not found.');
+                }
+
+                $form = $crawler->filter('form[name="signup"]')->form();
+                $form['sign_up_form[avatar]'] = $data[0];
+                $curr_username = $data[1];
+                $form['sign_up_form[username]'] = $data[1]; //can only used one time in a test, after run once, need to test with unique username
+                $curr_pass = $data[2];
+                $form['sign_up_form[password][first]'] = $data[2];
+                $form['sign_up_form[password][second]'] = $data[2];
+                $form['sign_up_form[first_name]'] = $data[3];
+                $form['sign_up_form[last_name]'] = $data[4];
+                $form['sign_up_form[birthdate][day]'] = $data[5];
+                $form['sign_up_form[birthdate][month]'] = $data[6];
+                $form['sign_up_form[birthdate][year]'] = $data[7];
+                $form['sign_up_form[street]'] = $data[8];
+                $form['sign_up_form[house_number]'] = $data[9];
+                $form['sign_up_form[postcode]'] = $data[10];
+                $form['sign_up_form[terms_and_condition]'] = true;
+
+                $client->submit($form);
+                $crawler = $client->followRedirect();
+                $form = $crawler->selectButton('Login')->form();
+                $form['_username'] = $curr_username;
+                $form['_password'] = $curr_pass;
+                $client->submit($form);
+                $client->request('GET', '/Search');
+                $this->assertResponseIsSuccessful();
+                $crawler = $client->getCrawler();
+                $link = $crawler->selectLink('Logout')->link();
+                $client->click($link);
+                $counter++;
+            }
+        }
+    }*/
 
 
-
-
-    }
-
-
-    **/
 
     /**
      * @throws \Exception
