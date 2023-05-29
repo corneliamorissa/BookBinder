@@ -36,32 +36,31 @@ class SignUpFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
 
-        $builder
-            ->add('avatar', EntityType::class, [
-                'class' => Avatar::class,
-                'mapped' => true,
-                'expanded' => true,
-                'required' => true,
-                'label' => '',
-                'block_name' => 'custom_avatar',
-                'choice_attr' => function ($avatar, $key, $value) {
-                    $dataUri = ''; // Initialize the data URI
-                    if ($avatar) {
-                        $avatarId = $avatar->getId(); // Access the ID of the Avatar entity
-                        $imageBlob = $avatar->getImage();
-                        $base64Image = base64_encode(stream_get_contents($imageBlob));
-                        $dataUri = 'data:image/png;base64,' . $base64Image;
-                    }
+        $builder->add('avatar', EntityType::class, [
+            'class' => Avatar::class,
+            'mapped' => true,
+            'expanded' => true,
+            'required' => true,
+            'label' => '',
+            'block_name' => 'custom_avatar',
+            'attr' => [
+                'class' => 'avatar-choice',
+                'id' => 'avatar-choices',
+                'placeholder' => 'Choose one for your avatar'
+            ],
+            'choice_attr' => function ($avatar) {
+                $dataUri = ''; // Initialize the data URI
 
-                    // Return the array of attributes for this choice
-                    return [
-                        'class' => 'form-check-input',
-                        'id' => 'avatar-' . $value,
-                        'placeholder' => 'Choose one for your avatar',
-                        'data-image-url' => $dataUri,
-                    ];
-                },
-            ])
+                if ($avatar) {
+                    $avatarId = $avatar->getId(); // Access the ID of the Avatar entity
+                    $imageBlob = $avatar->getImage();
+                    $base64Image = base64_encode(stream_get_contents($imageBlob));
+                    $dataUri = 'data:image/png;base64,' . $base64Image;
+                }
+
+                return ['data-image-url' => $dataUri]; // Use the ID as the key
+            },
+        ])
 
             ->add('username', TextType::class,[
                 'mapped' => true,

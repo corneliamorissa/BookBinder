@@ -37,11 +37,10 @@
                     <div class="pt-4 pb-4">
                         {{ form_start(form) }}
                         <div class="custom-form">
-                            {# Render each form field manually #}
                             <div style="width: 400px;">
                                 <div style="display: grid; grid-template-columns: auto auto auto; align-items: center">
                                     {% for choice in form.avatar %}
-                                        <div class="form-check ms-4" style="padding: 20px">
+                                        <div class="form-check" style="padding: 20px">
                                             {{ form_widget(choice, {'attr': {'class': 'form-check-input avatar-choice form-input', 'id': 'avatar-' ~ loop.index}}) }}
                                             <label class="form-check-label" for="avatar-{{ loop.index }}">
                                                 {% if choice.vars['attr']['data-image-url'] is defined %}

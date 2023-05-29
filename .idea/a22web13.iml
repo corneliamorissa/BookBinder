@@ -76,6 +76,7 @@
       <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/sebastian/version" />
       <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/sebastian/complexity" />
       <excludeFolder url="file://$MODULE_DIR$/BookBinder/vendor/sebastian/recursion-context" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dbrekelmans/bdi" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

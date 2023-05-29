@@ -107,7 +107,7 @@ class JavaScriptTest extends PantherTestCase
         $crawler = $client->request('GET', '/');
 
         // Put user credentials to pass the login authentication
-        $form = $crawler->selectButton('Login')->form();
+        $form = $crawler->selectButton('submit_login')->form();
         $form['_username'] = 'Amal__York1720';
         $form['_password'] = 'OUC51OZS0OH';
         $client->submit($form);
