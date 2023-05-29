@@ -28,7 +28,7 @@ class UserBook
     private ?int $userid = null;
 
     #[ManyToOne(targetEntity: Books::class, inversedBy: "userbooks")]
-    #[JoinColumn(name: 'bookID', referencedColumnName: 'bookId')]
+    #[JoinColumn(name: 'bookID', referencedColumnName: 'id')]
     private ?Books $book = null;
 
 

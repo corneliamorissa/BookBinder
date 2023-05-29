@@ -54,16 +54,17 @@ class UtilTests extends WebTestCase
 
 
 
-    /*public function testRouteSignUp() : void
+    public function testRouteSignUp() : void
     {
+        $client = static::createClient();
         // open csv file and load data
         if (($handle = fopen(__DIR__."/mockdata/users_register.csv", "r")) !== FALSE) {
-            // read first line with headers
+
             $headers = fgetcsv($handle, 1000, ",");
-            // read rest of file and create entities for every line
+
             $counter = 0;
+
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE && $counter < 6) {
-                $client = static::createClient();
                 $crawler = $client->request('GET', '/SignUp');
                 // Debugging: Check if the page was loaded correctly
                 if (!$client->getResponse()->isSuccessful()) {
@@ -71,11 +72,11 @@ class UtilTests extends WebTestCase
                 }
 
                 // Debugging: Check if the form element exists
-                if ($crawler->filter('form[name="signup"]')->count() === 0) {
+                if ($crawler->filter('form[name="sign_up_form"]')->count() === 0) {
                     throw new \Exception('Form element with name "signup" not found.');
                 }
 
-                $form = $crawler->filter('form[name="signup"]')->form();
+                $form = $crawler->filter('form[name="sign_up_form"]')->form();
                 $form['sign_up_form[avatar]'] = $data[0];
                 $curr_username = $data[1];
                 $form['sign_up_form[username]'] = $data[1]; //can only used one time in a test, after run once, need to test with unique username
@@ -93,20 +94,25 @@ class UtilTests extends WebTestCase
                 $form['sign_up_form[terms_and_condition]'] = true;
 
                 $client->submit($form);
+
+                var_dump($client->getResponse());
+
                 $crawler = $client->followRedirect();
                 $form = $crawler->selectButton('Login')->form();
                 $form['_username'] = $curr_username;
                 $form['_password'] = $curr_pass;
+                var_dump($curr_username);
                 $client->submit($form);
                 $client->request('GET', '/Search');
                 $this->assertResponseIsSuccessful();
                 $crawler = $client->getCrawler();
                 $link = $crawler->selectLink('Logout')->link();
                 $client->click($link);
+
                 $counter++;
             }
         }
-    }*/
+    }
 
 
 
