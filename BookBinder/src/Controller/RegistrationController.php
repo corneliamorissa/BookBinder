@@ -34,9 +34,7 @@ class RegistrationController extends AbstractController
     public function __construct(AuthenticationService $userService) {
         $this->stylesheets[] = 'main.css';
     }
-    /**
-     * @Route("/SignUp", name="SignUp")
-     */
+
     #[Route("/SignUp", name: "SignUp")]
     public function signup(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, AvatarRepository $ap): Response {
 

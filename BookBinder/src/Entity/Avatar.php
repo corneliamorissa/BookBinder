@@ -21,12 +21,12 @@ class Avatar
     #[ORM\Column(type: "blob", nullable: false)]
     private $image;
 
-    #[ORM\OneToMany(mappedBy: 'avatar', targetEntity: User::class)]
-    private Collection $users;
+
 
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
+
     }
 
     /**
