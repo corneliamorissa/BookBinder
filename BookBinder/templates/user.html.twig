@@ -11,7 +11,7 @@
                     <div class="card mb-4">
                         <div class="card-body text-center">
                             <img src="{{ asset('/assets/Avatar.png') }}" alt="avatar"
-                                 class="rounded-circle img-fluid" style="width: 150px;">
+                                 class="rounded-circle img-fluid w-100">
                             <h4 class="my-3">Emma Watch</h4>
                             <h5 class="text-secondary"> Holsbeeks Library</h5>
                             <h5 class="text-secondary">Leuven, Belgium</h5>
@@ -45,7 +45,7 @@
                             <strong>Avatar</strong>
                             <br>
                             {% if avatar %}
-                                <img src="{{ data_image_url }}" alt = "AvatarUser" style="width: 100px; height: 100px;" >
+                                <img src="{{ data_image_url }}" alt = "AvatarUser"  class="w-25">
                             {% endif %}
                             <hr>
                             <p id = "FirstNameUser"> <Strong>First name: </Strong>{{ user.first_name }}</p>
