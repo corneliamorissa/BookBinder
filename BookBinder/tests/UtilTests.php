@@ -265,6 +265,29 @@ class UtilTests extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function testRouteMeetUp():void
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/');
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = 'Amal__York1720';
+        $form['_password'] = 'OUC51OZS0OH';
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+        $last_username = $crawler->filter('#last_username');
+        $this->assertStringContainsString("Amal__York1720", $last_username->text());
+
+        $client->request('GET', '/MeetUp');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('.titleMeetups', 'Upcoming Meetups');
+        $this->assertSelectorTextContains('.titleinvite', 'Meet Up Invitation');
+
+    }
+
 
 
 }
