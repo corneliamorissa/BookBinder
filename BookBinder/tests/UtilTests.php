@@ -122,6 +122,32 @@ class UtilTests extends WebTestCase
     }
 
 
+    public function testErrorMessageIntegerType()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/SignUp');
+        $form = $crawler->filter('form[name="sign_up_form"]')->form();
+        $form['sign_up_form[avatar]'] = 2;
+        $form['sign_up_form[username]'] = 'Becky_Jhj'; //can only used one time in a test, after run once, need to test with unique username
+        $form['sign_up_form[password][first]'] = 'Secret678';
+        $form['sign_up_form[password][second]'] = 'Secret678';
+        $form['sign_up_form[first_name]'] = 'Becky';
+        $form['sign_up_form[last_name]'] = 'Jessica';
+        $form['sign_up_form[birthdate][month]'] = 10;
+        $form['sign_up_form[birthdate][day]'] = 19;
+        $form['sign_up_form[birthdate][year]'] = 2006;
+        $form['sign_up_form[street]'] = 'NewMiles South';
+        $form['sign_up_form[house_number]'] = 'hebd';
+        $form['sign_up_form[postcode]'] = 'gve';
+        $form['sign_up_form[terms_and_condition]'] = true;
+
+        $client->submit($form);
+        $crawler = $client->getCrawler();
+        $error_message_not_match = $crawler->filter('ul li')->text();
+        $error_count = $crawler->filter('ul li')->count();
+        $this->assertEquals('Please enter a number.', $error_message_not_match);
+        $this->assertEquals(2, $error_count);
+    }
 
     /**
      * @throws \Exception
@@ -183,4 +209,26 @@ class UtilTests extends WebTestCase
     }
 
 
+
+    public function testRouteLogout(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/');
+
+        $this->assertResponseIsSuccessful();
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = 'Amal__York1720';
+        $form['_password'] = 'OUC51OZS0OH';
+        $client->submit($form);
+        //to see if user pass the authentication
+        $client->request('GET','/MeetUp');
+        $this->assertResponseIsSuccessful();
+        //click on logout
+        $client->clickLink('Logout');
+        $client->followRedirect();
+        $crawler = $client->getCrawler();
+        //login property to check after click Logout user get back to the login page
+        $trending_book = $crawler->filter('.bookdetails');
+        $this->assertEquals(9, $trending_book->count());
+    }
 }
