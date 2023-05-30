@@ -53,46 +53,48 @@ class UtilTests extends WebTestCase
     }
 
 
-
-    /*public function testRouteSignUp() : void
+    /**
+     * @throws \Exception
+     */
+    public function testRouteSignUp() : void
     {
         $client = static::createClient();
-        // open csv file and load data
-        if (($handle = fopen(__DIR__."/mockdata/users_register.csv", "r")) !== FALSE) {
+        $crawler = $client->request('GET', '/SignUp');
+        //$form['form[avatar]'] = $crawler->selectImage('2');
+        $form = $crawler->filter('form[name="signup"]')->form();
+        $form['sign_up_form[avatar]'] = 8;
 
-            $headers = fgetcsv($handle, 1000, ",");
+        // Generate a random username bcs there is authentication that username needs to be random
+        $baseUsername = 'test'; // Base username
+        $randomString = bin2hex(random_bytes(4)); // Generate a random string
+        $randomUsername = $baseUsername . '_' . $randomString; // Combine base username and random string
+        $form['sign_up_form[username]'] = $randomUsername;
 
-            $counter = 0;
+        var_dump($randomUsername);
 
-            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE && $counter < 5) {
-                $crawler = $client->request('GET', '/SignUp');
-                $form = $crawler->filter('form[name="signup"]')->form();
-                $form['sign_up_form[avatar]'] = $data[0];
-                $curr_username = $data[1];
-                $form['sign_up_form[username]'] = $data[1]; //can only used one time in a test, after run once, need to test with unique username
-                $curr_pass = $data[2];
-                $form['sign_up_form[password][first]'] = $data[2];
-                $form['sign_up_form[password][second]'] = $data[2];
-                $form['sign_up_form[first_name]'] = $data[3];
-                $form['sign_up_form[last_name]'] = $data[4];
-                $form['sign_up_form[birthdate][day]'] = $data[5];
-                $form['sign_up_form[birthdate][month]'] = $data[6];
-                $form['sign_up_form[birthdate][year]'] = $data[7];
-                $form['sign_up_form[street]'] = $data[8];
-                $form['sign_up_form[house_number]'] = $data[9];
-                $form['sign_up_form[postcode]'] = $data[10];
-                $form['sign_up_form[terms_and_condition]'] = true;
+        //static info for test purposes
+        $form['sign_up_form[password][first]'] = 'Secret678';
+        $form['sign_up_form[password][second]'] = 'Secret678';
+        $form['sign_up_form[first_name]'] = 'Test Purposes';
+        $form['sign_up_form[last_name]'] = 'UtilTest';
+        $form['sign_up_form[birthdate][month]'] = 10;
+        $form['sign_up_form[birthdate][day]'] = 19;
+        $form['sign_up_form[birthdate][year]'] = 2006;
+        $form['sign_up_form[street]'] = 'NewMiles South';
+        $form['sign_up_form[house_number]'] = 34;
+        $form['sign_up_form[postcode]'] = 3232;
+        $form['sign_up_form[terms_and_condition]'] = true;
 
-                $client->submit($form);
-                $this->assertResponseStatusCodeSame(302);
+        $client->submit($form);
 
+        $crawler = $client->followRedirect();
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = $randomUsername;
+        $form['_password'] = 'Secret678';
+        $client->submit($form);
+        $this->assertResponseStatusCodeSame(302);
+    }
 
-                $counter++;
-
-            }
-
-        }
-    }*/
 
     public function testErrorMessageRepeatedPasswordNotMatch()
     {
