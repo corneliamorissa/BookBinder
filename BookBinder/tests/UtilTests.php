@@ -4,6 +4,8 @@ namespace App\Tests;
 
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
 class UtilTests extends WebTestCase
 {
@@ -189,7 +191,6 @@ class UtilTests extends WebTestCase
     public function testRouteBook():void
     {
         $client = static::createClient();
-        $userRepository = static::getContainer()->get(UserRepository::class);
 
         $crawler = $client->request('GET', '/');
         $form = $crawler->selectButton('Login')->form();
@@ -231,4 +232,39 @@ class UtilTests extends WebTestCase
         $trending_book = $crawler->filter('.bookdetails');
         $this->assertEquals(9, $trending_book->count());
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function testRouteSearch():void
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/');
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = 'Amal__York1720';
+        $form['_password'] = 'OUC51OZS0OH';
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+        $last_username = $crawler->filter('#last_username');
+        $this->assertStringContainsString("Amal__York1720", $last_username->text());
+
+        $client->request('GET', '/Search');
+        $this->assertResponseIsSuccessful();
+        // $this->assertSelectorTextContains('h1', 'Book Search');
+        $this->assertSelectorTextContains('h2', 'Enter the ISBN of the book you want to find');
+
+        $crawler = $client->getCrawler();
+        //isbn = 9780439358071 && Harry Potter and the Order of the Phoenix (Harry Potter  #5)
+        // Set the value of the input field
+        $session = new Session(new MockArraySessionStorage());
+        $session->set('_security_main', serialize($client->getContainer()->get('security.token_storage')->getToken()));
+        $client->getContainer()->set('session', $session);
+
+        $client->request('POST', '/Search', ['isbn' => '9780439358071']);
+        $this->assertResponseIsSuccessful();
+    }
+
+
+
 }
