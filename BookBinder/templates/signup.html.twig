@@ -55,13 +55,19 @@
                             {{ form_row(form.username) }}
                             <p id="message_check" class="message_check"></p>
                             {{ form_row(form.password) }}
+                            {{ form_errors(form.password) }}
                             {{ form_row(form.first_name) }}
+                            {{ form_errors(form.first_name) }}
                             {{ form_row(form.last_name) }}
+                            {{ form_errors(form.first_name) }}
                             {{ form_row(form.birthdate) }}
+                            {{ form_errors(form.birthdate) }}
                             {{ form_row(form.street) }}
+                            {{ form_errors(form.street) }}
                             {{ form_row(form.house_number) }}
                             {{ form_row(form.postcode) }}
                             {{ form_row(form.terms_and_condition) }}
+                            {{ form_errors(form.terms_and_condition) }}
                         </div>
                         <div class="custom-form-signup">
                             {{ form_row(form.submit) }}

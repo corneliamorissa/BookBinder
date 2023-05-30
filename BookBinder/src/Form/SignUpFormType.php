@@ -71,9 +71,12 @@ class SignUpFormType extends AbstractType
                     'placeholder' => 'Enter your user name'
                 ]
             ])->add('password', RepeatedType::class,[
-                'mapped' => true,
+                'mapped' => false,
                 'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Password', 'attr' => [
+                'first_options'  => array(
+                    'label' => 'Password',
+                    'hash_property_path' => 'password',
+                    'attr' => [
                     'class' => 'field-form',
                     'placeholder' => 'Enter your password'
                 ]),

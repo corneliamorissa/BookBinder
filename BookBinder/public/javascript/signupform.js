@@ -23,17 +23,23 @@ function updateMessage(event) {
         .then((response) => {
             if (response.status === 404) {
                 messageElement.innerHTML = "Username already exist";
+                messageElement.style.color = "red";
                 submitButton.disabled = true;
                 submitButton.style.background = '#808080';
             }
             if (response.status === 400) {
                 messageElement.innerHTML = "This field is required";
+                messageElement.style.color = "red";
                 submitButton.disabled = true;
                 submitButton.style.background = '#808080';
             }
             if (response.status === 200){
+                messageElement.innerHTML = "Username can be used";
+                messageElement.style.color = 'green';
                 submitButton.disabled = false;
                 submitButton.style.background = '#8670F7';
             }
         })
 }
+
+
