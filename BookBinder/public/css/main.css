@@ -222,12 +222,10 @@ div#nav {
 }
 .meetUpText{
     font-weight: 700;
-    padding-left: 10px;
 }
 
 .date{
-    font-weight: 500;
-    padding-left: 40px;
+    font-weight: 700;
 }
 
 .open{
@@ -247,6 +245,7 @@ div#nav {
 .bookloverslist{
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding-left: 0;
     gap: 20px;
 }
@@ -254,12 +253,13 @@ div#nav {
 .users{
     display: flex;
     flex-direction: row;
-    height:200px;
+    height:fit-content;
     margin-top: 0;
-    width: 330px;
-    background: #FFFFFF;
-    border: 2px solid #000000;
+    width: fit-content;
+    background: rgb(255, 255, 255);
+    border: 2px solid rgb(0, 0, 0);
     border-radius: 8px;
+
 }
 
 .usersright{
@@ -304,7 +304,7 @@ button{
 }
 
 #userpict{
-    height: 198px;
+    height: 190px;
     width: 150px;
     object-fit: cover;
     justify-content: center;
@@ -352,27 +352,37 @@ button{
     display: flex;
     flex-direction: column;
     margin: 0;
-    width: 600px;
+    width: auto;
     padding: 20px;
     height: fit-content ;
-    background: #FFFFFF;
+    background: rgb(255, 255, 255);
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
 }
 
 .invitation{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    margin: 20px;
-    gap: 10px;
-    padding: 10px;
-    width: 510px;
-    height: 80px ;
-    background: #FFFFFF;
-    border: 2px solid #311E69;
+    align-self: center;
+    width: fit-content;
+    height: auto;
+    background: rgb(255, 255, 255);
+    border: 2px solid rgb(49, 30, 105);
     border-radius: 8px;
 }
+.buttons{
+    align-self: center;
+}
+/*.users{
+    display: flex;
+    flex-direction: row;
+    height:200px;
+    margin-top: 0;
+    width: auto;
+    background: rgb(255, 255, 255);
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 8px;
+
+}*/
 
 .invitation p{
     font-size: 12px;
@@ -390,11 +400,10 @@ button{
     font-weight: bold;
 }
 
-#datetimeinvitation{
+/*#datetimeinvitation{
     margin: 10px;
-    padding: 10px;
     width: 130px;
-}
+}*/
 
 .writeInvitation{
     margin: 10px;
