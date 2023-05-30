@@ -36,9 +36,9 @@ class RegistrationController extends AbstractController
     }
 
     #[Route("/SignUp", name: "SignUp")]
-    public function signup(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, AvatarRepository $ap): Response {
+    public function signup(Request $request, UserPasswordHasherInterface $password_hasher, EntityManagerInterface $entity_manager, AvatarRepository $ap): Response {
 
-        $avatar = $entityManager->getRepository(Avatar::class)->findAll();
+        $avatar = $entity_manager->getRepository(Avatar::class)->findAll();
         $form = $this->createForm(SignUpFormType::class);
         $form->handleRequest($request);
 
@@ -46,17 +46,17 @@ class RegistrationController extends AbstractController
             $user = $form->getData();
             $avatar = $form ->get('avatar')->getData();
             $user->setAvatarId($avatar->getId());
-            $plaintextPassword = $user->getPassword() ;
+            $plain_text_password = $user->getPassword() ;
             // hash the password (based on the security.yaml config for the $user class)
-            $hashedPassword = $passwordHasher->hashPassword(
+            $hashed_password = $password_hasher->hashPassword(
                 $user,
-                $plaintextPassword
+                $plain_text_password
             );
-            $user->setPassword($hashedPassword);
+            $user->setPassword($hashed_password);
 
             // 4) save the User!
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $entity_manager->persist($user);
+            $entity_manager->flush();
             $this->addFlash('success', 'Account Successfully Created! Log in is needed');
             return $this->redirectToRoute('LogIn');
         }

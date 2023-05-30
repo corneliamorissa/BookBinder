@@ -66,16 +66,6 @@ class UtilTests extends WebTestCase
 
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE && $counter < 6) {
                 $crawler = $client->request('GET', '/SignUp');
-                // Debugging: Check if the page was loaded correctly
-                if (!$client->getResponse()->isSuccessful()) {
-                    throw new \Exception('Failed to load the "/SignUp" page.');
-                }
-
-                // Debugging: Check if the form element exists
-                if ($crawler->filter('form[name="sign_up_form"]')->count() === 0) {
-                    throw new \Exception('Form element with name "signup" not found.');
-                }
-
                 $form = $crawler->filter('form[name="sign_up_form"]')->form();
                 $form['sign_up_form[avatar]'] = $data[0];
                 $curr_username = $data[1];
@@ -95,9 +85,8 @@ class UtilTests extends WebTestCase
 
                 $client->submit($form);
 
-                var_dump($client->getResponse());
+                $crawler=$client->followRedirect();
 
-                $crawler = $client->followRedirect();
                 $form = $crawler->selectButton('Login')->form();
                 $form['_username'] = $curr_username;
                 $form['_password'] = $curr_pass;

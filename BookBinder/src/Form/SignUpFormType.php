@@ -6,6 +6,7 @@ use App\Entity\Avatar;
 use App\Entity\LoginUser;
 use App\Entity\User;
 use App\Repository\AvatarRepository;
+use Symfony\Component\Validator\Constraints\EqualTo;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use PHPUnit\Framework\Constraint\IsTrue;
