@@ -45,6 +45,23 @@ class UtilTests extends WebTestCase
     }
 
 
+    public function testRouteErrorMessageWrongUsernameLogin(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/');
+
+        $this->assertResponseIsSuccessful();
+
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = 'Amalrk1720';
+        $form['_password'] = 'OUC51OZS0OH';
+        $client->submit($form);
+        $client->followRedirect();
+        $crawler = $client->getCrawler();
+        $error_message_wrong_pass = $crawler->filter('#flash')->text();
+        $this->assertEquals('Invalid credentials.', $error_message_wrong_pass);
+
+    }
 
     /**
      * @throws \Exception
