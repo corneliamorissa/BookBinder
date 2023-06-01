@@ -26,6 +26,26 @@ class UtilTests extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
+    public function testRouteErrorMessageWrongPassLogin(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/');
+
+        $this->assertResponseIsSuccessful();
+
+        $form = $crawler->selectButton('Login')->form();
+        $form['_username'] = 'Amal__York1720';
+        $form['_password'] = 'OUCS0OH';
+        $client->submit($form);
+        $client->followRedirect();
+        $crawler = $client->getCrawler();
+        $error_message_wrong_pass = $crawler->filter('#flash')->text();
+        $this->assertEquals('Invalid credentials.', $error_message_wrong_pass);
+
+    }
+
+
+
     /**
      * @throws \Exception
      */
@@ -283,8 +303,13 @@ class UtilTests extends WebTestCase
 
         $client->request('GET', '/MeetUp');
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('.titleMeetups', 'Upcoming Meetups');
-        $this->assertSelectorTextContains('.titleinvite', 'Meet Up Invitation');
+
+        $crawler = $client->getCrawler();
+        $container = $crawler->filter('.booklovers-container'); //because 3 trending book, book details is 3 each book, so 9 should be expected
+        $this->assertEquals(2, $container->count());
+
+        $card_body = $crawler->filter('.card-body'); //because 3 trending book, book details is 3 each book, so 9 should be expected
+        $this->assertEquals(3, $card_body->count());
 
     }
 
