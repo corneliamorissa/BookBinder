@@ -14,7 +14,6 @@ test-job:
     DATABASE_URL: "mysql://root:root_pass@mysql/main"
   script:
     - php bin/console doctrine:migrations:migrate --env=test
-    - php bin/console --env=test doctrine:fixtures:load
 #define the base docker image file used for all jobs
 image: composer:2.5
 # Before we start any job, prepare the container with some extra configuration
