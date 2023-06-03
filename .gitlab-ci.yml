@@ -10,7 +10,6 @@ test-job:
     MYSQL_USER: user
     MYSQL_ROOT_PASSWORD: root_pass
     MYSQL_PASSWORD: root_pass
-    PANTHER_APP_ENV: panther
     DATABASE_URL: "mysql://root:root_pass@mysql/main"
   script:
     - php bin/console doctrine:migrations:migrate --env=test
