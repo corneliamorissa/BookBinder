@@ -47,30 +47,30 @@ use function PHPUnit\Framework\isInstanceOf;
 class BookBinderController extends AbstractController
 {
     private array $stylesheets;
-    private string $lastUsername;
+    private string $last_username;
 
 
-    public function __construct(AuthenticationService $userService, AuthenticationUtils $authenticationUtils) {
+    public function __construct(AuthenticationService $userService, AuthenticationUtils $authentication_utils) {
         $this->stylesheets[] = 'main.css';
         /*the last username to store username that is logged in in every pages, so usernale could be siplayed at top right*/
-        $this->lastUsername = $authenticationUtils->getLastUsername();
+        $this->last_username = $authentication_utils->getLastUsername();
     }
 
 
     #[Route("/Home", name: "Home")]
     #[IsGranted('ROLE_USER')]
     public function home(EntityManagerInterface $em): Response {
-        $library = $em->getRepository(Library::class)->findNearestLibrary($this->lastUsername);
+        $library = $em->getRepository(Library::class)->findNearestLibrary($this->last_username);
         $books = $em->getRepository(Books::class)->findTopBooks();
-        $UserObject = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
-        $UserId = $UserObject->getID();
-        $FollowedBookByUser = $em->getRepository(UserBook::class)->displayFollowedBooksPerUser($UserId);
+        $user_object = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->last_username]);
+        $user_id = $user_object->getID();
+        $followed_book_by_user = $em->getRepository(UserBook::class)->displayFollowedBooksPerUser($user_id);
         return $this->render('home.html.twig', [
             'stylesheets' => $this->stylesheets,
-            'last_username' => $this->lastUsername,
+            'last_username' => $this->last_username,
             'books' => $books,
             'library' => $library,
-            'followedBooks'=>$FollowedBookByUser,
+            'followedBooks'=>$followed_book_by_user,
             'javascripts' => ['api.js'],
         ]);
     }
@@ -78,7 +78,7 @@ class BookBinderController extends AbstractController
     #[Route("/User", name: "User")]
     #[IsGranted('ROLE_USER')]
     public function user(Request $request, EntityManagerInterface $em): Response {
-        $user = $em->getRepository(\App\Entity\User::class)->findUserByName($this->lastUsername);
+        $user = $em->getRepository(\App\Entity\User::class)->findUserByName($this->last_username);
         $avatarid = $user['avatar_id'];
         $avatar = $em ->getRepository(Avatar::class) -> findOneBy(['id' => $avatarid ]);
         if($avatar) {
@@ -86,7 +86,7 @@ class BookBinderController extends AbstractController
             $base64Image = base64_encode(stream_get_contents($imageBlob));
             $dataUri = 'data:image/png;base64,' . $base64Image;
         }
-        $library = $em->getRepository(Library::class)->findNearestLibrary($this->lastUsername);
+        $library = $em->getRepository(Library::class)->findNearestLibrary($this->last_username);
         $form = $this->createForm(UserDetailsType::class);
         $form ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -98,7 +98,7 @@ class BookBinderController extends AbstractController
         return $this->render('user.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
-            'last_username' => $this->lastUsername,
+            'last_username' => $this->last_username,
             'user' => $user,
             'library' => $library,
             'avatar'=> $avatar,
@@ -110,7 +110,7 @@ class BookBinderController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function privacypolicy(): Response {
         return $this->render('privacypolicy.html.twig',[
-            'last_username' => $this->lastUsername
+            'last_username' => $this->last_username
         ]);
     }
 
@@ -119,7 +119,7 @@ class BookBinderController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function termsofservice(): Response {
         return $this->render('termsofservice.html.twig',[
-            'last_username' => $this->lastUsername
+            'last_username' => $this->last_username
         ]);
     }
 
@@ -128,12 +128,12 @@ class BookBinderController extends AbstractController
     public function search(Request $request, BooksRepository $booksRepository, EntityManagerInterface $em)
     {
         $books = $em->getRepository(Books::class)->findTopBooks();
-        $UserObject = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $UserObject = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->last_username]);
         $UserId = $UserObject->getID();
         $FollowedBookByUser = $em->getRepository(UserBook::class)->displayFollowedBooksPerUser($UserId);
         return $this->render('search.html.twig', [
             'stylesheets' => $this->stylesheets,
-            'last_username' => $this->lastUsername,
+            'last_username' => $this->last_username,
             'books' => $books,
             'followedBooks'=>$FollowedBookByUser,
             'javascripts' => ['api.js'],
@@ -157,7 +157,7 @@ class BookBinderController extends AbstractController
     #[Route("/MeetUp", name: "MeetUp")]
     #[IsGranted('ROLE_USER')]
     public function meetup(Request $request, EntityManagerInterface $em): Response {
-        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->last_username]);
         $userID = $user->getID();
         //$allSentMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID]);
         //$allReceivedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID]);
@@ -260,7 +260,7 @@ class BookBinderController extends AbstractController
             'form'=>$form->createView(),
             'formAccept'=>$formsAccept,
             'formDecline'=>$formsDecline,
-            'last_username' => $this->lastUsername,
+            'last_username' => $this->last_username,
             //'all_meetups' => $allMeetups,
             'date_time' => $datetime,
             //'all_received_meetups' => $allReceivedMeetups,
@@ -283,7 +283,7 @@ class BookBinderController extends AbstractController
         $BookRating = $BookObject->getRating();
         $BookLibraryId = $BookObject->getLibrary();
         /*Get follow information*/
-        $UserObject = $EntityManager->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $UserObject = $EntityManager->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->last_username]);
         $UserId = $UserObject->getID();
         $FollowObject =$EntityManager->getRepository(UserBook::class)->getBooksByUserID($UserId);
         $UserFollowsBookBoolean = 0;  /*User doesnt follow the book-> display the follow btn*/
@@ -326,7 +326,7 @@ class BookBinderController extends AbstractController
             'ReviewForm'=>$ReviewForm->createView(),
             'FollowBookForm'=>$FollowBookForm->createView(),
             'UnfollowBookForm' => $UnfollowBookForm->createView(),
-            'last_username' => $this->lastUsername,
+            'last_username' => $this->last_username,
             'BookTitle' => $BookTitle,
             'BookNrOfFollowers'=>$BookNrOfFollowers,
             'BookNrOfPages'=>$BookNrOfPages,

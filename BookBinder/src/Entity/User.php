@@ -97,9 +97,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @param int|null $id
      */
-    public function setId(?int $UserID): User
+    public function setId(?int $user_id): User
     {
-        $this->id = $UserID;
+        $this->id = $user_id;
         return $this;
     }
 

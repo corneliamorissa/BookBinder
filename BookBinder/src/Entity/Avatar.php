@@ -47,7 +47,7 @@ class Avatar
         return $this;
     }
 
-    public string $dataUri;
+    public string $data_uri;
 
 
     /**
@@ -55,15 +55,15 @@ class Avatar
      */
     public function getDataUri(): string
     {
-        return $this->dataUri;
+        return $this->data_uri;
     }
 
     /**
      * @param string $dataUri
      */
-    public function setDataUri(string $dataUri): void
+    public function setDataUri(string $data_uri): void
     {
-        $this->dataUri = $dataUri;
+        $this->data_uri = $data_uri;
     }
 
 
@@ -96,9 +96,9 @@ class Avatar
     /**
      * @param ?string $Image
      */
-    public function setImage($Image): void
+    public function setImage($image): void
     {
-        $this->image = $Image;
+        $this->image = $image;
     }
 
     public function setAvatar(User $user) : Avatar

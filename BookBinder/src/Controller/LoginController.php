@@ -18,7 +18,7 @@ class LoginController extends AbstractController
 
     private array $stylesheets;
 
-    public function __construct(AuthenticationService $userService) {
+    public function __construct(AuthenticationService $user_service) {
         $this->stylesheets[] = 'main.css';
 
     }
@@ -27,18 +27,18 @@ class LoginController extends AbstractController
      * @Route("/", name="LogIn", methods={"GET", "POST"})
      */
     #[Route("/", name: "LogIn")]
-    public function index(AuthenticationUtils $authenticationUtils,EntityManagerInterface $em): Response {
+    public function index(AuthenticationUtils $authentication_utils,EntityManagerInterface $em): Response {
         $books = $em->getRepository(Books::class)->findTopBooks();
         $first_book = $books[0];
         $second_book = $books[1];
         $third_book = $books[2];
-        $error = $authenticationUtils->getLastAuthenticationError();
+        $error = $authentication_utils->getLastAuthenticationError();
         // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
+        $last_username = $authentication_utils->getLastUsername();
 
         return $this->render('login.html.twig', [
             'stylesheets' => $this->stylesheets,
-            'last_username' => $lastUsername,
+            'last_username' => $last_username,
             'error'         => $error,
             'first_book' => $first_book,
             'second_book' => $second_book,
