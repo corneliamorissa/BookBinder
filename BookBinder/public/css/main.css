@@ -246,6 +246,7 @@ div#nav {
     align-items: center;
     padding-left: 0;
     gap: 20px;
+    list-style-type: none;
 }
 
 .users{
@@ -253,7 +254,7 @@ div#nav {
     flex-direction: row;
     height:fit-content;
     margin-top: 0;
-    width: fit-content;
+    width: 350px;
     background: rgb(255, 255, 255);
     border: 2px solid rgb(0, 0, 0);
     border-radius: 8px;
@@ -361,7 +362,7 @@ button{
     display: flex;
     flex-direction: row;
     align-self: center;
-    width: fit-content;
+    width: 450px;
     height: auto;
     background: rgb(255, 255, 255);
     border: 2px solid rgb(49, 30, 105);

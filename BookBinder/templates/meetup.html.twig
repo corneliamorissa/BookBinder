@@ -10,19 +10,22 @@
                         <div class="booklovers-container">
                             <ul class="bookloverslist">
                                 {% for MeetUp in all_accepted_meetups %}
-                                    <div class="users">
-                                        <div>
-                                            <img id="userpict" src="{{ MeetUp.dataUri }}" alt="userpic" />
+                                    <li>
+                                        <div class="users">
+                                            <div>
+                                                <img id="userpict" src="{{ MeetUp.dataUri }}" alt="userpic">
+                                            </div>
+                                            <div class="usersright ps-2">
+                                                <h5 class="text-muted">Username:</h5>
+                                                <p class="meetUpText">{{ MeetUp.nameInvited }}</p>
+                                                <h5 class="text-muted">Library:</h5>
+                                                <p class="meetUpText">{{ MeetUp.library }}</p>
+                                                <h5 class="text-muted">Date & time:</h5>
+                                                <p class="date">{{ MeetUp.dateTime|date('d/m/Y H:i') }}</p>
+                                            </div>
                                         </div>
-                                        <div class="usersright ps-2">
-                                            <h5 class="text-muted">Username:</h5>
-                                            <p class="meetUpText">{{ MeetUp.nameInvited }}</p>
-                                            <h5 class="text-muted">Library:</h5>
-                                            <p class="meetUpText">{{ MeetUp.library }}</p>
-                                            <h5 class="text-muted">Date & time:</h5>
-                                            <p class="date">{{ MeetUp.dateTime|date('d/m/Y H:i') }}</p>
-                                        </div>
-                                    </div>
+                                    </li>
+
                                 {% endfor %}
                             </ul>
                         </div>
