@@ -27,6 +27,7 @@ test-job:
     MYSQL_PASSWORD: root_pass
     DATABASE_URL: "mysql://root:root_pass@mysql/main"
   script:
+    #cd to go inside bookbinder first
     - cd BookBinder ; composer install
  # run the migration on the temporary database
     - php bin/console doctrine:migrations:migrate
