@@ -66,14 +66,14 @@ class JavaScriptTest extends PantherTestCase
                 $client->wait(240000, function () use ($client) {
                     sleep(5);
                     $crawler = $client->getCrawler();
-                    $bookImagesCount = $crawler->filter('#BookPicTrending_home[src!="/public/assets/no_cover.jpg"]')->count();
-                    $expectedBookImagesCount = count($crawler->filter('#BookPicTrending_home'));
+                    $bookImagesCount = $crawler->filter('.BookPicTrending_home[src!="/public/assets/no_cover.jpg"]')->count();
+                    $expectedBookImagesCount = count($crawler->filter('.BookPicTrending_home'));
                     return $bookImagesCount === $expectedBookImagesCount;
                 });
 
                 // Assert the updated book cover image
                 $crawler = $client->getCrawler();
-                $bookImage = $crawler->filter('#BookPicTrending_home')->first();
+                $bookImage = $crawler->filter('.BookPicTrending_home')->first();
                 $expectedImageUrl = 'https://covers.openlibrary.org/b/id/6389112-L.jpg'; // Update with the expected image URL
                 $this->assertSame($expectedImageUrl, $bookImage->attr('src'));
 
@@ -121,14 +121,14 @@ class JavaScriptTest extends PantherTestCase
                     sleep(7);
 
                     $crawler = $client->getCrawler();
-                    $bookImagesCount = $crawler->filter('#BookPicFav[src!="/public/assets/no_cover.jpg"]')->count();
-                    $expectedBookImagesCount = count($crawler->filter('#BookPicFav'));
+                    $bookImagesCount = $crawler->filter('.BookPicFav[src!="/public/assets/no_cover.jpg"]')->count();
+                    $expectedBookImagesCount = count($crawler->filter('.BookPicFav'));
                     return $bookImagesCount === $expectedBookImagesCount;
                 });
 
                 // Assert the updated book cover image
                 $crawler = $client->getCrawler();
-                $bookImage = $crawler->filter('#BookPicFav')->first();
+                $bookImage = $crawler->filter('.BookPicFav')->first();
                 $expectedImageUrl = 'https://covers.openlibrary.org/b/id/12701394-L.jpg'; // Update with the expected image URL
                 $this->assertSame($expectedImageUrl, $bookImage->attr('src'));
 

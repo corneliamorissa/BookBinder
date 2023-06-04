@@ -84,9 +84,9 @@ class UtilTests extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('#trending_home', 'Trending This Week');
         $this->assertSelectorTextContains('#nearest','Your nearest library');
-        $trending_book = $crawler->filter("#BookPicTrending_home");
+        $trending_book = $crawler->filter(".BookPicTrending_home");
         $this->assertEquals(3,$trending_book->count());
-        $fav_book = $crawler->filter("#BookPicFav");
+        $fav_book = $crawler->filter(".BookPicFav");
         $this->assertEquals(4, $fav_book->count());
 
     }
