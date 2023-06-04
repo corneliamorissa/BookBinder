@@ -17,17 +17,18 @@ class UserBook
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id;
 
+    #[ManyToOne(targetEntity: Books::class)]
+    #[JoinColumn(name: 'bookid', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
-    private ?int $bookid = null;
+    private ?int $bookid;
 
     #[ManyToOne(targetEntity: User::class)]
     #[JoinColumn(name: 'userid', referencedColumnName: 'id')]
     #[ORM\Column(type: "integer", nullable: false)]
-    private ?int $userid = null;
+    private ?int $userid;
 
-    #[ManyToOne(targetEntity: Books::class, inversedBy: "userbooks")]
-    #[JoinColumn(name: 'bookid', referencedColumnName: 'id')]
-    private ?Books $book = null;
+
+
 
 
     /**

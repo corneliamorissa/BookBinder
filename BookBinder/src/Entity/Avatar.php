@@ -23,6 +23,8 @@ class Avatar
 
 
 
+
+
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
