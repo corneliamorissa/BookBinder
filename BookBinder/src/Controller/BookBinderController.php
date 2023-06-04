@@ -107,7 +107,6 @@ class BookBinderController extends AbstractController
         ]);
     }
     #[Route("/privacypolicy", name: "privacypolicy")]
-    #[IsGranted('ROLE_USER')]
     public function privacypolicy(): Response {
         return $this->render('privacypolicy.html.twig',[
             'last_username' => $this->last_username
@@ -116,7 +115,6 @@ class BookBinderController extends AbstractController
 
 
     #[Route("/termsofservice", name: "termsofservice")]
-    #[IsGranted('ROLE_USER')]
     public function termsofservice(): Response {
         return $this->render('termsofservice.html.twig',[
             'last_username' => $this->last_username
