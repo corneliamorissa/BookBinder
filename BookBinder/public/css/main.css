@@ -73,11 +73,12 @@ main{
 }
 .landing-footer{
     display: flex;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     flex-direction: row;
     justify-content: center;
-    color: #311E69;
+    color: rgb(49, 30, 105);
     gap: 10px;
+    font-family: "Figtree SemiBold", Arial, sans-serif;
     max-width: 100%;
     padding: 10px;
 }
