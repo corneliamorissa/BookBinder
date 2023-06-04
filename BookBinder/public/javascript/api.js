@@ -1,7 +1,7 @@
 // JavaScript code to fetch and update the book cover image
-const bookImages = document.getElementsByClassName('rounded-3 w-50 book-image');
+const book_images = document.getElementsByClassName('rounded-3 w-50 book-image');
 
-Array.from(bookImages).forEach((image) => {
+Array.from(book_images).forEach((image) => {
     const isbn = image.getAttribute('data-isbn');
     const xhttp = new XMLHttpRequest();
     xhttp.onload=function (){
@@ -90,7 +90,7 @@ function searchBookByISBN() {
         .then(response => response.json())
         .then(data => {
             var book = data;
-            Array.from(bookImages).forEach((image) => {
+            Array.from(book_images).forEach((image) => {
                 const isbn = image.getAttribute('data-isbn');
                 const xhttp = new XMLHttpRequest();
                 xhttp.onload=function (){
