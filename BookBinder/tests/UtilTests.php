@@ -210,13 +210,13 @@ class UtilTests extends WebTestCase
 
         //Check if it displays al the info of the user
 
-        $this->assertSelectorTextContains('#FirstNameUser', 'Amal');
-        $this->assertSelectorTextContains('#LastNameUser', 'York');
-        $this->assertSelectorTextContains('#DateOfBirthUser', '2007-02-26');
-        $this->assertSelectorTextContains('#StreetUser', '3576 Ipsum St.');
-        $this->assertSelectorTextContains('#HouseNumberUser', '91');
-        $this->assertSelectorTextContains('#PostcodeUser', '8375');
-        $this->assertSelectorTextContains('#LibraryUser', 'Curae Inc.');
+        $this->assertSelectorTextContains('#first_name_user', 'Amal');
+        $this->assertSelectorTextContains('#last_name_user', 'York');
+        $this->assertSelectorTextContains('#date_of_birth_user', '2007-02-26');
+        $this->assertSelectorTextContains('#street_user', '3576 Ipsum St.');
+        $this->assertSelectorTextContains('#house_number_user', '91');
+        $this->assertSelectorTextContains('#postcode_user', '8375');
+        $this->assertSelectorTextContains('#library_user', 'Curae Inc.');
 
 
 
