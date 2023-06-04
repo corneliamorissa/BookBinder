@@ -30,6 +30,7 @@ User can register themselves, however their username should be unique. There is 
 * follow and unfollow books (Chrysovalantis)
 * give review and rating about the book (Chrysovalantis)
 * display user profile (Ruben)
+The user will be able to see his info by going to his profile. The user can also see which library is the closest. 
 * send meet up request (Joeri)
 The user is able to invite other users by entering their username and giving the meet up date and location. If the data is incorrect, for example a non existing username, an error message will become visible indicating this to the user. The meet up will be submitted once all the information is valid. 
 
