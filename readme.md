@@ -30,6 +30,11 @@ User can register themselves, however their username should be unique. There is 
 * follow and unfollow books (Chrysovalantis)
 * give review and rating about the book (Chrysovalantis)
 * display user profile (Ruben)
-* send meet up request (Joewri)
-* accept/decline meet up request (Joewri)
-* display upcoming meet up (Joewri)
+* send meet up request (Joeri)
+The user is able to invite other users by entering their username and giving the meet up date and location. If the data is incorrect, for example a non existing username, an error message will become visible indicating this to the user. The meet up will be submitted once all the information is valid. 
+
+* accept/decline meet up request (Joeri)
+The user will have a scrollable view of all the meet up requests, there will be the choice to accept or decline these requests. Once a meet up request is accepted, the page will refresh and show it in the list with all the accepted requests. If the user declines a meet up request, the request will just be removed from the list of meet up requests.
+
+* display upcoming meet up (Joeri)
+All the accepted meet up request will be showed in chronological order in a scrollable view. Once the date is passed of a meet up, the meet up will be removed from the list.
