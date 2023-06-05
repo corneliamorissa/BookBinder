@@ -16,7 +16,7 @@ Provide a link to the main page of your application. Or if you have multiple par
 ## Implemented Features
 Provide a short description of the actual implemented features in your project
 
-* ** user authentication** (logging in) :
+* **user authentication (logging in)** :
 User can only navigate to Login page and Sign Up page before authenticated. By using security tools provided by symfony, user can logged in with their username and password. Because our User entity implements UserInterface and PasswordAuthenticatedUserInterface the authentication is done by security tools (includes csrf token) to compare the inputted password match the hashed password stored in the database. If user put the wrong username and(or) password and then click log in button, an error message will appear as "Invalid credentials". After a succesful login, user will get role as user, redirected to Home page and their username is kept on the top navigation bar.
 
 * **user registration** :
