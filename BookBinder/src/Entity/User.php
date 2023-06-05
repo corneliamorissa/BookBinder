@@ -36,8 +36,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: false)]
     private ?\DateTime $birthdate = null;
-    #[ORM\Column(type: "integer", nullable: false,  options: ["default" => 0])]
-    private ?int $private_account = null;
+    //#[ORM\Column(type: "integer", nullable: false,  options: ["default" => 0])]
+    //private ?int $private_account = null;
 
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $avatar_id = null;
@@ -218,6 +218,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return int
      */
+    /*
     public function getPrivateAccount(): int
     {
         return $this->private_account;
@@ -226,11 +227,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @param int $private_account
      */
+    /*
     public function setPrivateAccount(int $private_account): void
     {
         $this->private_account = $private_account;
     }
-
+*/
 
 
     public function getAvatarId(): ?int
