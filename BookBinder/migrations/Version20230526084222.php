@@ -23,6 +23,7 @@ final class Version20230526084222 extends AbstractMigration
         //$this->addSql('CREATE TABLE user_password (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(50) NOT NULL, user_id INT NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         //$this->addSql('CREATE TABLE avatar (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY , image MEDIUMBLOB NOT NULL )');
         //$this->addSql('CREATE TABLE review (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY , text TEXT, author VARCHAR(40), rate INT, book TEXT )');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY , username VARCHAR(50) UNIQUE , first_name VARCHAR(50), last_name VARCHAR(50), street VARCHAR(100), house_number VARCHAR(10), postcode VARCHAR(10), birthdate DATE, private_account TINYINT(1) NOT NULL ,avatar_id INT NOT NULL ,password VARCHAR(256), roles JSON )');
         //$this->addSql('CREATE TABLE meetup (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY , id_user_inviter INT, id_user_invited INT, date_time DATETIME, accepted TINYINT, declined TINYINT, id_library INT )');
         //$this->addSql('ALTER TABLE avatar CHANGE image image LONGBLOB NOT NULL');
         //$this->addSql('ALTER TABLE books DROP FOREIGN KEY FK_library');
