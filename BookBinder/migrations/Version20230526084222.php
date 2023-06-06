@@ -38,8 +38,8 @@ final class Version20230526084222 extends AbstractMigration
         $this->addSql('ALTER TABLE user CHANGE username username VARCHAR(50) NOT NULL, CHANGE first_name first_name VARCHAR(50) NOT NULL, CHANGE last_name last_name VARCHAR(50) NOT NULL, CHANGE street street VARCHAR(100) NOT NULL, CHANGE house_number house_number INT NOT NULL, CHANGE postcode postcode INT NOT NULL, CHANGE birthdate birthdate DATE NOT NULL, CHANGE private_account private_account INT DEFAULT 0 NOT NULL, CHANGE password password VARCHAR(256) NOT NULL, CHANGE roles roles JSON NOT NULL');
         //$this->addSql('ALTER TABLE user_book DROP FOREIGN KEY user_book_ibfk_2');
         //$this->addSql('ALTER TABLE user_book DROP FOREIGN KEY user_id_fk');
-        $this->addSql('DROP INDEX BookID ON user_book');
-        $this->addSql('DROP INDEX user_id_fk_idx ON user_book');
+        //$this->addSql('DROP INDEX BookID ON user_book');
+        //$this->addSql('DROP INDEX user_id_fk_idx ON user_book');
         $this->addSql('ALTER TABLE user_book CHANGE userid userid INT NOT NULL, CHANGE bookid bookid INT NOT NULL');
     }
 
