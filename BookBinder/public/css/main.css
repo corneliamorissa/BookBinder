@@ -285,6 +285,7 @@ button{
     border: 2px solid rgb(49, 30, 105);
     border-radius: 8px;
 }
+
 .buttons{
     display: flex;
     flex-flow: row;
@@ -409,6 +410,7 @@ button{
 .card_background{
     background: rgb(111,66,193);
 }
+
 .card_background2{
     background: rgb(134,111,247);
 }

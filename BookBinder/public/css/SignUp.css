@@ -17,13 +17,10 @@ div#nav a{
     color: rgb(255, 255, 255);
 }
 
-
-/* mouse over link */
 div#nav a:hover {
     color: rgb(240, 230, 140);
 }
 
-/* selected link */
 div#nav a:active {
     color: rgb(240, 230, 140);
 }
@@ -50,6 +47,7 @@ div#nav {
     text-align: center;
     text-decoration: none;
 }
+
 .landing-m{
     padding: 40px 20px;
     margin: 0 30px 30px 30px;
@@ -60,6 +58,7 @@ div#nav {
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
 }
+
 .landing-wel{
     border-radius: 20px;
 }
