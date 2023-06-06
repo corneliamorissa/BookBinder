@@ -43,12 +43,12 @@
                                 {% for MeetUp in all_open_meetups %}
                                     <li>
                                         <div class="invitation mb-4">
-                                            <div class="w-50 bg-info">
+                                            <div class="w-50">
                                                 <p class="invitename ps-2"> Invited by: {{ MeetUp.nameInvited }}</p>
                                                 <p class="librarymeet ps-2">Library: {{ MeetUp.library }}</p>
                                                 <p class="datetimeinvitation ps-2"> Date & Time: {{ MeetUp.dateTime|date('d/m/Y H:i') }}</p>
                                             </div>
-                                            <div class="ms-3 buttons bg-dark">
+                                            <div class="ms-3 buttons">
                                                 {% if loop.index0 == index %}
                                                     {{ form_start(formAccept[index]) }}
                                                     {{ form_end(formAccept[index]) }}
