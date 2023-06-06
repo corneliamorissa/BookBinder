@@ -41,6 +41,7 @@ final class Version20230526084222 extends AbstractMigration
         //$this->addSql('DROP INDEX BookID ON user_book');
         //$this->addSql('DROP INDEX user_id_fk_idx ON user_book');
         //$this->addSql('ALTER TABLE user_book CHANGE userid userid INT NOT NULL, CHANGE bookid bookid INT NOT NULL');
+
     }
 
     public function down(Schema $schema): void
