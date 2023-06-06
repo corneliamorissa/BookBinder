@@ -15,7 +15,7 @@ class RegistrationFixtures extends Fixture
     {
 
         // open csv file and load data
-        if (($handle = fopen(__DIR__."/data/user.csv", "r")) !== FALSE) {
+        if (($handle = fopen(__DIR__."/data/users.csv", "r")) !== FALSE) {
             // read first line with headers
             $headers = fgetcsv($handle, 1000, ",");
             // read rest of file and create entities for every line
@@ -27,7 +27,7 @@ class RegistrationFixtures extends Fixture
                 $user->setStreet($data[3]);
                 $user->setHouseNumber($data[4]);
                 $user->setPostcode($data[5]);
-                //$user->setBirthdate($data[6]);
+                $user->setBirthdate($data[6]);
                 //$user->setPrivateAccount($data[7]);
                 $user->setAvatarId($data[8]);
                 $user->setPassword($data[9]);
