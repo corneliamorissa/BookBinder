@@ -29,6 +29,7 @@ User logging out is using security tools by symfony. User can click Logout butto
 In the home page user can see the top 3 trending books that is based on number of followers. When user click to one of the book, they will be redirect to the current book page.
 
 * **display user favorite books** :
+In the home page the user can find all the books they follow. When they click on the book, they will be re-directed to the book page.
 
 * **display user nearest library** :
 This features let user know the nearest library (with its address) by matching the postcode of the library with some range to the user address
@@ -36,8 +37,10 @@ This features let user know the nearest library (with its address) by matching t
 * **search a book by ISBN number**:
 
 * **follow and unfollow books**:
+The user has the ability to follow and unfollow books. To do this, they simply have to click on the 'Follow' or 'Unfollow' respectively.
 
 * **give review and rating about the book**:
+The user is able to leave reviews about a book.
 
 * **display user profile** :
 The user will be able to see his info by going to his profile. The user can also see which library is the closest. 

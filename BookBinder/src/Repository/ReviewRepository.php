@@ -42,7 +42,7 @@ class ReviewRepository extends ServiceEntityRepository
     public function getReviewBasedOnBookName(string $bookname){
         $entitymanager = $this->getEntityManager();
         $query = $entitymanager->createQuery('
-            SELECT c.text, c.author
+            SELECT c.text, c.author, c.rate
             FROM App\Entity\Review c
             where c.book = :bookname
         ')->setParameter('bookname',$bookname);

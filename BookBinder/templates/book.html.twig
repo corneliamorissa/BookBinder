@@ -49,7 +49,7 @@
                     <ul class="book_reviews">
                         {% if reviews_per_book is not empty %}
                             {% for item in reviews_per_book %}
-                                <li>{{ item.text }} <strong> ~{{ item.author }} </strong> <br></li>
+                                <li> <strong>FeedBack:</strong> {{ item.text }} <strong>Rating: </strong>{{ item.rate}}/10  <strong> ~{{ item.author }} </strong> <br></li>
                                 {#We can display the rate by adding {{ item.rate }} and making the appropriate vhanges to the function getReviewBasedOnBookName#}
                             {% endfor %}
                         {% else %}

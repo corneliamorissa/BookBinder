@@ -43,7 +43,7 @@ class Books
 
     public function __construct()
     {
-        $this->userBooks = new ArrayCollection();
+        $this->user_books = new ArrayCollection();
     }
 
 
