@@ -9,19 +9,23 @@
     border-radius: 10px;
     align-items: center;
 }
+
 .nrOfFollowers{
     align-self: center;
     color: rgb(128, 128, 136);
     font-weight: 800;
 }
+
 .BookDetails{
     text-align: center;
 }
+
 .buttons{
     display: flex;
     flex-flow: row;
     gap: 45px;
 }
+
 .Book-right{
     display: flex;
     flex-flow: column;
@@ -30,6 +34,7 @@
     align-items: flex-start;
     margin-left: 200px;
 }
+
 .Rating{
     display: flex;
     flex-flow: column;
