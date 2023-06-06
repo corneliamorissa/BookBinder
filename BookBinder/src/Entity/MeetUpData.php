@@ -6,16 +6,16 @@ use DateTime;
 
 class MeetUpData
 {
-    public string $nameInvited;
-    private DateTime $dateTime;
+    public string $name_invited;
+    private DateTime $date_time;
     public string $library;
-    public string $dataUri;
+    public string $data_uri;
 
-    public function __construct(string $nameInvited, DateTime $dateTime, string $library){
+    public function __construct(string $name_invited, DateTime $date_time, string $library){
 
 
-        $this-> dateTime = $dateTime;
-        $this->nameInvited = $nameInvited;
+        $this-> date_time = $date_time;
+        $this->name_invited = $name_invited;
         $this->library = $library;
     }
 
@@ -24,15 +24,15 @@ class MeetUpData
      */
     public function getNameInvited(): string
     {
-        return $this->nameInvited;
+        return $this->name_invited;
     }
 
     /**
-     * @param string $nameInvited
+     * @param string $name_invited
      */
-    public function setNameUserInvited(string $nameInvited): void
+    public function setNameUserInvited(string $name_invited): void
     {
-        $this->nameInvited = $nameInvited;
+        $this->name_invited = $name_invited;
     }
 
     /**
@@ -40,15 +40,15 @@ class MeetUpData
      */
     public function getDateTime(): DateTime
     {
-        return $this->dateTime;
+        return $this->date_time;
     }
 
     /**
-     * @param DateTime $dateTime
+     * @param DateTime $date_time
      */
-    public function setDateTime(DateTime $dateTime): void
+    public function setDateTime(DateTime $date_time): void
     {
-        $this->dateTime = $dateTime;
+        $this->date_time = $date_time;
     }
 
     /**
@@ -72,15 +72,15 @@ class MeetUpData
      */
     public function getDataUri(): string
     {
-        return $this->dataUri;
+        return $this->data_uri;
     }
 
     /**
-     * @param string $DataUri
+     * @param string $data_uri
      */
-    public function setDataUri(string $DataUri): void
+    public function setDataUri(string $data_uri): void
     {
-        $this->dataUri = $DataUri;
+        $this->data_uri = $data_uri;
     }
 
 }
