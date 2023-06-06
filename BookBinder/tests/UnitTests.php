@@ -194,7 +194,7 @@ class UnitTests extends TestCase
         $user -> setUsername("Bert__Smith1578");
         $user -> setStreet("Oude Markt");
         $user -> setHouseNumber(2);
-        $user -> setPostcode(3001);
+        $user -> setPostcode("3001");
         $birthday = new DateTime();
         $birthday->setDate(1990, 10, 15);
         $user -> setBirthdate($birthday);
@@ -213,7 +213,7 @@ class UnitTests extends TestCase
         $this->assertSame("Bert__Smith1578", $user -> getUsername());
         $this->assertSame("Oude Markt",$user -> getStreet());
         $this->assertSame(2,$user -> getHouseNumber());
-        $this->assertSame(3001,$user -> getPostcode());
+        $this->assertSame("3001",$user -> getPostcode());
         $this->assertSame($birthday,$user -> getBirthdate());
         //$this->assertSame(1,$user -> getPrivateAccount());
         $this->assertSame(2,$user -> getAvatarId());
