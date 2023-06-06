@@ -13,24 +13,24 @@
                     <img id="BookPic" class="rounded-3 w-100" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
                     <div class="card-body text-center">
                         <h1 id="BookTitle" class="card-title"> Title loading </h1>
-                        <h3 id="nrOfFollowers"> {{ BookNrOfFollowers }} Followers </h3>
+                        <h3 id="nrOfFollowers"> {{ book_nr_of_followers }} Followers </h3>
                         <p id="BookAuthor"> Name Loading </p>
                         <p id="BookDetails" class="BookDetails">
-                            Number of pages : {{ BookNrOfPages }} <br>
-                            ISBN: {{ BookIsbn }} <br>
-                            Rating : {{ BookRating }} <br>
-                            Library : {{ LibraryName }} <br>
+                            Number of pages : {{ book_nr_of_pages }} <br>
+                            ISBN: {{ book_isbn }} <br>
+                            Rating : {{ book_rating }} <br>
+                            Library : {{ library_name }} <br>
                         </p>
                         <div class="btn-group buttons">
-                            {% if UserFollowsBookBoolean == 1 %}
-                                {{ form_start(UnfollowBookForm) }}
-                                {{ form_end(UnfollowBookForm) }}
+                            {% if user_follows_book_boolean == 1 %}
+                                {{ form_start(unfollow_book_form) }}
+                                {{ form_end(unfollow_book_form) }}
                             {% else %}
-                                {{ form_start(FollowBookForm) }}
-                                {{ form_row(FollowBookForm.bookid, {'attr': {'value': BookId}}) }}
-                                {{ form_row(FollowBookForm.userid, {'attr': {'value': UserId }}) }}
-                                {{ form_row(FollowBookForm.Follow) }}
-                                {{ form_end(FollowBookForm) }}
+                                {{ form_start(follow_book_form) }}
+                                {{ form_row(follow_book_form.bookid, {'attr': {'value': book_id}}) }}
+                                {{ form_row(follow_book_form.userid, {'attr': {'value': user_id }}) }}
+                                {{ form_row(follow_book_form.Follow) }}
+                                {{ form_end(follow_book_form) }}
                             {% endif %}
                         </div>
                     </div>
@@ -45,25 +45,25 @@
                     </div>
                 {% endfor %}
                 <div class="container">
-                    <h1 class="text-center"> What book lovers say about "{{ BookTitle }}" ? </h1>
+                    <h1 class="text-center"> What book lovers say about "{{ book_title }}" ? </h1>
                     <ul class="book_reviews">
-                        {% if ReviewsPerBook is not empty %}
-                            {% for item in ReviewsPerBook %}
+                        {% if reviews_per_book is not empty %}
+                            {% for item in reviews_per_book %}
                                 <li>{{ item.text }} <strong> ~{{ item.author }} </strong> <br></li>
                                 {#We can display the rate by adding {{ item.rate }} and making the appropriate vhanges to the function getReviewBasedOnBookName#}
                             {% endfor %}
                         {% else %}
-                            <h6> No feedback is given for {{ BookTitle }} yet. Be the first one!</h6>
+                            <h6> No feedback is given for {{ book_title }} yet. Be the first one!</h6>
                         {% endif %}
                     </ul>
                     <h2 class="text-center"> Give review for the book</h2>
-                        {{ form_start(ReviewForm) }}
-                        {{ form_row(ReviewForm.author, {'attr': {'value': last_username}}) }}
-                        {{ form_row(ReviewForm.book, {'attr': {'value': BookTitle}}) }}
-                        {{ form_row(ReviewForm.text) }}
-                        {{ form_row(ReviewForm.rate) }}
-                        {{ form_row(ReviewForm.Submit) }}
-                        {{ form_end(ReviewForm) }}
+                        {{ form_start(review_form) }}
+                        {{ form_row(review_form.author, {'attr': {'value': last_username}}) }}
+                        {{ form_row(review_form.book, {'attr': {'value': book_title}}) }}
+                        {{ form_row(review_form.text) }}
+                        {{ form_row(review_form.rate) }}
+                        {{ form_row(review_form.Submit) }}
+                        {{ form_end(review_form) }}
                 </div>
             </div>
         </div>
@@ -76,5 +76,5 @@
 
 {% block scripts %}
 <script src="{{ asset('javascript/api.js') }}"></script>
-<script>fetch_details('{{ BookIsbn }}');</script>
+<script>fetch_details('{{ book_isbn }}');</script>
 {% endblock %}
