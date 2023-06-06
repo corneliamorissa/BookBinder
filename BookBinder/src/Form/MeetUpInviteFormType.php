@@ -17,7 +17,7 @@ class MeetUpInviteFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nameInvited', TextareaType::class, [
+            ->add('name_invited', TextareaType::class, [
                 'label' => 'Name:',
                 'attr' => [
                     'class' => 'mb-3 form-control align-self-center ',
