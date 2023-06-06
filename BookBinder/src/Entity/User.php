@@ -31,8 +31,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $street = null;
     #[ORM\Column(type: "integer", nullable: false)]
     private ?int $house_number = null;
-    #[ORM\Column(type: "integer", nullable: false)]
-    private ?int $postcode = null;
+    #[ORM\Column(type: "string", nullable: false)]
+    private ?string $postcode = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: false)]
     private ?\DateTime $birthdate = null;
@@ -184,17 +184,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getPostcode(): int
+    public function getPostcode(): string
     {
         return $this->postcode;
     }
 
     /**
-     * @param int $postcode
+     * @param string $postcode
      */
-    public function setPostcode(int $postcode): void
+    public function setPostcode(string $postcode): void
     {
         $this->postcode = $postcode;
     }
