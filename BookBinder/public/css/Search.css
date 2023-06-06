@@ -1,10 +1,9 @@
-
 .main{
     display: flex;
     flex-direction: column;
     margin: auto;
-
 }
+
 .BookSearch{
     display: flex;
     flex-direction: column;
@@ -13,7 +12,6 @@
     height: auto;
     left: 451px;
     top: 138px;
-
 }
 
 .Trendings{
@@ -23,14 +21,11 @@
     width: auto;
     height: auto;
 }
+
 .Rating{
     display: flex;
     flex-flow: row;
     margin-bottom: 20px;
-}
-
-.SearchBar{
-
 }
 
 .d-flex{
