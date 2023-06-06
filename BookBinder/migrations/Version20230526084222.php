@@ -23,7 +23,7 @@ final class Version20230526084222 extends AbstractMigration
         //$this->addSql('CREATE TABLE user_password (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(50) NOT NULL, user_id INT NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE avatar (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY , image MEDIUMBLOB NOT NULL )');
         $this->addSql('ALTER TABLE avatar CHANGE image image LONGBLOB NOT NULL');
-        $this->addSql('ALTER TABLE books DROP FOREIGN KEY FK_library');
+        //$this->addSql('ALTER TABLE books DROP FOREIGN KEY FK_library');
         $this->addSql('DROP INDEX FK_libraries_idx ON books');
         $this->addSql('ALTER TABLE books CHANGE title title VARCHAR(255) NOT NULL, CHANGE number_of_pages number_of_pages INT NOT NULL, CHANGE author author VARCHAR(255) NOT NULL, CHANGE isbn isbn VARCHAR(255) NOT NULL, CHANGE rating rating NUMERIC(3, 1) NOT NULL, CHANGE number_of_votes number_of_votes INT NOT NULL');
         $this->addSql('DROP INDEX LibraryID_UNIQUE ON libraries');
