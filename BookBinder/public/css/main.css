@@ -60,9 +60,6 @@ main{
     text-align: center;
 }
 
-
-
-
 .landing-header{
     max-width: 100%;
     max-height: min-content;
@@ -73,11 +70,12 @@ main{
 }
 .landing-footer{
     display: flex;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     flex-direction: row;
     justify-content: center;
-    color: #311E69;
+    color: rgb(49, 30, 105);
     gap: 10px;
+    font-family: "Figtree SemiBold", Arial, sans-serif;
     max-width: 100%;
     padding: 10px;
 }
@@ -160,7 +158,7 @@ div#nav {
     background-position: center;
     border-radius: 10px;
     display: flex;
-    color: white;
+    color: rgb(255, 255, 255);
     flex-direction: column;
 }
 
@@ -174,8 +172,8 @@ div#nav {
     width: 300px;
     height: max-content;
     margin: 0;
-    color: white;
-    background: #8572ED;
+    color: rgb(255, 255, 255);
+    background: rgb(133, 114, 237);
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px 10px 0 0;
 }
@@ -186,8 +184,8 @@ div#nav {
     width: 300px;
     height: 600px;
     margin-top: 0;
-    color: black;
-    background: #FFFFFF;
+    color: rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -199,7 +197,7 @@ div#nav {
     font-weight: 700;
     font-size: 48px;
     line-height: 60px;
-    color: #311E69;
+    color: rgb(49, 30, 105);
 }
 
 .infobib{
@@ -212,7 +210,7 @@ div#nav {
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
+    color: rgb(255, 255, 255);
     font-family: Figtree, Arial, sans-serif;
 }
 
@@ -248,6 +246,7 @@ div#nav {
     align-items: center;
     padding-left: 0;
     gap: 20px;
+    list-style-type: none;
 }
 
 .users{
@@ -255,7 +254,7 @@ div#nav {
     flex-direction: row;
     height:fit-content;
     margin-top: 0;
-    width: fit-content;
+    width: 350px;
     background: rgb(255, 255, 255);
     border: 2px solid rgb(0, 0, 0);
     border-radius: 8px;
@@ -285,8 +284,8 @@ div#nav {
     gap: 6px;
     width: fit-content;
     height: fit-content;
-    color: white;
-    background: #311E69;
+    color: rgb(255, 255, 255);
+    background: rgb(49, 30, 105);
     border-radius: 6px;
 }
 
@@ -300,7 +299,7 @@ label{
 
 button{
     font-family: Figtree, Arial, sans-serif;;
-    border-color: white;
+    border-color: rgb(255, 255, 255);
 }
 
 #userpict{
@@ -318,7 +317,7 @@ button{
 }
 
 .letters{
-    color: black;
+    color: rgb(0, 0, 0);
     font-family: Figtree, Arial, sans-serif;
     text-align: center;
 }
@@ -328,8 +327,8 @@ button{
     padding: 20px 20px 10px 20px;
     width: 330px;
     height: 65px ;
-    color: white;
-    background: #8670F7;
+    color: rgb(255, 255, 255);
+    background: rgb(134, 112, 247);
     border-radius: 10px 10px 0 0;
 }
 
@@ -338,8 +337,8 @@ button{
     padding: 20px 20px 10px 20px;
     width: 600px;
     height: 65px ;
-    color: white;
-    background: #8670F7;
+    color: rgb(255, 255, 255);
+    background: rgb(134, 112, 247);
     border-radius: 10px 10px 0 0;
 }
 
@@ -363,7 +362,7 @@ button{
     display: flex;
     flex-direction: row;
     align-self: center;
-    width: fit-content;
+    width: 450px;
     height: auto;
     background: rgb(255, 255, 255);
     border: 2px solid rgb(49, 30, 105);
@@ -394,9 +393,9 @@ button{
     padding: 8px;
     width: 85px;
     height: 40px;
-    background: #6DAE43;
+    background: rgb(109, 174, 67);
     border-radius: 8px;
-    color: white;
+    color: rgb(255, 255, 255);
     font-weight: bold;
 }
 
@@ -414,9 +413,9 @@ button{
     padding: 8px;
     width: 85px;
     height: 40px;
-    background: #F4511E;
+    background: rgb(244, 81, 30);
     border-radius: 8px;
-    color: white;
+    color: rgb(255, 255, 255);
     font-weight: bold;
 }
 
@@ -432,28 +431,27 @@ button{
 .book_label{
     border-width: 2px 0;
     border-style: solid;
-    border-color: #E7E7E7;
+    border-color: rgb(231, 231, 231);
     margin-bottom: 20px;
 }
-
-
-
 
 #login{
     margin: 8px;
     gap: 6px;
     width: auto; ;
     height: fit-content;
-    color: white;
-    background: #311E69;
+    color: rgb(255, 255, 255);
+    background: rgb(49, 30, 105);
     border-radius: 6px;
 }
+
 .BtnGroups{
     display: flex;
     flex-flow: row;
     justify-content: space-evenly;
     margin-top:10px;
 }
+
 .BookBtns{
     box-sizing: border-box;
     display: flex;
@@ -462,15 +460,14 @@ button{
     align-items: center;
     width: 117px;
     height: 40px;
-    background:  #876cff;
+    background: rgb(135, 108, 255);
     border-radius: 8px;
     font: inherit;
     line-height: 10px;
-    text-align: center; /* center text horizontally */
-    color: white; /* change text color to blue */
+    text-align: center;
+    color: rgb(255, 255, 255);
     cursor: pointer;
     align-self: center;
-    /*margin: 10px;*/
 }
 
 .RegisterBtn{
@@ -481,20 +478,20 @@ button{
     align-items: center;
     width: 117px;
     height: 40px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border-radius: 8px;
     font: inherit;
     line-height: 10px;
-    text-align: center; /* center text horizontally */
-    color:#876cff ;
-    border-color: #876cff;
+    text-align: center;
+    color: rgb(135, 108, 255);
+    border-color: rgb(135, 108, 255);
     cursor: pointer;
     align-self: center;
     margin: 10px;
 }
 
 .required{
-    color: #311E69;
+    color: rgb(49, 30, 105);
 }
 
 .LoginField{
@@ -505,19 +502,19 @@ button{
     box-sizing: border-box;
     width: 300px;
     height: 45px;
-    background: #FFFFFF;
-    border: 2px solid #000000;
+    background: rgb(255, 255, 255);
+    border: 2px solid rgb(0, 0, 0);
     border-radius: 15px;
     text-align: center;
 }
 
 #flash{
-    color: #B0413E;
+    color: rgb(176, 65, 62);
 
 }
 
 .loggedin_user{
-    text-indent: 0px;
+    text-indent: 0;
     margin-left: 20px;
     text-decoration: none;
     pointer-events: none;

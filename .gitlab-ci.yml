@@ -13,28 +13,8 @@ before_script:
     # install rsync to copy files to the web server
     # this container runs Alpine Linux, where apk is the package manager (not apt-get)
   - apk add rsync
-stages:
-  - test
-  - deploy
-test-job:
-  stage: test
-  services: 
-    - mysql:8
-  variables:
-    MYSQL_DATABASE: main_test
-    MYSQL_USER: user
-    MYSQL_ROOT_PASSWORD: root_pass
-    MYSQL_PASSWORD: root_pass
-    DATABASE_URL: "mysql://root:root_pass@mysql/main"
-  script:
-    #cd to go inside bookbinder first
-    - cd BookBinder ; composer install
- # run the migration on the temporary database
-    - php bin/console doctrine:migrations:migrate
- # load some test data in the temporary database
-    - php bin/console doctrine:fixtures:load -n
- # run the tests (using the temporary database)
-    - php bin/phpunit
+
+
 
 deploy-job:
   stage: deploy

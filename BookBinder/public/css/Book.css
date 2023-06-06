@@ -5,13 +5,13 @@
     height: 801px;
     left: 53px;
     top: 145px;
-    border: 1px solid #8572ED;
+    border: 1px solid rgb(133, 114, 237);
     border-radius: 10px;
     align-items: center;
 }
 .nrOfFollowers{
     align-self: center;
-    color: #808088;
+    color: rgb(128, 128, 136);
     font-weight: 800;
 }
 .BookDetails{

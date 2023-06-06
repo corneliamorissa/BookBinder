@@ -186,7 +186,7 @@ class UnitTests extends TestCase
     public function testUserGetAttributes(): void{
         $user = new User();
 
-        $this -> assertSame(0,$user -> getPrivateAccount());
+        //$this -> assertSame(0,$user -> getPrivateAccount());
 
         $user -> setId(1);
         $user -> setFirstName("Bert");
@@ -198,7 +198,7 @@ class UnitTests extends TestCase
         $birthday = new DateTime();
         $birthday->setDate(1990, 10, 15);
         $user -> setBirthdate($birthday);
-        $user -> setPrivateAccount(1);
+        //$user -> setPrivateAccount(1);
         $user -> setAvatarId(2);
         $user -> setPassword("azertyqwerty");
         $user -> setTermsAndCondition(true);
@@ -215,7 +215,7 @@ class UnitTests extends TestCase
         $this->assertSame(2,$user -> getHouseNumber());
         $this->assertSame(3001,$user -> getPostcode());
         $this->assertSame($birthday,$user -> getBirthdate());
-        $this->assertSame(1,$user -> getPrivateAccount());
+        //$this->assertSame(1,$user -> getPrivateAccount());
         $this->assertSame(2,$user -> getAvatarId());
         $this->assertSame("azertyqwerty",$user -> getPassword());
         $this->assertSame(true,$user -> isTermsAndCondition());

@@ -27,8 +27,8 @@ class RegistrationFixtures extends Fixture
                 $user->setStreet($data[3]);
                 $user->setHouseNumber($data[4]);
                 $user->setPostcode($data[5]);
-                $user->setBirthdate($data[6]);
-                $user->setPrivateAccount($data[7]);
+                //$user->setBirthdate($data[6]);
+                //$user->setPrivateAccount($data[7]);
                 $user->setAvatarId($data[8]);
                 $user->setPassword($data[9]);
                 // store reference to object based on name (username)

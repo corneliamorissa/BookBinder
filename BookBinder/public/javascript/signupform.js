@@ -1,12 +1,12 @@
-const usernameElement = document.getElementById('sign_up_form_username')
-const messageElement = document.getElementById('message_check')
-const submitButton = document.getElementById('sign_up_form_submit')
+const username_element = document.getElementById('sign_up_form_username')
+const message_element = document.getElementById('message_check')
+const submit_button = document.getElementById('sign_up_form_submit')
 
-usernameElement.addEventListener('change', updateMessage)
+username_element.addEventListener('change', updateMessage)
 
 function updateMessage(event) {
-    messageElement.innerHTML = ""
-    if (usernameElement.value.length === 0) return
+    message_element.innerHTML = ""
+    if (username_element.value.length === 0) return
     /* set hardcoded baseURL variable */
     //let baseURL = 'http://localhost:8080/'
 
@@ -17,27 +17,27 @@ function updateMessage(event) {
     let baseURL = resultMatch[0]
 
     let data = new FormData()
-    data.append('sign_up_form_username', usernameElement.value)
+    data.append('sign_up_form_username', username_element.value)
     /* use baseURL variable to dynamically construct URL */
     fetch(`${baseURL}api/check_user`,{method:'post',body:data})
         .then((response) => {
             if (response.status === 404) {
-                messageElement.innerHTML = "Username already exist";
-                messageElement.style.color = "red";
-                submitButton.disabled = true;
-                submitButton.style.background = '#808080';
+                message_element.innerHTML = "Username already exist";
+                message_element.style.color = "red";
+                submit_button.disabled = true;
+                submit_button.style.background = '#808080';
             }
             if (response.status === 400) {
-                messageElement.innerHTML = "This field is required";
-                messageElement.style.color = "red";
-                submitButton.disabled = true;
-                submitButton.style.background = '#808080';
+                message_element.innerHTML = "This field is required";
+                message_element.style.color = "red";
+                submit_button.disabled = true;
+                submit_button.style.background = '#808080';
             }
             if (response.status === 200){
-                messageElement.innerHTML = "Username can be used";
-                messageElement.style.color = 'green';
-                submitButton.disabled = false;
-                submitButton.style.background = '#8670F7';
+                message_element.innerHTML = "Username can be used";
+                message_element.style.color = 'green';
+                submit_button.disabled = false;
+                submit_button.style.background = '#8670F7';
             }
         })
 }

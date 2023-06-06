@@ -40,12 +40,10 @@ class Books
     #[ORM\Column(type: "integer", nullable: false)]
     private int $number_of_votes ;
 
-    #[OneToMany(mappedBy: "book", targetEntity: UserBook::class)]
-    private Collection $userbooks;
 
     public function __construct()
     {
-        $this->userbooks = new ArrayCollection();
+        $this->userBooks = new ArrayCollection();
     }
 
 

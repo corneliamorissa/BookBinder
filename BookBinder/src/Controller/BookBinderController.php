@@ -47,30 +47,30 @@ use function PHPUnit\Framework\isInstanceOf;
 class BookBinderController extends AbstractController
 {
     private array $stylesheets;
-    private string $lastUsername;
+    private string $last_username;
 
 
-    public function __construct(AuthenticationService $userService, AuthenticationUtils $authenticationUtils) {
+    public function __construct(AuthenticationService $userService, AuthenticationUtils $authentication_utils) {
         $this->stylesheets[] = 'main.css';
         /*the last username to store username that is logged in in every pages, so usernale could be siplayed at top right*/
-        $this->lastUsername = $authenticationUtils->getLastUsername();
+        $this->last_username = $authentication_utils->getLastUsername();
     }
 
 
     #[Route("/Home", name: "Home")]
     #[IsGranted('ROLE_USER')]
     public function home(EntityManagerInterface $em): Response {
-        $library = $em->getRepository(Library::class)->findNearestLibrary($this->lastUsername);
+        $library = $em->getRepository(Library::class)->findNearestLibrary($this->last_username);
         $books = $em->getRepository(Books::class)->findTopBooks();
-        $UserObject = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
-        $UserId = $UserObject->getID();
-        $FollowedBookByUser = $em->getRepository(UserBook::class)->displayFollowedBooksPerUser($UserId);
+        $user_object = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->last_username]);
+        $user_id = $user_object->getID();
+        $followed_book_by_user = $em->getRepository(UserBook::class)->displayFollowedBooksPerUser($user_id);
         return $this->render('home.html.twig', [
             'stylesheets' => $this->stylesheets,
-            'last_username' => $this->lastUsername,
+            'last_username' => $this->last_username,
             'books' => $books,
             'library' => $library,
-            'followedBooks'=>$FollowedBookByUser,
+            'followedBooks'=>$followed_book_by_user,
             'javascripts' => ['api.js'],
         ]);
     }
@@ -78,7 +78,7 @@ class BookBinderController extends AbstractController
     #[Route("/User", name: "User")]
     #[IsGranted('ROLE_USER')]
     public function user(Request $request, EntityManagerInterface $em): Response {
-        $user = $em->getRepository(\App\Entity\User::class)->findUserByName($this->lastUsername);
+        $user = $em->getRepository(\App\Entity\User::class)->findUserByName($this->last_username);
         $avatarid = $user['avatar_id'];
         $avatar = $em ->getRepository(Avatar::class) -> findOneBy(['id' => $avatarid ]);
         if($avatar) {
@@ -86,7 +86,7 @@ class BookBinderController extends AbstractController
             $base64Image = base64_encode(stream_get_contents($imageBlob));
             $dataUri = 'data:image/png;base64,' . $base64Image;
         }
-        $library = $em->getRepository(Library::class)->findNearestLibrary($this->lastUsername);
+        $library = $em->getRepository(Library::class)->findNearestLibrary($this->last_username);
         $form = $this->createForm(UserDetailsType::class);
         $form ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -98,7 +98,7 @@ class BookBinderController extends AbstractController
         return $this->render('user.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
-            'last_username' => $this->lastUsername,
+            'last_username' => $this->last_username,
             'user' => $user,
             'library' => $library,
             'avatar'=> $avatar,
@@ -107,19 +107,17 @@ class BookBinderController extends AbstractController
         ]);
     }
     #[Route("/privacypolicy", name: "privacypolicy")]
-    #[IsGranted('ROLE_USER')]
     public function privacypolicy(): Response {
         return $this->render('privacypolicy.html.twig',[
-            'last_username' => $this->lastUsername
+            'last_username' => $this->last_username
         ]);
     }
 
 
     #[Route("/termsofservice", name: "termsofservice")]
-    #[IsGranted('ROLE_USER')]
     public function termsofservice(): Response {
         return $this->render('termsofservice.html.twig',[
-            'last_username' => $this->lastUsername
+            'last_username' => $this->last_username
         ]);
     }
 
@@ -128,12 +126,12 @@ class BookBinderController extends AbstractController
     public function search(Request $request, BooksRepository $booksRepository, EntityManagerInterface $em)
     {
         $books = $em->getRepository(Books::class)->findTopBooks();
-        $UserObject = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $UserObject = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->last_username]);
         $UserId = $UserObject->getID();
         $FollowedBookByUser = $em->getRepository(UserBook::class)->displayFollowedBooksPerUser($UserId);
         return $this->render('search.html.twig', [
             'stylesheets' => $this->stylesheets,
-            'last_username' => $this->lastUsername,
+            'last_username' => $this->last_username,
             'books' => $books,
             'followedBooks'=>$FollowedBookByUser,
             'javascripts' => ['api.js'],
@@ -157,47 +155,47 @@ class BookBinderController extends AbstractController
     #[Route("/MeetUp", name: "MeetUp")]
     #[IsGranted('ROLE_USER')]
     public function meetup(Request $request, EntityManagerInterface $em): Response {
-        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
-        $user_ID = $user->getID();
+        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->last_username]);
+        $userID = $user->getID();
         //$allSentMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID]);
         //$allReceivedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID]);
         //$allMeetups = array_merge($allSentMeetups,$allReceivedMeetups);
-        $all_open_meetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $user_ID,'accepted' => 0,'declined' => 0]);
-        $all_open_meetups_data = array();
-        $forms_accept = array();
-        $forms_decline = array();
-        foreach ( $all_open_meetups as $meet_up){
-            $meet_up_data = new MeetUpData(
-                ($em->getRepository(\App\Entity\User::class)->findOneBy(['id'=> $meet_up->getIdUserInviter()]))->getUsername(),
-                $meet_up->getDateTime(),
-                ($em->getRepository(Library::class)->findOneBy(['id'=> $meet_up->getIdLibrary()]))->getName()
+        $allOpenMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID,'accepted' => 0,'declined' => 0]);
+        $allOpenMeetupsData = array();
+        $formsAccept = array();
+        $formsDecline = array();
+        foreach ( $allOpenMeetups as $meetUp){
+            $meetUpData = new MeetUpData(
+                ($em->getRepository(\App\Entity\User::class)->findOneBy(['id'=> $meetUp->getIdUserInviter()]))->getUsername(),
+                $meetUp->getDateTime(),
+                ($em->getRepository(Library::class)->findOneBy(['id'=> $meetUp->getIdLibrary()]))->getName()
             );
 
-            $form_accept = $this->createForm(MeetUpAcceptFormType::class,$meet_up);
-            $form_accept ->handleRequest($request);
-            if($form_accept->isSubmitted() && $form_accept->isValid()){
-                $meet_up->setAccepted(1);
+            $formAccept = $this->createForm(MeetUpAcceptFormType::class,$meetUp);
+            $formAccept ->handleRequest($request);
+            if($formAccept->isSubmitted() && $formAccept->isValid()){
+                $meetUp->setAccepted(1);
                 $em->flush();
                 return $this->redirectToRoute('MeetUp');
             }
-            $form_decline = $this->createForm(MeetUpDeclineFormType::class,$meet_up);
-            $form_decline ->handleRequest($request);
-            if($form_decline->isSubmitted() && $form_decline->isValid()){
-                $meet_up->setDeclined(1);
+            $formDecline = $this->createForm(MeetUpDeclineFormType::class,$meetUp);
+            $formDecline ->handleRequest($request);
+            if($formDecline->isSubmitted() && $formDecline->isValid()){
+                $meetUp->setDeclined(1);
                 $em->flush();
                 return $this->redirectToRoute('MeetUp');
             }
-            array_push($all_open_meetups_data,$meet_up_data);
-            array_push($forms_accept,$form_accept->createView());
-            array_push($forms_decline,$form_decline->createView());
+            array_push($allOpenMeetupsData,$meetUpData);
+            array_push($formsAccept,$formAccept->createView());
+            array_push($formsDecline,$formDecline->createView());
         }
         /*To pass accepted meetups*/
-        $current_date_time = new DateTime('now');
-        $all_accepted_meetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $user_ID,'accepted' => 1,'declined' => 0]);
-        $all_accepted_meetups_data = array();
-        foreach( $all_accepted_meetups as $meetup ) {
-            if ($meetup->getDateTime() > $current_date_time) {
-            $meet_up_data = new MeetUpData(
+        $currentDateTime = new DateTime('now');
+        $allAcceptedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID,'accepted' => 1,'declined' => 0]);
+        $allAcceptedMeetupsData = array();
+        foreach( $allAcceptedMeetups as $meetup ) {
+            if ($meetup->getDateTime() > $currentDateTime) {
+            $meetUpData = new MeetUpData(
                 ($em->getRepository(\App\Entity\User::class)->findOneBy(['id' => $meetup->getIdUserInviter()]))->getUsername(),
                 $meetup->getDateTime(),
                 ($em->getRepository(Library::class)->findOneBy(['id' => $meetup->getIdLibrary()]))->getName()
@@ -205,39 +203,39 @@ class BookBinderController extends AbstractController
             $avatarid = ($em->getRepository(\App\Entity\User::class)->findOneBy(['id' => $meetup->getIdUserInviter()]))->getAvatarId();
             $avatar = $em->getRepository(Avatar::class)->findOneBy(['id' => $avatarid]);
             if ($avatar) {
-                $image_blob = $avatar->getImage();
-                $base64_image = base64_encode(stream_get_contents($image_blob));
-                $data_uri = 'data:image/png;base64,' . $base64_image;
+                $imageBlob = $avatar->getImage();
+                $base64Image = base64_encode(stream_get_contents($imageBlob));
+                $dataUri = 'data:image/png;base64,' . $base64Image;
             }
-            $meet_up_data->setDataUri($data_uri);
-            array_push($all_accepted_meetups_data, $meet_up_data);
+            $meetUpData->setDataUri($dataUri);
+            array_push($allAcceptedMeetupsData, $meetUpData);
             }
         }
 
-        usort($all_accepted_meetups_data, function ($a, $b) {
-            $datetime_a = $a->getDateTime();
-            $datetime_b = $b->getDateTime();
+        usort($allAcceptedMeetupsData, function ($a, $b) {
+            $datetimeA = $a->getDateTime();
+            $datetimeB = $b->getDateTime();
 
-            if ($datetime_a == $datetime_b) {
+            if ($datetimeA == $datetimeB) {
                 return 0;
             }
 
-            return ($datetime_a < $datetime_b) ? -1 : 1;
+            return ($datetimeA < $datetimeB) ? -1 : 1;
         });
         /* Form to invite someone*/
         $datetime = new DateTime();
-        $meetup_form = new MeetUpData("",$datetime,"");
-        $meetup = new MeetUp($user_ID,0,$datetime,0,0,0);
-        $form = $this->createForm(MeetUpInviteFormType::class,$meetup_form);
+        $meetUpForm = new MeetUpData("",$datetime,"");
+        $meetup = new MeetUp($userID,0,$datetime,0,0,0);
+        $form = $this->createForm(MeetUpInviteFormType::class,$meetUpForm);
         $form ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            if (($invited_user = ($em->getRepository(User::class)->findOneBy(['username' => $meetup_form->getNameInvited()]))) != null){
-                $user1 = $invited_user;
+            if (($invitedUser = ($em->getRepository(User::class)->findOneBy(['username' => $meetUpForm->getNameInvited()]))) != null){
+                $user1 = $invitedUser;
                 $meetup->setIdUserInvited($user1->getId());
-                if (($library = $em->getRepository(Library::class)->findOneBy(['name' => $meetup_form->getNameLibrary()])) != null){
+                if (($library = $em->getRepository(Library::class)->findOneBy(['name' => $meetUpForm->getNameLibrary()])) != null){
                     $library1 = $library;
                     $meetup->setIdLibrary($library1->getID());
-                    $meetup->setDateTime($meetup_form->getDateTime());
+                    $meetup->setDateTime($meetUpForm->getDateTime());
                     $em->persist($meetup);
                     $em->flush();
                 }
@@ -258,16 +256,16 @@ class BookBinderController extends AbstractController
         return $this->render('meetup.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
-            'formAccept'=>$forms_accept,
-            'formDecline'=>$forms_decline,
-            'last_username' => $this->lastUsername,
+            'formAccept'=>$formsAccept,
+            'formDecline'=>$formsDecline,
+            'last_username' => $this->last_username,
             //'all_meetups' => $allMeetups,
             'date_time' => $datetime,
             //'all_received_meetups' => $allReceivedMeetups,
             //'all_sent_meetups' => $allSentMeetups,
-            'all_open_meetups' => $all_open_meetups_data,
-            'all_accepted_meetups' => $all_accepted_meetups_data,
-            'MeetUp' => $meetup_form
+            'all_open_meetups' => $allOpenMeetupsData,
+            'all_accepted_meetups' => $allAcceptedMeetupsData,
+            'MeetUp' => $meetUpForm
         ]);
     }
 
@@ -283,7 +281,7 @@ class BookBinderController extends AbstractController
         $BookRating = $BookObject->getRating();
         $BookLibraryId = $BookObject->getLibrary();
         /*Get follow information*/
-        $UserObject = $EntityManager->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $UserObject = $EntityManager->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->last_username]);
         $UserId = $UserObject->getID();
         $FollowObject =$EntityManager->getRepository(UserBook::class)->getBooksByUserID($UserId);
         $UserFollowsBookBoolean = 0;  /*User doesnt follow the book-> display the follow btn*/
@@ -326,7 +324,7 @@ class BookBinderController extends AbstractController
             'ReviewForm'=>$ReviewForm->createView(),
             'FollowBookForm'=>$FollowBookForm->createView(),
             'UnfollowBookForm' => $UnfollowBookForm->createView(),
-            'last_username' => $this->lastUsername,
+            'last_username' => $this->last_username,
             'BookTitle' => $BookTitle,
             'BookNrOfFollowers'=>$BookNrOfFollowers,
             'BookNrOfPages'=>$BookNrOfPages,
