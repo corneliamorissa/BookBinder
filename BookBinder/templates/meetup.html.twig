@@ -13,7 +13,7 @@
                                     <li>
                                         <div class="users">
                                             <div>
-                                                <img id="userpict" src="{{ MeetUp.dataUri }}" alt="userpic">
+                                                <img class="userpict" src="{{ MeetUp.dataUri }}" alt="userpic">
                                             </div>
                                             <div class="usersright ps-2">
                                                 <h5 class="text-muted">Username:</h5>
@@ -41,31 +41,33 @@
                             <ul class="invitationlist ">
                                 {% set index = 0 %}
                                 {% for MeetUp in all_open_meetups %}
-                                    <div class="invitation mb-4">
-                                        <div>
-                                            <p id="invitename" class="ps-2"> Invited by: {{ MeetUp.nameInvited }}</p>
-                                            <p id="librarymeet" class="ps-2">Library: {{ MeetUp.library }}</p>
-                                            <p id="datetimeinvitation" class="ps-2"> Date & Time: {{ MeetUp.dateTime|date('d/m/Y H:i') }}</p>
+                                    <li>
+                                        <div class="invitation mb-4">
+                                            <div class="w-50">
+                                                <p class="invitename ps-2"> Invited by: {{ MeetUp.nameInvited }}</p>
+                                                <p class="librarymeet ps-2">Library: {{ MeetUp.library }}</p>
+                                                <p class="datetimeinvitation ps-2"> Date & Time: {{ MeetUp.dateTime|date('d/m/Y H:i') }}</p>
+                                            </div>
+                                            <div class="ms-3 buttons">
+                                                {% if loop.index0 == index %}
+                                                    {{ form_start(formAccept[index]) }}
+                                                    {{ form_end(formAccept[index]) }}
+                                                {% endif %}
+                                                {% if loop.index0 == index %}
+                                                    {{ form_start(formDecline[index]) }}
+                                                    {{ form_end(formDecline[index]) }}
+                                                    {% set index = index + 1 %}
+                                                {% endif %}
+                                            </div>
                                         </div>
-                                        <div class="d-flex buttons">
-                                            {% if loop.index0 == index %}
-                                                {{ form_start(formAccept[index]) }}
-                                                {{ form_end(formAccept[index]) }}
-                                            {% endif %}
-                                            {% if loop.index0 == index %}
-                                                {{ form_start(formDecline[index]) }}
-                                                {{ form_end(formDecline[index]) }}
-                                                {% set index = index + 1 %}
-                                            {% endif %}
-                                        </div>
-
-                                    </div>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-3">
                 <div class="card rounded-2 mb-4">
                     <div class="card-body">
