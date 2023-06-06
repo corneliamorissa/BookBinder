@@ -1,21 +1,3 @@
-.Book-left{
-    display: flex;
-    flex-flow: column;
-    width: 519px;
-    height: 801px;
-    left: 53px;
-    top: 145px;
-    border: 1px solid rgb(133, 114, 237);
-    border-radius: 10px;
-    align-items: center;
-}
-
-.nrOfFollowers{
-    align-self: center;
-    color: rgb(128, 128, 136);
-    font-weight: 800;
-}
-
 .BookDetails{
     text-align: center;
 }
@@ -24,21 +6,6 @@
     display: flex;
     flex-flow: row;
     gap: 45px;
-}
-
-.Book-right{
-    display: flex;
-    flex-flow: column;
-    width: auto;
-    height: 801px;
-    align-items: flex-start;
-    margin-left: 200px;
-}
-
-.Rating{
-    display: flex;
-    flex-flow: column;
-    margin: 10px;
 }
 
 .Book-border{

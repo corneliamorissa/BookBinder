@@ -40,10 +40,6 @@ main{
     flex-direction: row;
 }
 
-.footer_base_links{
-    color: rgb(255, 255, 255);
-}
-
 .footer_login_links{
     color: rgb(49,30,105);
 }
@@ -99,12 +95,6 @@ main{
     border-radius: 10px;
 }
 
-.landing-trending {
-    display: flex;
-    flex-direction: column;
-    height: 500px;
-}
-
 .landing-main-right{
     background-color: rgb(255, 255, 255);
     font-family: Figtree, Arial, sans-serif;;
@@ -118,14 +108,6 @@ main{
 .WelcomeP{
     color: rgb(128, 128, 136);
     font-weight: bold;
-}
-
-.tag {
-    font-size: 15px;
-    margin-bottom: 12px;
-    margin-left: 64px;
-    margin-top: 0;
-    padding-top: 0;
 }
 
 .logo {
@@ -169,10 +151,6 @@ div#nav {
     flex-direction: column;
 }
 
-.trending{
-    margin: 10px 0 30px 10px;
-}
-
 #trending{
     padding: 16px;
     text-align: center;
@@ -185,19 +163,6 @@ div#nav {
     border-radius: 10px 10px 0 0;
 }
 
-.trendinglist{
-    padding: 16px;
-    text-align: center;
-    width: 300px;
-    height: 600px;
-    margin-top: 0;
-    color: rgb(0, 0, 0);
-    background: rgb(255, 255, 255);
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
 #nearest{
     font-family: 'Figtree', Arial, sans-serif;;
     font-style: normal;
@@ -205,12 +170,6 @@ div#nav {
     font-size: 48px;
     line-height: 60px;
     color: rgb(49, 30, 105);
-}
-
-.infobib{
-    display: flex;
-    padding: 0 30px 30px 30px;
-    flex-direction: row;
 }
 
 .bibname{
@@ -239,15 +198,6 @@ div#nav {
     flex-direction: column;
 }
 
-.homeright{
-    padding: 10px 30px 30px 30px;
-    flex-direction: column;
-}
-
-.booklovers{
-    padding-left: 30px;
-}
-
 .bookloverslist{
     display: flex;
     flex-direction: column;
@@ -266,7 +216,6 @@ div#nav {
     background: rgb(255, 255, 255);
     border: 2px solid rgb(0, 0, 0);
     border-radius: 8px;
-
 }
 
 .usersright{
@@ -318,43 +267,6 @@ button{
     border-radius: 6px 0 0 6px;
 }
 
-.meetuppage{
-    gap: 80px;
-    display: flex;
-    flex-direction: row;
-}
-
-.letters{
-    color: rgb(0, 0, 0);
-    font-family: Figtree, Arial, sans-serif;
-    text-align: center;
-}
-
-.titleMeetups{
-    margin: 30px 0 0 0;
-    padding: 20px 20px 10px 20px;
-    width: 330px;
-    height: 65px ;
-    color: rgb(255, 255, 255);
-    background: rgb(134, 112, 247);
-    border-radius: 10px 10px 0 0;
-}
-
-.titleinvite{
-    margin: 30px 0 0 0;
-    padding: 20px 20px 10px 20px;
-    width: 600px;
-    height: 65px ;
-    color: rgb(255, 255, 255);
-    background: rgb(134, 112, 247);
-    border-radius: 10px 10px 0 0;
-}
-
-.meetright{
-    width: fit-content;
-    height: fit-content;
-}
-
 .invitationlist{
     display: flex;
     flex-direction: column;
@@ -396,10 +308,6 @@ button{
     font-weight: bold;
 }
 
-.writeInvitation{
-    margin: 10px;
-}
-
 .decline{
     margin: 10px;
     padding: 8px;
@@ -413,11 +321,6 @@ button{
 
 .coming-up-block{
     margin: 40px 0 0 0;
-}
-
-.trendinglist{
-    overflow-x: hidden;
-    overflow-y: auto;
 }
 
 .book_label{
@@ -482,27 +385,8 @@ button{
     margin: 10px;
 }
 
-.required{
-    color: rgb(49, 30, 105);
-}
-
-.LoginField{
-    display: flex;
-    flex-direction: row;
-    align-self: center;
-    margin-top: 20px;
-    box-sizing: border-box;
-    width: 300px;
-    height: 45px;
-    background: rgb(255, 255, 255);
-    border: 2px solid rgb(0, 0, 0);
-    border-radius: 15px;
-    text-align: center;
-}
-
 #flash{
     color: rgb(176, 65, 62);
-
 }
 
 .loggedin_user{
