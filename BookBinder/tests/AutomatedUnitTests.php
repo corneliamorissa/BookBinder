@@ -5,6 +5,7 @@ namespace App\Tests;
 use App\Entity\Books;
 use App\Entity\Library;
 use App\Entity\MeetUp;
+use App\Entity\User;
 use App\Entity\UserBook;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -180,6 +181,42 @@ class AutomatedUnitTests extends KernelTestCase
         $this -> assertSame($book_id,$user_book3-> getUserid());
 
 }
+
+    public function testUserCases():void{
+        //First by id
+        $user_id = 461;
+        $user1 = $this->entity_manager->getRepository(User::class)->find($user_id);
+        $birthday1 = new \DateTime('2006-03-05');
+
+        $this->assertSame($user_id,$user1->getId());
+        $this->assertSame("Hillie", $user1 -> getFirstName());
+        $this->assertSame("Yonnie", $user1 -> getLastName());
+        $this->assertSame("hyonniecs", $user1 -> getUsername());
+        $this->assertSame("Mayfield",$user1 -> getStreet());
+        $this->assertSame(69,$user1 -> getHouseNumber());
+        $this->assertSame("2589",$user1 -> getPostcode());
+        $this->assertSame($birthday1,$user1 -> getBirthdate());
+        $this->assertSame(10,$user1 -> getAvatarId());
+        //$this->assertSame("gWzTwt1YSunG",$user1 -> getPassword()); ? test it like this?
+
+        //Second by username
+
+
+        $username ="griedel5q" ;
+        $user2 = $this->entity_manager->getRepository(MeetUp::class)->findOneBy(['username' => $username]);
+        $birthday2 = new \DateTime('2008-07-08');
+
+        $this->assertSame(207,$user2->getId());
+        $this->assertSame("Gery", $user2 -> getFirstName());
+        $this->assertSame("Riedel", $user2 -> getLastName());
+        $this->assertSame($username, $user2 -> getUsername());
+        $this->assertSame("Donald",$user2 -> getStreet());
+        $this->assertSame(62,$user2 -> getHouseNumber());
+        $this->assertSame("83",$user2 -> getPostcode());
+        $this->assertSame($birthday2,$user2 -> getBirthdate());
+        $this->assertSame(18,$user2 -> getAvatarId());
+        //$this->assertSame("ZEYIQt",$user2 -> getPassword());
+    }
 
 
 }
