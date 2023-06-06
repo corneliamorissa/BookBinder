@@ -17,10 +17,10 @@
 Provide a short description of the actual implemented features in your project
 
 * **user authentication (logging in)** :
-User can only navigate to Login page and Sign Up page before authenticated. By using security tools provided by symfony, user can logged in with their username and password. Because our User entity implements UserInterface and PasswordAuthenticatedUserInterface the authentication is done by security tools (includes csrf token) to compare the inputted password match the hashed password stored in the database. If user put the wrong username and(or) password and then click log in button, an error message will appear as "Invalid credentials". After a succesful login, user will get role as user, redirected to Home page and their username is kept on the top navigation bar.
+Unauthenticated user can only navigate to Login page and Sign Up page at first. By using security tools provided by symfony, user can logged in with their username and password. If user put the wrong username and(or) password and then click log in button, an error message will appear as "Invalid credentials". After a succesful login, user will get redirected to Home page and their username is kept on the top navigation bar.
 
 * **user registration** :
-User can register themselves using registration form, however their username should be unique. There is a check done by javascript if user input a unique username, if yes, a message will appear as 'Username can be used". If username is already taken, and error message will says "Username already exists" then the Sign Up button will turned grey and not clickable. The same thing will happen if user not input any username, error message will appear and Sign Up button is not clickable. The rest of the form has a check for if repeated password match the password, if the house number and the postcode is inputted as number not alphabet. If user don't input the correct type, after user click Sign Up user will stay in the same page and an error message will appear accordingly.
+User can register themselves using registration form, however their username should be unique. There is a check done by javascript if user input a unique username, if unique, a message will appear as 'Username can be used". If username is already taken, and error message will says "Username already exists" then the Sign Up button will turned grey and not clickable. The same thing will happen if user not input any username, error message will appear and Sign Up button is not clickable. The rest of the form has a check for if repeated password match the password, if the house number and the postcode is inputted as number not alphabet. If user don't input the correct type, after user click Sign Up user will stay in the same page and an error message will appear accordingly.
 
 * **user logging out** :
 User logging out is using security tools by symfony. User can click Logout button on the top nagivation bar, and will redirect to the Login page to input their credentials again.
@@ -34,13 +34,14 @@ In the home page the user can find all the books they follow. When they click on
 * **display user nearest library** :
 This features let user know the nearest library (with its address) by matching the postcode of the library with some range to the user address
 
-* **search a book by ISBN number**:
+* **search a book by ISBN number**: 
+User can input the ISBN of desired book, after user click 'Search' button, the resulted book will appear and user can click it then redirected to that Book Page. 
 
 * **follow and unfollow books**:
 The user has the ability to follow and unfollow books. To do this, they simply have to click on the 'Follow' or 'Unfollow' respectively.
 
 * **give review and rating about the book**:
-The user is able to leave reviews about a book.
+The user is able to leave reviews about a book. Both comment and rating is possible in the review form.
 
 * **display user profile** :
 The user will be able to see his info by going to his profile. The user can also see which library is the closest. 
