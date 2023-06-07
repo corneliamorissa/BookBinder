@@ -6,6 +6,7 @@ use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\TimeoutException;
 use PHPUnit\Framework\AssertionFailedError;
 use Symfony\Component\Panther\PantherTestCase;
+use Symfony\Component\Panther\Client;
 //when testing check if chrome driver is running in background, if it is, end the task in task manager, and run test again
 class JavaScriptTest extends PantherTestCase
 {
@@ -15,7 +16,10 @@ class JavaScriptTest extends PantherTestCase
      */
     public function testUserAlreadyExists(): void
     {
-        $client = static::createPantherClient();
+        $client = static::createPantherClient([
+            'chrome' => [
+                'binary' => 'BookBinder/drivers/chromedriver.exe',
+            ],]);
         $crawler = $client->request('GET', '/SignUp');
 
         $crawler->filter('#sign_up_form_username')->sendKeys('Amal__York1720');
