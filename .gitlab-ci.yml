@@ -36,20 +36,9 @@ test-job:
   before_script:
     # mysql PDO needs to be installed as a PHP extension in the container for the tests to run
     - docker-php-ext-install pdo pdo_mysql
-    #- apk add --no-cache chromium chromium-chromedriver zlib-dev
-    #- export PANTHER_NO_SANDBOX=1 
-    #- export PANTHER_WEB_SERVER_PORT=9800
-    #ADDED THIS TO GET PANTHER
-    - apt-get update
-    - apt-get install software-properties-common -y
-    - ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-    - apt-get install curl wget php php-cli php7.4 php7.4-common php7.4-curl php7.4-intl php7.4-xml php7.4-opcache php7.4-mbstring php7.4-zip libfontconfig1 fontconfig libxrender-dev libfreetype6 libxrender1 zlib1g-dev xvfb chromium-chromedriver firefox-geckodriver -y -qq
-    - export PANTHER_NO_SANDBOX=1
-    - export PANTHER_WEB_SERVER_PORT=9080
-    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    - php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-    - php -r "unlink('composer-setup.php');"
-    - composer install
+    - apk add --no-cache chromium chromium-chromedriver zlib-dev
+    - export PANTHER_NO_SANDBOX=1 
+    - export PANTHER_WEB_SERVER_PORT=9800
 
   script:
     - cd BookBinder ; composer install
