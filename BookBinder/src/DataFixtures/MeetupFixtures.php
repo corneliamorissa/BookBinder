@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\MeetUp;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -19,7 +20,7 @@ class MeetupFixtures extends Fixture
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                 $inviter = $data[0];
                 $invited = $data[1];
-                $date_time = $data[2];
+                $date_time = new DateTime($data[2]);
                 $accepted = $data[3];
                 $denied = $data[4];
                 $library = $data[5];
