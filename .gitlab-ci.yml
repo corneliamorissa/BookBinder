@@ -56,7 +56,7 @@ test-job:
     - export PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage --no-sandbox'
     - php bin/phpunit
   after_script:
-    -nano var/log/dev.log
+    - nano var/log/dev.log
     
 
 
