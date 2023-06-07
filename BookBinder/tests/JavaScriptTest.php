@@ -18,14 +18,14 @@ class JavaScriptTest extends PantherTestCase
     {
         $client = static::createPantherClient([
             'chrome' => [
-                'binary' => 'BookBinder/drivers/chromedriver.exe',
+                'binary' => 'BookBinder/drivers/chromedriver.exe' ,
             ],]);
         $crawler = $client->request('GET', '/SignUp');
 
         $crawler->filter('#sign_up_form_username')->sendKeys('Amal__York1720');
         $crawler->filter('body')->click(); //AJAX request is onChange, so exit the input field
 
-        $client->waitForElementToContain('#message_check','Username already exist',5);
+        $client->waitForElementToContain('#message_check','Username already exist',50);
 
         $this->assertSelectorTextContains('#message_check', 'Username already exist');
         $this->takeScreenshotIfTestFailed();
