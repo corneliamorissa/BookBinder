@@ -67,7 +67,7 @@ class SignUpFormType extends AbstractType
                 'mapped' => true,
                 'label' => 'User Name',
                 'attr' => [
-                    'class' => 'field-form',
+                    'class' => 'test field-form',
                     'placeholder' => 'Enter your user name'
                 ]
             ])->add('password', RepeatedType::class,[
