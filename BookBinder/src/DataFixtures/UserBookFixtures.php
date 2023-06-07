@@ -12,7 +12,7 @@ class UserBookFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
 // open csv file and load data
-        if (($handle = fopen(__DIR__."/data/books.csv", "r")) !== FALSE) {
+        if (($handle = fopen(__DIR__."/data/user_book_data.csv", "r")) !== FALSE) {
             // read first line with headers
             $headers = fgetcsv($handle, 1000, ",");
             // read rest of file and create entities for every line
