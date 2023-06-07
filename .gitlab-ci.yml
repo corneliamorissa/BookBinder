@@ -35,9 +35,10 @@ test-job:
   before_script:
     # mysql PDO needs to be installed as a PHP extension in the container for the tests to run
     - docker-php-ext-install pdo pdo_mysql
-    - composer require --dev dbrekelmans/bdi && vendor/bin/bdi detect drivers
+
   script:
     - cd BookBinder ; composer install
+    - composer require --dev dbrekelmans/bdi && vendor/bin/bdi detect drivers
     # make migration file
     #- php bin/console doctrine:migrations:diff
     # run the migration on the temporary database
