@@ -39,7 +39,6 @@ test-job:
     - apk add chromium 
     - apk add chromium-chromedriver 
     - apk add zlib-dev
-    - apk add nano
 
   script:
     - cd BookBinder ; composer install
@@ -56,7 +55,7 @@ test-job:
     - export PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage --no-sandbox'
     - php bin/phpunit
   after_script:
-    - cat var/log/dev.log
+    - cat var/log/test.log
     
 
 
