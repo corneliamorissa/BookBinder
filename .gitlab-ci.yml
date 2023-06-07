@@ -43,9 +43,8 @@ test-job:
   script:
     - cd BookBinder ; composer install
     - composer require --dev dbrekelmans/bdi && vendor/bin/bdi detect drivers
-    - chromedriver --version
+    - chromium --version
     - chromedriver --verbose
-    - php -m
     # make migration file
     #- php bin/console doctrine:migrations:diff
     # run the migration on the temporary database
