@@ -39,7 +39,9 @@ test-job:
     - apk add chromium 
     - apk add chromium-chromedriver 
     - apk add zlib-dev
+    - export PANTHER_NO_SANDBOX=1 
     - export PANTHER_NO_HEADLESS=1
+  
 
   script:
     - cd BookBinder ; composer install
