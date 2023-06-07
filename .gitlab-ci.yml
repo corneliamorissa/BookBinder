@@ -13,11 +13,7 @@ before_script:
     # install rsync to copy files to the web server
   # this container runs Alpine Linux, where apk is the package manager (not apt-get)
   - apk add rsync
-  #ADDING THIS FOR GETTING PHANTER
-  - apk add --no-cache chromium chromium-chromedriver zlib-dev
-  - export PANTHER_CHROME_DRIVER_BINARY="/usr/lib/chromium/chromedriver"
-  - export PANTHER_NO_SANDBOX=1
-  - export PANTHER_WEB_SERVER_PORT=9800
+  
 
 stages:
   - test
@@ -40,6 +36,8 @@ test-job:
   before_script:
     # mysql PDO needs to be installed as a PHP extension in the container for the tests to run
     - docker-php-ext-install pdo pdo_mysql
+    - export PANTHER_NO_SANDBOX=1 
+    - export PANTHER_WEB_SERVER_PORT=9800
 
   script:
     - cd BookBinder ; composer install
