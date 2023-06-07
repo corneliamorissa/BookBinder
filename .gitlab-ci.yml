@@ -46,7 +46,7 @@ test-job:
     - cd BookBinder ; composer install
     - composer require --dev dbrekelmans/bdi && vendor/bin/bdi detect drivers
     - apk version chromium
-    - apk version chrome-chromedriver
+    - apk version chromium-chromedriver
     # make migration file
     #- php bin/console doctrine:migrations:diff
     # run the migration on the temporary database
