@@ -18,7 +18,7 @@ class JavaScriptTest extends PantherTestCase
     {
         $client = static::createPantherClient([
             'chrome' => [
-                'binary' => 'BookBinder/drivers/chromedriver.exe',
+                'binary' => 'BookBinder/drivers/chromedriver.exe' ,
             ],]);
         $crawler = $client->request('GET', '/SignUp');
 
