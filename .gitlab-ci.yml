@@ -41,8 +41,6 @@ test-job:
     - export PANTHER_CHROME_DRIVER_BINARY="/usr/lib/chromium/chromedriver"
     - export PANTHER_NO_SANDBOX=1
     - export PANTHER_WEB_SERVER_PORT=9800
-    - docker-php-ext-install zip
-    - php composer.phar install
 
   script:
     - cd BookBinder ; composer install
