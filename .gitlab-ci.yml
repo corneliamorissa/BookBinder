@@ -39,8 +39,7 @@ test-job:
     - apk add chromium 
     - apk add chromium-chromedriver 
     - apk add zlib-dev
-    - export PANTHER_NO_SANDBOX=1 
-    - export PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage --no-sandbox'
+    - apk add nano
 
   script:
     - cd BookBinder ; composer install
@@ -53,9 +52,11 @@ test-job:
     # load some test data in the temporary database
     #- php bin/console doctrine:fixtures:load -n --env=test
     # run the tests (using the temporary database)
+    - export PANTHER_NO_SANDBOX=1 
+    - export PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage --no-sandbox'
     - php bin/phpunit
   after_script:
-    -cat var/log/dev.log
+    -nano var/log/dev.log
     
 
 
