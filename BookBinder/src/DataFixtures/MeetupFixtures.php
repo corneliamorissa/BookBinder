@@ -17,7 +17,14 @@ class MeetupFixtures extends Fixture
             $headers = fgetcsv($handle, 1000, ",");
             // read rest of file and create entities for every line
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                $meetup = new MeetUp($data[0],$data[1],$data[2],$data[3],$data[4],$data[5]);
+                $inviter = $data[0];
+                $invited = $data[1];
+                $date_time = $data[2];
+                $accepted = $data[3];
+                $denied = $data[4];
+                $library = $data[5];
+                $meetup = new MeetUp($inviter, $invited, $date_time, $accepted, $denied, $library);
+                //$meetup = new MeetUp($data[0],$data[1],$data[2],$data[3],$data[4],$data[5]);
                 /*
                 $meetup->setIdUserInviter($data[0]);
                 $meetup ->setIdUserInvited($data[1]);
