@@ -39,14 +39,12 @@ test-job:
     - apk add chromium 
     - apk add chromium-chromedriver 
     - apk add zlib-dev
-    - export PANTHER_NO_SANDBOX=1 
-    - export PANTHER_WEB_SERVER_PORT=9800
+    - export PANTHER_NO_HEADLESS=1
 
   script:
     - cd BookBinder ; composer install
+    - composer update
     - composer require --dev dbrekelmans/bdi && vendor/bin/bdi detect drivers
-    - apk version chromium
-    - apk version chromium-chromedriver
     # make migration file
     #- php bin/console doctrine:migrations:diff
     # run the migration on the temporary database
