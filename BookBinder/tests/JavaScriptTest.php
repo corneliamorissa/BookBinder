@@ -45,7 +45,7 @@ class JavaScriptTest extends PantherTestCase
      * @throws NoSuchElementException
      * @throws TimeoutException
      * @throws \Exception
-     */
+    /* */
     /*public function testTrendingBookJavascriptByIsbn(): void
     {
         $retryCount = 5;
