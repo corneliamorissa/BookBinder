@@ -11,7 +11,7 @@ use Symfony\Component\Panther\PantherTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class AutomatedUnitTest extends KernelTestCase
+class AutomatedUnitTests extends KernelTestCase
 {
     private $entity_manager;
     protected function setUp(): void
