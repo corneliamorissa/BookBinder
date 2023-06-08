@@ -73,7 +73,7 @@ class JavaScriptTest extends PantherTestCase
 
                 // Assert the updated book cover image
                 $crawler = $client->getCrawler();
-                $bookImage = $crawler->filter('#BookPicTrending_home')->first();
+                $bookImage = $crawler->filter('.BookPicTrending_home')->first();
                 $expectedImageUrl = 'https://covers.openlibrary.org/b/id/6389112-L.jpg'; // Update with the expected image URL
                 $this->assertSame($expectedImageUrl, $bookImage->attr('src'));
 
@@ -128,7 +128,7 @@ class JavaScriptTest extends PantherTestCase
 
                 // Assert the updated book cover image
                 $crawler = $client->getCrawler();
-                $bookImage = $crawler->filter('.BookPicFav rounded-3 w-50 book-image pt-1')->first();
+                $bookImage = $crawler->filter('.BookPicFav')->first();
                 $expectedImageUrl = 'https://covers.openlibrary.org/b/id/6389112-L.jpg'; // Update with the expected image URL
                 $this->assertSame($expectedImageUrl, $bookImage->attr('src'));
 
