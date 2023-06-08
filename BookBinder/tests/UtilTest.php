@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
-class UtilTests extends WebTestCase
+class UtilTest extends WebTestCase
 {
     public function testRouteLogin(): void
     {
