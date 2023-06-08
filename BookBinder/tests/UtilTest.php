@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
-class UtilTests extends WebTestCase
+class UtilTest extends WebTestCase
 {
     public function testRouteLogin(): void
     {
@@ -116,7 +116,7 @@ class UtilTests extends WebTestCase
         $form['sign_up_form[password][first]'] = 'Secret678';
         $form['sign_up_form[password][second]'] = 'Secret678';
         $form['sign_up_form[first_name]'] = 'Test Purposes';
-        $form['sign_up_form[last_name]'] = 'UtilTests';
+        $form['sign_up_form[last_name]'] = 'UtilTest';
         $form['sign_up_form[birthdate][month]'] = 10;
         $form['sign_up_form[birthdate][day]'] = 19;
         $form['sign_up_form[birthdate][year]'] = 2006;
