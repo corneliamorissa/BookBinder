@@ -18,7 +18,7 @@ use Symfony\Component\Panther\PantherTestCaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 
-class UnitTests extends TestCase
+class UnitTest extends TestCase
 {
 
     public function testAvatarGetAttributes(): void{
