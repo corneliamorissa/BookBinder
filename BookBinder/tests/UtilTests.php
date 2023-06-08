@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use App\Repository\UserRepository;
+use Symfony\Component\Panther\PantherTestCaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;

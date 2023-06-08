@@ -7,6 +7,7 @@ use App\Entity\Library;
 use App\Entity\MeetUp;
 use App\Entity\User;
 use App\Entity\UserBook;
+use Symfony\Component\Panther\PantherTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
