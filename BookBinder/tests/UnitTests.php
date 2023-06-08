@@ -244,7 +244,6 @@ class UnitTests extends TestCase
         $this -> assertSame(225,$userbook -> getBookid());
         $this -> assertSame(88,$userbook-> getUserid());
 
-
     }
 
 

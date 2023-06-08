@@ -102,7 +102,7 @@ class UtilTest extends WebTestCase
         $crawler = $client->request('GET', '/SignUp');
         //$form['form[avatar]'] = $crawler->selectImage('2');
         $form = $crawler->filter('form[name="signup"]')->form();
-        $form['sign_up_form[avatar]'] = 8;
+       /* $form['sign_up_form[avatar]'] = 8;*/
 
         // Generate a random username bcs there is authentication that username needs to be random
         $baseUsername = 'test'; // Base username
