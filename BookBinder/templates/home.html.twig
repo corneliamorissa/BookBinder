@@ -10,7 +10,7 @@
                         </h3>
                         {% for book in books %}
                             <div  class="text-center pointer" onclick="location.href='{{ path('Book', {'book_id': book.id}) }}';" >
-                                <img class="BookPicTrending_home rounded-3 w-50 book-image" data-isbn="{{ book.isbn }}" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
+                                <img id="BookPicTrending_home" class="BookPicTrending_home rounded-3 w-50 book-image" data-isbn="{{ book.isbn }}" src="{{ asset('/public/assets/no_cover.jpg') }}" alt="BookCover">
                                 <h5>{{ book.title }}</h5>
                                 <h6>{{ book.author }}</h6>
                                 <p>Book followers: {{ book.number_of_followers }}</p>
