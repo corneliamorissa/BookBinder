@@ -22,7 +22,7 @@ class JavaScriptTest extends PantherTestCase
         $crawler = $client->request('GET', '/SignUp');
         $crawler->filter('.test')->sendKeys('Amal__York1720');
         $crawler->filter('body')->click(); //AJAX request is onChange, so exit the input field
-        $client->waitForElementToContain('#message_check','Username already exist',50);
+        $client->waitForElementToContain('#message_check','Username already exist',5);
 
         $this->assertSelectorTextContains('#message_check', 'Username already exist');
         $this->takeScreenshotIfTestFailed();
