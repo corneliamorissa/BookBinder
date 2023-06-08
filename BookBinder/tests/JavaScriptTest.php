@@ -64,7 +64,7 @@ class JavaScriptTest extends PantherTestCase
             try {
                 // Wait for the book cover images to be updated
                 $client->wait(240000, function () use ($client) {
-                    sleep(5);
+                    sleep(10);
                     $crawler = $client->getCrawler();
                     $bookImagesCount = $crawler->filter('.BookPicTrending_home[src!="/public/assets/no_cover.jpg"]')->count();
                     $expectedBookImagesCount = count($crawler->filter('.BookPicTrending_home'));
@@ -118,7 +118,7 @@ class JavaScriptTest extends PantherTestCase
             try {
                 /// Wait for the book cover images to be updated
                 $client->wait(360000, function () use ($client) {
-                    sleep(7);
+                    sleep(10);
 
                     $crawler = $client->getCrawler();
                     $bookImagesCount = $crawler->filter('.BookPicFav[src!="/public/assets/no_cover.jpg"]')->count();
