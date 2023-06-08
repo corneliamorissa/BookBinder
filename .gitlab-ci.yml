@@ -13,6 +13,7 @@ before_script:
     # install rsync to copy files to the web server
   # this container runs Alpine Linux, where apk is the package manager (not apt-get)
   - apk add rsync
+ 
   
 
 stages:
@@ -31,19 +32,19 @@ test-job:
     MYSQL_ROOT_PASSWORD: root_pass
     MYSQL_PASSWORD: root_pass
     # set the correct DSN in Symfony to connect to the temporary database
-    DATABASE_URL: "mysql://root:root_pass@mysql/main_test"
+    DATABASE_URL: "mysql://root:root_pass@mysql:3306/main_test"
   # before starting the test scripts, add specific software to the container (only for this job)
   before_script:
     # mysql PDO needs to be installed as a PHP extension in the container for the tests to run
     - docker-php-ext-install pdo pdo_mysql
     - apk add --no-cache chromium chromium-chromedriver zlib-dev
-    - export PANTHER_NO_SANDBOX=1 
+    - export PANTHER_CHROME_DRIVER_BINARY="/usr/lib/chromium/chromedriver"
+    - export PANTHER_NO_SANDBOX=1
     - export PANTHER_WEB_SERVER_PORT=9800
 
   script:
     - cd BookBinder ; composer install
     - composer require --dev dbrekelmans/bdi && vendor/bin/bdi detect drivers
-    - chromedriver --version
     # make migration file
     #- php bin/console doctrine:migrations:diff
     # run the migration on the temporary database
@@ -52,6 +53,7 @@ test-job:
     - php bin/console doctrine:fixtures:load -n --env=test
     # run the tests (using the temporary database)
     - php bin/phpunit
+    
 
 
 deploy-job:
