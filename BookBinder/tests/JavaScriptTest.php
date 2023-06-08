@@ -64,16 +64,16 @@ class JavaScriptTest extends PantherTestCase
             try {
                 // Wait for the book cover images to be updated
                 $client->wait(240000, function () use ($client) {
-                    sleep(10);
+                    sleep(20);
                     $crawler = $client->getCrawler();
-                    $bookImagesCount = $crawler->filter('.BookPicTrending_home[src!="/public/assets/no_cover.jpg"]')->count();
-                    $expectedBookImagesCount = count($crawler->filter('.BookPicTrending_home'));
+                    $bookImagesCount = $crawler->filter('.BookPicTrending_home rounded-3 w-50 book-image[src!="/public/assets/no_cover.jpg"]')->count();
+                    $expectedBookImagesCount = count($crawler->filter('.BookPicTrending_home rounded-3 w-50 book-image'));
                     return $bookImagesCount === $expectedBookImagesCount;
                 });
 
                 // Assert the updated book cover image
                 $crawler = $client->getCrawler();
-                $bookImage = $crawler->filter('.BookPicTrending_home')->first();
+                $bookImage = $crawler->filter('.BookPicTrending_home rounded-3 w-50 book-image')->first();
                 $expectedImageUrl = 'https://covers.openlibrary.org/b/id/6389112-L.jpg'; // Update with the expected image URL
                 $this->assertSame($expectedImageUrl, $bookImage->attr('src'));
 
@@ -118,17 +118,17 @@ class JavaScriptTest extends PantherTestCase
             try {
                 /// Wait for the book cover images to be updated
                 $client->wait(360000, function () use ($client) {
-                    sleep(10);
+                    sleep(20);
 
                     $crawler = $client->getCrawler();
-                    $bookImagesCount = $crawler->filter('.BookPicFav[src!="/public/assets/no_cover.jpg"]')->count();
-                    $expectedBookImagesCount = count($crawler->filter('.BookPicFav'));
+                    $bookImagesCount = $crawler->filter('.BookPicFav rounded-3 w-50 book-image pt-1[src!="/public/assets/no_cover.jpg"]')->count();
+                    $expectedBookImagesCount = count($crawler->filter('.BookPicFav rounded-3 w-50 book-image pt-1'));
                     return $bookImagesCount === $expectedBookImagesCount;
                 });
 
                 // Assert the updated book cover image
                 $crawler = $client->getCrawler();
-                $bookImage = $crawler->filter('.BookPicFav')->first();
+                $bookImage = $crawler->filter('.BookPicFav rounded-3 w-50 book-image pt-1')->first();
                 $expectedImageUrl = 'https://covers.openlibrary.org/b/id/6389112-L.jpg'; // Update with the expected image URL
                 $this->assertSame($expectedImageUrl, $bookImage->attr('src'));
 
