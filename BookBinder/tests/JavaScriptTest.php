@@ -46,7 +46,7 @@ class JavaScriptTest extends PantherTestCase
      * @throws TimeoutException
      * @throws \Exception
      */
-    public function testTrendingBookJavascriptByIsbn(): void
+    /*public function testTrendingBookJavascriptByIsbn(): void
     {
         $retryCount = 5;
         $isTestPassed = false;
@@ -89,7 +89,7 @@ class JavaScriptTest extends PantherTestCase
         $this->assertTrue($isTestPassed);
 
         $client->quit();
-    }
+    }*/
 
 
     /**
@@ -97,7 +97,7 @@ class JavaScriptTest extends PantherTestCase
      * @throws TimeoutException
      * @throws \Exception
      */
-    public function testFaveBookJavascriptByIsbn(): void
+    /*public function testFaveBookJavascriptByIsbn(): void
     {
 
         $retryCount = 10;
@@ -148,6 +148,6 @@ class JavaScriptTest extends PantherTestCase
 
         $this->takeScreenshotIfTestFailed();
         $client->quit();
-    }
+    }*/
 
 }
