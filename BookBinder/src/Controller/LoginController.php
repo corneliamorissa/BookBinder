@@ -19,7 +19,7 @@ class LoginController extends AbstractController
     private array $stylesheets;
 
     public function __construct(AuthenticationService $user_service) {
-        $this->stylesheets[] = 'main.css';
+/*        $this->stylesheets[] = 'main.css';*/
 
     }
 
@@ -37,7 +37,7 @@ class LoginController extends AbstractController
         $last_username = $authentication_utils->getLastUsername();
 
         return $this->render('login.html.twig', [
-            'stylesheets' => $this->stylesheets,
+/*            'stylesheets' => $this->stylesheets,*/
             'last_username' => $last_username,
             'error'         => $error,
             'first_book' => $first_book,
