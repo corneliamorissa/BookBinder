@@ -51,13 +51,13 @@
                                             <div class="ms-3 buttons">
                                                 {% if loop.index0 == index %}
                                                     {{ form_start(formAccept[index]) }}
-                                                    {{ form_row(formAccept[index].Submit, {'id': 'accept' ~ index} )}}
+                                                  {# {{ form_row(formAccept[index].Submit, {'id': 'accept' ~ index} )}} #}
                                                   {#  {{ form_row(formAccept[index].hidden, {'id': 'token' ~ loop.index0}) }}#}
                                                     {{ form_end(formAccept[index]) }}
                                                 {% endif %}
                                                 {% if loop.index0 == index %}
                                                     {{ form_start(formDecline[index]) }}
-                                                    {{ form_row(formDecline[index].Submit, {'id': 'decline' ~ index}) }}
+                                                  {# {{ form_row(formDecline[index].Submit, {'id': 'decline' ~ index}) }} #}
                                                     {{ form_end(formDecline[index]) }}
                                                     {% set index = index + 1 %}
                                                 {% endif %}
