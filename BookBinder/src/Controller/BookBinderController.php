@@ -155,7 +155,7 @@ class BookBinderController extends AbstractController
     #[Route("/MeetUp", name: "MeetUp")]
     #[IsGranted('ROLE_USER')]
     public function meetup(Request $request, EntityManagerInterface $em): Response {
-        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->last_username]);
         $user_ID = $user->getID();
         //$allSentMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID]);
         //$allReceivedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID]);
@@ -258,7 +258,7 @@ class BookBinderController extends AbstractController
             'form'=>$form->createView(),
             'formAccept'=>$forms_accept,
             'formDecline'=>$forms_decline,
-            'last_username' => $this->lastUsername,
+            'last_username' => $this->last_username,
             //'all_meetups' => $allMeetups,
             'date_time' => $datetime,
             //'all_received_meetups' => $allReceivedMeetups,
