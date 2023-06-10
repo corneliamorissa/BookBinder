@@ -33,35 +33,45 @@
                 </div>
             </div>
 
-            <div class="meetright">
-                <div>
-                    <h2 class="titleinvite"> Meet Up Invitation</h2>
-                    <ul class="invitationlist">
-                        {% set index = 0 %}
-                        {% for MeetUp in all_open_meetups %}
-                            <div class="invitation">
-                                <div>
-                                    <p id="invitename">{{ MeetUp.nameInvited }}</p>
-                                    <p id="librarymeet">Library:
-                                        {{ MeetUp.library }}</p>
-                                </div>
-                                <p id="datetimeinvitation">{{ MeetUp.dateTime|date('d/m/Y H:i') }}</p>
-                                {% if loop.index0 == index %}
-                                    {{ form_start(formAccept[index]) }}
-                                    {{ form_end(formAccept[index]) }}
-                                {% endif %}
-                                {% if loop.index0 == index %}
-                                    {{ form_start(formDecline[index]) }}
-                                    {{ form_end(formDecline[index]) }}
-                                    {% set index = index + 1 %}
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                    </ul>
+            <div class="col-lg-5">
+                <div class="card rounded-2 mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title text-white text-center rounded-3 p-3 mb-3 card_background2"> Meet Up Invitation</h2>
+                        <div class="booklovers-container">
+                            <ul class="invitationlist ">
+                                {% set index = 0 %}
+                                {% for MeetUp in all_open_meetups %}
+                                    <li>
+                                        <div class="invitation mb-4">
+                                            <div class="w-50">
+                                                <p class="invitename ps-2"> Invited by: {{ MeetUp.nameInvited }}</p>
+                                                <p class="librarymeet ps-2">Library: {{ MeetUp.library }}</p>
+                                                <p class="datetimeinvitation ps-2"> Date & Time: {{ MeetUp.dateTime|date('d/m/Y H:i') }}</p>
+                                            </div>
+                                            <div class="ms-3 buttons">
+                                                {% if loop.index0 == index %}
+                                                    {{ form_start(formAccept[index]) }}
+                                                  {# {{ form_row(formAccept[index].Submit, {'id': 'accept' ~ index} )}} #}
+                                                  {#  {{ form_row(formAccept[index].hidden, {'id': 'token' ~ loop.index0}) }}#}
+                                                    {{ form_end(formAccept[index]) }}
+                                                {% endif %}
+                                                {% if loop.index0 == index %}
+                                                    {{ form_start(formDecline[index]) }}
+                                                  {# {{ form_row(formDecline[index].Submit, {'id': 'decline' ~ index}) }} #}
+                                                    {{ form_end(formDecline[index]) }}
+                                                    {% set index = index + 1 %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
-
-                <div class="col-lg-3">
+            <div class="col-lg-3">
                 <div class="card rounded-2 mb-4">
                     <div class="card-body">
                         <h2 class="card-title text-white text-center rounded-3 p-3 mb-3 card_background2">Invite a friend</h2>
