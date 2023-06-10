@@ -155,87 +155,87 @@ class BookBinderController extends AbstractController
     #[Route("/MeetUp", name: "MeetUp")]
     #[IsGranted('ROLE_USER')]
     public function meetup(Request $request, EntityManagerInterface $em): Response {
-        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->last_username]);
-        $userID = $user->getID();
+        $user = $em->getRepository(\App\Entity\User::class)->findOneBy(['username'=> $this->lastUsername]);
+        $user_ID = $user->getID();
         //$allSentMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_inviter' => $userID]);
         //$allReceivedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID]);
         //$allMeetups = array_merge($allSentMeetups,$allReceivedMeetups);
-        $allOpenMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID,'accepted' => 0,'declined' => 0]);
-        $allOpenMeetupsData = array();
-        $formsAccept = array();
-        $formsDecline = array();
-        foreach ( $allOpenMeetups as $meetUp){
-            $meetUpData = new MeetUpData(
-                ($em->getRepository(\App\Entity\User::class)->findOneBy(['id'=> $meetUp->getIdUserInviter()]))->getUsername(),
-                $meetUp->getDateTime(),
-                ($em->getRepository(Library::class)->findOneBy(['id'=> $meetUp->getIdLibrary()]))->getName()
+        $all_open_meetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $user_ID,'accepted' => 0,'declined' => 0]);
+        $all_open_meetups_data = array();
+        $forms_accept = array();
+        $forms_decline = array();
+        foreach ( $all_open_meetups as $meet_up){
+            $meet_up_data = new MeetUpData(
+                ($em->getRepository(\App\Entity\User::class)->findOneBy(['id'=> $meet_up->getIdUserInviter()]))->getUsername(),
+                $meet_up->getDateTime(),
+                ($em->getRepository(Library::class)->findOneBy(['id'=> $meet_up->getIdLibrary()]))->getName()
             );
 
-            $formAccept = $this->createForm(MeetUpAcceptFormType::class,$meetUp);
-            $formAccept ->handleRequest($request);
-            if($formAccept->isSubmitted() && $formAccept->isValid()){
-                $meetUp->setAccepted(1);
+            $form_accept = $this->createForm(MeetUpAcceptFormType::class,$meet_up);
+            $form_accept ->handleRequest($request);
+            if($form_accept->isSubmitted() && $form_accept->isValid()){
+                $meet_up->setAccepted(1);
                 $em->flush();
                 return $this->redirectToRoute('MeetUp');
             }
-            $formDecline = $this->createForm(MeetUpDeclineFormType::class,$meetUp);
-            $formDecline ->handleRequest($request);
-            if($formDecline->isSubmitted() && $formDecline->isValid()){
-                $meetUp->setDeclined(1);
+            $form_decline = $this->createForm(MeetUpDeclineFormType::class,$meet_up);
+            $form_decline ->handleRequest($request);
+            if($form_decline->isSubmitted() && $form_decline->isValid()){
+                $meet_up->setDeclined(1);
                 $em->flush();
                 return $this->redirectToRoute('MeetUp');
             }
-            array_push($allOpenMeetupsData,$meetUpData);
-            array_push($formsAccept,$formAccept->createView());
-            array_push($formsDecline,$formDecline->createView());
+            array_push($all_open_meetups_data,$meet_up_data);
+            array_push($forms_accept,$form_accept->createView());
+            array_push($forms_decline,$form_decline->createView());
         }
         /*To pass accepted meetups*/
-        $currentDateTime = new DateTime('now');
-        $allAcceptedMeetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $userID,'accepted' => 1,'declined' => 0]);
-        $allAcceptedMeetupsData = array();
-        foreach( $allAcceptedMeetups as $meetup ) {
-            if ($meetup->getDateTime() > $currentDateTime) {
-            $meetUpData = new MeetUpData(
-                ($em->getRepository(\App\Entity\User::class)->findOneBy(['id' => $meetup->getIdUserInviter()]))->getUsername(),
-                $meetup->getDateTime(),
-                ($em->getRepository(Library::class)->findOneBy(['id' => $meetup->getIdLibrary()]))->getName()
-            );
-            $avatarid = ($em->getRepository(\App\Entity\User::class)->findOneBy(['id' => $meetup->getIdUserInviter()]))->getAvatarId();
-            $avatar = $em->getRepository(Avatar::class)->findOneBy(['id' => $avatarid]);
-            if ($avatar) {
-                $imageBlob = $avatar->getImage();
-                $base64Image = base64_encode(stream_get_contents($imageBlob));
-                $dataUri = 'data:image/png;base64,' . $base64Image;
-            }
-            $meetUpData->setDataUri($dataUri);
-            array_push($allAcceptedMeetupsData, $meetUpData);
+        $current_date_time = new DateTime('now');
+        $all_accepted_meetups = $em->getRepository(MeetUp::class)->findBy(['id_user_invited' => $user_ID,'accepted' => 1,'declined' => 0]);
+        $all_accepted_meetups_data = array();
+        foreach( $all_accepted_meetups as $meetup ) {
+            if ($meetup->getDateTime() > $current_date_time) {
+                $meet_up_data = new MeetUpData(
+                    ($em->getRepository(\App\Entity\User::class)->findOneBy(['id' => $meetup->getIdUserInviter()]))->getUsername(),
+                    $meetup->getDateTime(),
+                    ($em->getRepository(Library::class)->findOneBy(['id' => $meetup->getIdLibrary()]))->getName()
+                );
+                $avatarid = ($em->getRepository(\App\Entity\User::class)->findOneBy(['id' => $meetup->getIdUserInviter()]))->getAvatarId();
+                $avatar = $em->getRepository(Avatar::class)->findOneBy(['id' => $avatarid]);
+                if ($avatar) {
+                    $image_blob = $avatar->getImage();
+                    $base64_image = base64_encode(stream_get_contents($image_blob));
+                    $data_uri = 'data:image/png;base64,' . $base64_image;
+                }
+                $meet_up_data->setDataUri($data_uri);
+                array_push($all_accepted_meetups_data, $meet_up_data);
             }
         }
 
-        usort($allAcceptedMeetupsData, function ($a, $b) {
-            $datetimeA = $a->getDateTime();
-            $datetimeB = $b->getDateTime();
+        usort($all_accepted_meetups_data, function ($a, $b) {
+            $datetime_a = $a->getDateTime();
+            $datetime_b = $b->getDateTime();
 
-            if ($datetimeA == $datetimeB) {
+            if ($datetime_a == $datetime_b) {
                 return 0;
             }
 
-            return ($datetimeA < $datetimeB) ? -1 : 1;
+            return ($datetime_a < $datetime_b) ? -1 : 1;
         });
         /* Form to invite someone*/
         $datetime = new DateTime();
-        $meetUpForm = new MeetUpData("",$datetime,"");
-        $meetup = new MeetUp($userID,0,$datetime,0,0,0);
-        $form = $this->createForm(MeetUpInviteFormType::class,$meetUpForm);
+        $meetup_form = new MeetUpData("",$datetime,"");
+        $meetup = new MeetUp($user_ID,0,$datetime,0,0,0);
+        $form = $this->createForm(MeetUpInviteFormType::class,$meetup_form);
         $form ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            if (($invitedUser = ($em->getRepository(User::class)->findOneBy(['username' => $meetUpForm->getNameInvited()]))) != null){
-                $user1 = $invitedUser;
+            if (($invited_user = ($em->getRepository(User::class)->findOneBy(['username' => $meetup_form->getNameInvited()]))) != null){
+                $user1 = $invited_user;
                 $meetup->setIdUserInvited($user1->getId());
-                if (($library = $em->getRepository(Library::class)->findOneBy(['name' => $meetUpForm->getNameLibrary()])) != null){
+                if (($library = $em->getRepository(Library::class)->findOneBy(['name' => $meetup_form->getNameLibrary()])) != null){
                     $library1 = $library;
                     $meetup->setIdLibrary($library1->getID());
-                    $meetup->setDateTime($meetUpForm->getDateTime());
+                    $meetup->setDateTime($meetup_form->getDateTime());
                     $em->persist($meetup);
                     $em->flush();
                 }
@@ -256,18 +256,19 @@ class BookBinderController extends AbstractController
         return $this->render('meetup.html.twig', [
             'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
-            'formAccept'=>$formsAccept,
-            'formDecline'=>$formsDecline,
-            'last_username' => $this->last_username,
+            'formAccept'=>$forms_accept,
+            'formDecline'=>$forms_decline,
+            'last_username' => $this->lastUsername,
             //'all_meetups' => $allMeetups,
             'date_time' => $datetime,
             //'all_received_meetups' => $allReceivedMeetups,
             //'all_sent_meetups' => $allSentMeetups,
-            'all_open_meetups' => $allOpenMeetupsData,
-            'all_accepted_meetups' => $allAcceptedMeetupsData,
-            'MeetUp' => $meetUpForm
+            'all_open_meetups' => $all_open_meetups_data,
+            'all_accepted_meetups' => $all_accepted_meetups_data,
+            'MeetUp' => $meetup_form
         ]);
     }
+
 
     #[Route("/Book/{book_id}", name: "Book")]
     #[IsGranted('ROLE_USER')]
