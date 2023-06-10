@@ -8,7 +8,7 @@ use PHPUnit\Framework\AssertionFailedError;
 use Symfony\Component\Panther\PantherTestCase;
 use Symfony\Component\Panther\Client;
 //when testing check if chrome driver is running in background, if it is, end the task in task manager, and run test again
-class JavaScriptTest extends PantherTestCase
+class JavaScriptTests extends PantherTestCase
 {
     /**
      * @throws NoSuchElementException
@@ -46,7 +46,7 @@ class JavaScriptTest extends PantherTestCase
      * @throws TimeoutException
      * @throws \Exception
     /* */
-    /*public function testTrendingBookJavascriptByIsbn(): void
+    public function testTrendingBookJavascriptByIsbn(): void
     {
         $retryCount = 5;
         $isTestPassed = false;
@@ -89,7 +89,7 @@ class JavaScriptTest extends PantherTestCase
         $this->assertTrue($isTestPassed);
 
         $client->quit();
-    }*/
+    }
 
 
     /**
@@ -97,7 +97,7 @@ class JavaScriptTest extends PantherTestCase
      * @throws TimeoutException
      * @throws \Exception
      */
-    /*public function testFaveBookJavascriptByIsbn(): void
+    public function testFaveBookJavascriptByIsbn(): void
     {
 
         $retryCount = 10;
@@ -148,6 +148,6 @@ class JavaScriptTest extends PantherTestCase
 
         $this->takeScreenshotIfTestFailed();
         $client->quit();
-    }*/
+    }
 
 }

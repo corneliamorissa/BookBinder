@@ -32,7 +32,7 @@ class RegistrationController extends AbstractController
     private array $stylesheets;
 
     public function __construct(AuthenticationService $userService) {
-/*        $this->stylesheets[] = 'main.css';*/
+        $this->stylesheets[] = 'main.css';
     }
 
     #[Route("/SignUp", name: "SignUp")]
@@ -61,7 +61,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('LogIn');
         }
         return $this->render('signup.html.twig', [
-            /*'stylesheets' => $this->stylesheets,*/
+            'stylesheets' => $this->stylesheets,
             'form'=>$form->createView(),
             'javascripts' => ['signupform.js'],
             'avatar' => $avatar
