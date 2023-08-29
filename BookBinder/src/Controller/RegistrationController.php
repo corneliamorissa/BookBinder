@@ -47,12 +47,6 @@ class RegistrationController extends AbstractController
             $avatar = $form ->get('avatar')->getData();
             $user->setAvatarId($avatar->getId());
             $plain_text_password = $user->getPassword() ;
-            // hash the password (based on the security.yaml config for the $user class)
-            $hashed_password = $password_hasher->hashPassword(
-                $user,
-                $plain_text_password
-            );
-            $user->setPassword($hashed_password);
 
             // 4) save the User!
             $entity_manager->persist($user);
